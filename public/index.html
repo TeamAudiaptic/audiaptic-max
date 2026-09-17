@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Davhi Message Receiver</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">LOCAL DEMO SERVER</p>
+      <h1>Davhi message receiver</h1>
+      <p id="status" role="status">Waiting for a message…</p>
+    </header>
+    <section aria-live="polite" aria-label="Received messages">
+      <ol id="messages"></ol>
+    </section>
+  </main>
+  <template id="message-template">
+    <li>
+      <time></time>
+      <pre></pre>
+    </li>
+  </template>
+  <script src="app.js"></script>
+</body>
+</html>

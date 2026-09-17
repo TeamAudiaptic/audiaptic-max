@@ -1,0 +1,12 @@
+{
+  "name": "davhi-max-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local demo receiver for davhi_connection.js",
+  "scripts": {
+    "start": "node davhi_server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
