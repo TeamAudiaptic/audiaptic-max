@@ -9,3 +9,13 @@ entries:
     emoji: 🔧
     label: Maintenance
     message: Redo changelog workflow.
+- id: 2
+  pr: 10
+  author: Josh-mitch
+  time: '2026-09-24T21:43:38+00:00'
+  url: https://github.com/TeamAudiaptic/audiaptic-max/pull/10
+  changes:
+  - type: maintenance
+    emoji: 🔧
+    label: Maintenance
+    message: Repo organization/setup
