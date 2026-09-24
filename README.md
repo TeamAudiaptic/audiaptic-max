@@ -1,2 +1,2 @@
 # audiaptic-max
-A Max/MSP integration for communcation with an Audiaptic server.
+This project provides a collection of Max patches to faciliate sending events to a pool of connected devices based on things happening in a performance. 
