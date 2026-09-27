@@ -1,0 +1,10 @@
+{
+  "name": "audiaptic-max-connection",
+  "version": "0.1.0",
+  "private": true,
+  "description": "WebSocket connection for the Audiaptic Max patch",
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "ws": "^8.18.3"
+  }
+}
