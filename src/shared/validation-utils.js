@@ -5,11 +5,7 @@
  * and keyframes are planned extensions and are intentionally rejected until
  * the server and mobile client support them.
  */
-const dotenv = require("dotenv");
-
-const ENV_PATH = path.join(__dirname, ".env");
-dotenv.config({ path: ENV_PATH, override: false, quiet: true });
-const SCHEMA_VERSION = process.env.DAVHI_SCHEMA_VERSION;
+const SCHEMA_VERSION = "1.0"
 
 function isPlainObject(value) {
 	return value !== null && typeof value === "object" && !Array.isArray(value);

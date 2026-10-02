@@ -230,24 +230,25 @@ async function send(...argumentsList) {
 	let event;
 	try {
 		event = assignEventIdentity(parseEvent(argumentsList));
+		event = { ...event, execTimestamp: resolveExecTimestamp(event), sentTimestamp: Date.now() };
 		validateEvent(event);
 	} catch (error) {
 		await emitError("send", event && event.eventId, error.message);
 		return;
 	}
 
-	if (!socketIsOpen()) {
-		await emitError("send", event.eventId, "WebSocket is not connected");
-		return;
-	}
+	// if (!socketIsOpen()) {
+	// 	await emitError("send", event.eventId, "WebSocket is not connected");
+	// 	return;
+	// }
 
-	const eventToSend = { ...event, execTimestamp: resolveExecTimestamp(event) };
-	nextSequence += 1;
 	try {
-		await new Promise((resolve, reject) => {
-			socket.send(JSON.stringify(eventToSend), error => (error ? reject(error) : resolve()));
-		});
-		await maxAPI.outlet("sent", eventToSend.eventId, eventToSend.execTimestamp === null ? "null" : eventToSend.execTimestamp);
+		// await new Promise((resolve, reject) => {
+		// 	socket.send(JSON.stringify(event), error => (error ? reject(error) : resolve()));
+			nextSequence += 1;
+		// });
+		await maxAPI.outlet("sent", event.eventId, event.execTimestamp === null ? "null" : event.execTimestamp);
+		await maxAPI.outlet("sent", JSON.stringify(event));
 	} catch (error) {
 		await emitError("send", event.eventId, error.message);
 	}

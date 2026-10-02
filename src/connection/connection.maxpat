@@ -9,8 +9,31 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 134.0, 134.0, 998.0, 778.0 ],
+        "rect": [ 200.0, 161.0, 1108.0, 778.0 ],
+        "openinpresentation": 1,
         "boxes": [
+            {
+                "box": {
+                    "bgmode": 0,
+                    "border": 0,
+                    "clickthrough": 0,
+                    "enablehscroll": 0,
+                    "enablevscroll": 0,
+                    "id": "obj-1",
+                    "lockeddragscroll": 0,
+                    "lockedsize": 0,
+                    "maxclass": "bpatcher",
+                    "name": "n4m.monitor.maxpat",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "offset": [ 0.0, 0.0 ],
+                    "outlettype": [ "bang" ],
+                    "patching_rect": [ 23.5, 196.0, 400.0, 220.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 0.0, 192.0, 437.0, 219.0 ],
+                    "viewvisibility": 1
+                }
+            },
             {
                 "box": {
                     "fontsize": 18.0,
@@ -18,7 +41,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 40.0, 35.0, 220.0, 27.0 ],
+                    "patching_rect": [ 19.0, 13.0, 220.0, 27.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 20.0, 15.0, 240.0, 27.0 ],
                     "text": "DAVHI Connection",
@@ -39,7 +62,7 @@
                 "box": {
                     "comment": "Complete Audiaptic event JSON",
                     "id": "event-inlet",
-                    "index": 1,
+                    "index": 0,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -64,9 +87,9 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 40.0, 80.0, 145.0, 20.0 ],
+                    "patching_rect": [ 19.0, 58.0, 145.0, 20.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 20.0, 60.0, 145.0, 20.0 ],
+                    "presentation_rect": [ 20.0, 60.0, 125.0, 20.0 ],
                     "text": "Universal delay (ms)",
                     "textcolor": [ 0.8, 0.8, 0.8, 1.0 ]
                 }
@@ -81,7 +104,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 40.0, 109.0, 125.0, 22.0 ],
+                    "patching_rect": [ 19.0, 87.0, 125.0, 22.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 20.0, 85.0, 125.0, 22.0 ],
                     "textcolor": [ 0.95, 0.95, 0.95, 1.0 ]
@@ -106,9 +129,9 @@
                     "numoutlets": 3,
                     "outlettype": [ "", "", "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 309.0, 33.5, 125.0, 30.0 ],
+                    "patching_rect": [ 288.0, 12.0, 125.0, 30.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 165.0, 80.0, 120.0, 30.0 ],
+                    "presentation_rect": [ 291.0, 13.5, 120.0, 30.0 ],
                     "text": "Start Connection"
                 }
             },
@@ -120,9 +143,9 @@
                     "numoutlets": 3,
                     "outlettype": [ "", "", "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 335.0, 105.0, 125.0, 30.0 ],
+                    "patching_rect": [ 314.0, 83.0, 125.0, 30.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 295.0, 80.0, 120.0, 30.0 ],
+                    "presentation_rect": [ 304.0, 67.0, 120.0, 31.0 ],
                     "text": "Stop Connection"
                 }
             },
@@ -134,7 +157,9 @@
                     "numoutlets": 3,
                     "outlettype": [ "", "", "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 175.0, 107.5, 150.0, 25.0 ],
+                    "patching_rect": [ 154.0, 86.0, 150.0, 25.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 157.0, 67.0, 133.0, 31.0 ],
                     "text": "Install Dependencies"
                 }
             },
@@ -180,7 +205,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 40.0, 150.0, 55.0, 20.0 ],
+                    "patching_rect": [ 19.0, 128.0, 55.0, 20.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 20.0, 130.0, 55.0, 20.0 ],
                     "text": "Status",
@@ -202,9 +227,9 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 100.0, 150.0, 300.0, 22.0 ],
+                    "patching_rect": [ 79.0, 128.0, 300.0, 22.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 75.0, 128.0, 340.0, 22.0 ],
+                    "presentation_rect": [ 80.0, 129.0, 340.0, 22.0 ],
                     "text": "waiting for connection",
                     "textcolor": [ 0.95, 0.95, 0.95, 1.0 ]
                 }
@@ -259,21 +284,11 @@
                 "box": {
                     "comment": "Connection, acknowledgement, inbound, and error messages",
                     "id": "output",
-                    "index": 1,
+                    "index": 0,
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 600.0, 390.0, 30.0, 30.0 ]
-                }
-            },
-            {
-                "box": {
-                    "id": "debug",
-                    "maxclass": "newobj",
-                    "numinlets": 1,
-                    "numoutlets": 0,
-                    "patching_rect": [ 825.0, 350.0, 75.0, 22.0 ],
-                    "text": "node.debug"
                 }
             },
             {
@@ -285,9 +300,9 @@
                     "mode": 0,
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 20.0, 21.0, 449.0, 189.0 ],
+                    "patching_rect": [ -1.0, -1.0, 449.0, 189.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 0.0, 0.0, 430.0, 190.0 ]
+                    "presentation_rect": [ 0.0, 0.0, 437.0, 190.0 ]
                 }
             }
         ],
@@ -295,7 +310,7 @@
             {
                 "patchline": {
                     "destination": [ "set-delay", 0 ],
-                    "midpoints": [ 49.5, 131.0, 27.0, 131.0, 27.0, 142.0, 585.0, 142.0, 585.0, 141.0, 609.5, 141.0 ],
+                    "midpoints": [ 28.5, 131.0, 27.0, 131.0, 27.0, 175.0, 585.0, 175.0, 585.0, 141.0, 609.5, 141.0 ],
                     "source": [ "delay", 0 ]
                 }
             },
@@ -314,7 +329,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "debug", 0 ],
+                    "destination": [ "obj-1", 0 ],
                     "source": [ "node", 1 ]
                 }
             },
@@ -356,14 +371,14 @@
             {
                 "patchline": {
                     "destination": [ "status", 0 ],
-                    "midpoints": [ 609.5, 330.0, 544.0, 330.0, 544.0, 142.0, 109.5, 142.0 ],
+                    "midpoints": [ 609.5, 330.0, 544.0, 330.0, 544.0, 177.0, 88.5, 177.0 ],
                     "source": [ "set-status", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "install", 0 ],
-                    "midpoints": [ 184.5, 140.0, 546.0, 140.0, 546.0, 196.0, 609.5, 196.0 ],
+                    "midpoints": [ 163.5, 172.0, 546.0, 172.0, 546.0, 196.0, 609.5, 196.0 ],
                     "source": [ "setup-control", 0 ]
                 }
             },
@@ -377,7 +392,7 @@
             {
                 "patchline": {
                     "destination": [ "start-connection", 0 ],
-                    "midpoints": [ 318.5, 83.0, 544.0, 83.0, 544.0, 196.0, 724.5, 196.0 ],
+                    "midpoints": [ 297.5, 65.0, 544.0, 65.0, 544.0, 196.0, 724.5, 196.0 ],
                     "source": [ "start-control", 0 ]
                 }
             },
@@ -391,10 +406,11 @@
             {
                 "patchline": {
                     "destination": [ "stop-connection", 0 ],
-                    "midpoints": [ 344.5, 143.0, 545.0, 143.0, 545.0, 196.0, 789.5, 196.0 ],
+                    "midpoints": [ 323.5, 173.0, 545.0, 173.0, 545.0, 196.0, 789.5, 196.0 ],
                     "source": [ "stop-control", 0 ]
                 }
             }
-        ]
+        ],
+        "autosave": 0
     }
 }
