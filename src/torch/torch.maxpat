@@ -9,89 +9,148 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 83.0, 198.0, 1137.0, 763.0 ],
-        "openinpresentation": 1,
+        "rect": [ 818.0, 217.0, 850.0, 470.0 ],
         "boxes": [
             {
                 "box": {
-                    "id": "obj-13",
+                    "fontsize": 18.0,
+                    "id": "title",
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 364.0, 259.0, 150.0, 20.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 0.0, 5.0, 150.0, 20.0 ],
-                    "text": "Torch Subpatch"
+                    "patching_rect": [ 20.0, 15.0, 260.0, 27.0 ],
+                    "text": "Torch event dictionary"
                 }
             },
             {
                 "box": {
-                    "comment": "",
-                    "id": "obj-1",
+                    "comment": "Duration in milliseconds",
+                    "id": "duration-inlet",
                     "index": 0,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 580.5, 135.0, 30.0, 30.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 15.0, 35.0, 30.0, 30.0 ]
+                    "patching_rect": [ 30.0, 80.0, 30.0, 30.0 ]
                 }
             },
             {
                 "box": {
-                    "id": "obj-12",
-                    "linecount": 5,
-                    "maxclass": "message",
-                    "numinlets": 2,
+                    "id": "duration-label",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 75.0, 85.0, 150.0, 20.0 ],
+                    "text": "Inlet 1: duration (ms)"
+                }
+            },
+            {
+                "box": {
+                    "id": "duration-message",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 581.0, 435.0, 208.0, 77.0 ],
-                    "text": "{\\\"schemaVersion\\\":\\\"1.0\\\"\\,\\\"type\\\":\\\"torch\\\"\\,\\\"sentTimestamp\\\":1790891873480\\,\\\"execTimestamp\\\":null\\,\\\"payload\\\":{\\\"durationMs\\\":250\\,\\\"transitionMs\\\":0}}"
+                    "patching_rect": [ 230.0, 85.0, 115.0, 22.0 ],
+                    "text": "prepend duration"
                 }
             },
             {
                 "box": {
-                    "comment": "",
-                    "id": "obj-10",
+                    "comment": "Execution timestamp in milliseconds, or the symbol null",
+                    "id": "timestamp-inlet",
                     "index": 0,
-                    "maxclass": "outlet",
-                    "numinlets": 1,
-                    "numoutlets": 0,
-                    "patching_rect": [ 767.0, 396.0, 22.0, 22.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 228.0, 97.0, 31.0, 31.0 ]
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 30.0, 135.0, 30.0, 30.0 ]
                 }
             },
             {
                 "box": {
-                    "id": "obj-9",
+                    "id": "timestamp-label",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 75.0, 140.0, 300.0, 20.0 ],
+                    "text": "Inlet 2: exec timestamp (ms) or null"
+                }
+            },
+            {
+                "box": {
+                    "id": "timestamp-message",
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 580.5, 396.0, 72.0, 22.0 ],
-                    "text": "prepend set"
+                    "patching_rect": [ 230.0, 170.0, 125.0, 22.0 ],
+                    "text": "prepend timestamp"
                 }
             },
             {
                 "box": {
-                    "id": "obj-8",
-                    "maxclass": "newobj",
+                    "comment": "Transition duration in milliseconds",
+                    "id": "transition-inlet",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 30.0, 200.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "transition-label",
+                    "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 671.0, 396.0, 88.0, 22.0 ],
-                    "text": "print torch-json"
+                    "patching_rect": [ 75.0, 205.0, 170.0, 20.0 ],
+                    "text": "Inlet 3: transition (ms)"
                 }
             },
             {
                 "box": {
-                    "id": "obj-7",
+                    "id": "transition-message",
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 580.5, 312.0, 59.0, 22.0 ],
+                    "patching_rect": [ 230.0, 230.0, 125.0, 22.0 ],
+                    "text": "prepend transition"
+                }
+            },
+            {
+                "box": {
+                    "comment": "Send the event by sending a bang",
+                    "id": "send-inlet",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 400.0, 80.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "send-label",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 445.0, 85.0, 170.0, 20.0 ],
+                    "text": "Inlet 4: bang to send"
+                }
+            },
+            {
+                "box": {
+                    "id": "torch-js",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 400.0, 155.0, 59.0, 22.0 ],
                     "saved_object_attributes": {
                         "filename": "torch.js",
                         "parameter_enable": 0
@@ -101,103 +160,199 @@
             },
             {
                 "box": {
-                    "id": "obj-6",
+                    "id": "route-fields",
+                    "maxclass": "newobj",
+                    "numinlets": 7,
+                    "numoutlets": 7,
+                    "outlettype": [ "", "", "", "", "", "", "" ],
+                    "patching_rect": [ 400.0, 195.0, 450.0, 22.0 ],
+                    "text": "route schemaVersion type sentTimestamp execTimestamp durationMs transitionMs"
+                }
+            },
+            {
+                "box": {
+                    "id": "payload-dict-pack",
+                    "maxclass": "newobj",
+                    "numinlets": 3,
+                    "numoutlets": 1,
+                    "outlettype": [ "dictionary" ],
+                    "patching_rect": [ 400.0, 235.0, 280.0, 22.0 ],
+                    "text": "dict.pack durationMs: transitionMs: @triggers 1"
+                }
+            },
+            {
+                "box": {
+                    "id": "payload-dict-label",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 690.0, 236.0, 165.0, 20.0 ],
+                    "text": "Nested payload dictionary"
+                }
+            },
+            {
+                "box": {
+                    "id": "event-dict-pack",
+                    "maxclass": "newobj",
+                    "numinlets": 6,
+                    "numoutlets": 1,
+                    "outlettype": [ "dictionary" ],
+                    "patching_rect": [ 400.0, 275.0, 467.0, 22.0 ],
+                    "text": "dict.pack schemaVersion: type: sentTimestamp: execTimestamp: payload: @triggers 4"
+                }
+            },
+            {
+                "box": {
+                    "id": "event-dict-label",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 400.0, 300.0, 472.0, 20.0 ],
+                    "text": "Outer event dictionary: schemaVersion, type, sentTimestamp, execTimestamp, payload"
+                }
+            },
+            {
+                "box": {
+                    "id": "json-view",
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 580.5, 258.0, 99.0, 22.0 ],
-                    "text": "prepend duration"
+                    "patching_rect": [ 400.0, 315.0, 180.0, 22.0 ],
+                    "text": "dict.serialize @mode json"
                 }
             },
             {
                 "box": {
-                    "id": "obj-4",
-                    "maxclass": "number",
-                    "numinlets": 1,
-                    "numoutlets": 2,
-                    "outlettype": [ "", "bang" ],
-                    "parameter_enable": 0,
-                    "patching_rect": [ 580.5, 210.0, 50.0, 22.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 74.0, 58.0, 50.0, 22.0 ]
-                }
-            },
-            {
-                "box": {
-                    "id": "obj-2",
-                    "maxclass": "button",
-                    "numinlets": 1,
-                    "numoutlets": 1,
-                    "outlettype": [ "bang" ],
-                    "parameter_enable": 0,
-                    "patching_rect": [ 710.0, 223.0, 57.0, 57.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 142.0, 41.0, 57.0, 57.0 ]
-                }
-            },
-            {
-                "box": {
-                    "id": "obj-3",
-                    "maxclass": "panel",
+                    "id": "print-output",
+                    "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 407.0, 409.5, 128.0, 128.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 0.0, 0.0, 269.0, 128.0 ]
+                    "patching_rect": [ 400.0, 355.0, 125.0, 22.0 ],
+                    "text": "print torch-json"
+                }
+            },
+            {
+                "box": {
+                    "comment": "Torch event dictionary: schemaVersion, type, sentTimestamp, execTimestamp, payload",
+                    "id": "output",
+                    "index": 0,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 400.0, 395.0, 30.0, 30.0 ]
                 }
             }
         ],
         "lines": [
             {
                 "patchline": {
-                    "destination": [ "obj-4", 0 ],
-                    "source": [ "obj-1", 0 ]
+                    "destination": [ "duration-message", 0 ],
+                    "source": [ "duration-inlet", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [ "obj-7", 0 ],
-                    "source": [ "obj-2", 0 ]
+                    "destination": [ "torch-js", 0 ],
+                    "source": [ "duration-message", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [ "obj-6", 0 ],
-                    "source": [ "obj-4", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-7", 0 ],
-                    "source": [ "obj-6", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-10", 0 ],
-                    "order": 0,
-                    "source": [ "obj-7", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-8", 0 ],
+                    "destination": [ "json-view", 0 ],
                     "order": 1,
-                    "source": [ "obj-7", 0 ]
+                    "source": [ "event-dict-pack", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [ "obj-9", 0 ],
-                    "order": 2,
-                    "source": [ "obj-7", 0 ]
+                    "destination": [ "output", 0 ],
+                    "order": 0,
+                    "source": [ "event-dict-pack", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [ "obj-12", 0 ],
-                    "source": [ "obj-9", 0 ]
+                    "destination": [ "print-output", 0 ],
+                    "source": [ "json-view", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "event-dict-pack", 4 ],
+                    "source": [ "payload-dict-pack", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "event-dict-pack", 3 ],
+                    "source": [ "route-fields", 3 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "event-dict-pack", 2 ],
+                    "source": [ "route-fields", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "event-dict-pack", 1 ],
+                    "source": [ "route-fields", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "event-dict-pack", 0 ],
+                    "source": [ "route-fields", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "payload-dict-pack", 1 ],
+                    "source": [ "route-fields", 5 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "payload-dict-pack", 0 ],
+                    "source": [ "route-fields", 4 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "torch-js", 0 ],
+                    "source": [ "send-inlet", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "timestamp-message", 0 ],
+                    "source": [ "timestamp-inlet", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "torch-js", 0 ],
+                    "source": [ "timestamp-message", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "route-fields", 0 ],
+                    "source": [ "torch-js", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "transition-message", 0 ],
+                    "source": [ "transition-inlet", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "torch-js", 0 ],
+                    "source": [ "transition-message", 0 ]
                 }
             }
         ],
