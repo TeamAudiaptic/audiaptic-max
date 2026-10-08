@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 97.0, 145.0, 1036.0, 780.0 ],
+        "rect": [ 97.0, 145.0, 970.0, 780.0 ],
         "boxes": [
             {
                 "box": {
@@ -30,7 +30,6 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 72.0, 21.0, 41.0, 22.0 ],
-                    "presentation_linecount": 2,
                     "text": "haptic"
                 }
             },
@@ -87,6 +86,8 @@
                     "saved_object_attributes": {
                         "autostart": 1,
                         "defer": 0,
+                        "node_bin_path": "",
+                        "npm_bin_path": "",
                         "watch": 0
                     },
                     "text": "node.script test-send.js @autostart 1",

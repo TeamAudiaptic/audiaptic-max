@@ -384,7 +384,7 @@
             },
             {
                 "box": {
-                    "comment": "",
+                    "comment": "Timestamp",
                     "id": "obj-19",
                     "index": 0,
                     "maxclass": "inlet",
@@ -396,43 +396,43 @@
             },
             {
                 "box": {
-                    "comment": "",
+                    "comment": "Transition",
                     "id": "obj-17",
                     "index": 0,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 768.0, 31.0, 30.0, 30.0 ]
+                    "patching_rect": [ 766.0, 31.0, 30.0, 30.0 ]
                 }
             },
             {
                 "box": {
-                    "comment": "",
+                    "comment": "Duration",
                     "id": "obj-16",
                     "index": 0,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 648.0, 31.0, 30.0, 30.0 ]
+                    "patching_rect": [ 650.0, 31.0, 30.0, 30.0 ]
                 }
             },
             {
                 "box": {
-                    "comment": "",
+                    "comment": "Sharpness",
                     "id": "obj-15",
                     "index": 0,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 591.0, 31.0, 30.0, 30.0 ]
+                    "patching_rect": [ 590.0, 31.0, 30.0, 30.0 ]
                 }
             },
             {
                 "box": {
-                    "comment": "",
+                    "comment": "Intensity",
                     "id": "obj-14",
                     "index": 0,
                     "maxclass": "inlet",
@@ -444,7 +444,7 @@
             },
             {
                 "box": {
-                    "comment": "",
+                    "comment": "Send the event",
                     "id": "obj-12",
                     "index": 0,
                     "maxclass": "inlet",
