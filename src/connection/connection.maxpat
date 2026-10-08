@@ -9,13 +9,21 @@
             "modernui": 1
         },
         "classnamespace": "box",
-<<<<<<< Updated upstream
-        "rect": [ 200.0, 161.0, 1108.0, 778.0 ],
-=======
         "rect": [ 611.0, 107.0, 1046.0, 778.0 ],
->>>>>>> Stashed changes
         "openinpresentation": 1,
         "boxes": [
+            {
+                "box": {
+                    "comment": "",
+                    "id": "obj-17",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 740.0, 65.0, 30.0, 30.0 ]
+                }
+            },
             {
                 "box": {
                     "id": "obj-16",
@@ -342,6 +350,8 @@
                     "saved_object_attributes": {
                         "autostart": 1,
                         "defer": 0,
+                        "node_bin_path": "",
+                        "npm_bin_path": "",
                         "watch": 0
                     },
                     "text": "node.script connection.js @autostart 1",
@@ -402,15 +412,6 @@
             },
             {
                 "patchline": {
-<<<<<<< Updated upstream
-                    "destination": [ "obj-1", 0 ],
-                    "source": [ "node", 1 ]
-                }
-            },
-            {
-                "patchline": {
-=======
->>>>>>> Stashed changes
                     "destination": [ "output", 0 ],
                     "order": 0,
                     "source": [ "node", 0 ]
@@ -434,6 +435,12 @@
                 "patchline": {
                     "destination": [ "obj-4", 2 ],
                     "source": [ "obj-16", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "delay", 0 ],
+                    "source": [ "obj-17", 0 ]
                 }
             },
             {
