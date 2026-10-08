@@ -9,29 +9,112 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 200.0, 161.0, 1046.0, 778.0 ],
+        "rect": [ 611.0, 107.0, 1046.0, 778.0 ],
         "openinpresentation": 1,
         "boxes": [
             {
                 "box": {
-                    "bgmode": 0,
-                    "border": 0,
-                    "clickthrough": 0,
-                    "enablehscroll": 0,
-                    "enablevscroll": 0,
-                    "id": "obj-1",
-                    "lockeddragscroll": 0,
-                    "lockedsize": 0,
-                    "maxclass": "bpatcher",
-                    "name": "n4m.monitor.maxpat",
+                    "comment": "",
+                    "id": "obj-17",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 740.0, 65.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-16",
+                    "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "offset": [ 0.0, 0.0 ],
+                    "outlettype": [ "dictionary" ],
+                    "patching_rect": [ 994.0, 159.0, 56.0, 22.0 ],
+                    "text": "dict.pack"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-11",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 932.0, 151.0, 34.0, 22.0 ],
+                    "text": "\"1.0\""
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
                     "outlettype": [ "bang" ],
-                    "patching_rect": [ 23.5, 196.0, 400.0, 220.0 ],
+                    "patching_rect": [ 932.0, 117.0, 58.0, 22.0 ],
+                    "text": "loadbang"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-7",
+                    "maxclass": "textbutton",
+                    "numinlets": 1,
+                    "numoutlets": 3,
+                    "outlettype": [ "", "", "int" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 394.0, 124.5, 34.0, 29.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 0.0, 192.0, 437.0, 219.0 ],
-                    "viewvisibility": 1
+                    "presentation_rect": [ 390.0, 125.5, 34.0, 29.0 ],
+                    "text": "Ping"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-6",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 884.0, 321.0, 82.0, 22.0 ],
+                    "text": "prepend send"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-5",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 884.0, 270.0, 145.0, 22.0 ],
+                    "text": "dict.serialize @mode json"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-4",
+                    "linecount": 2,
+                    "maxclass": "newobj",
+                    "numinlets": 4,
+                    "numoutlets": 1,
+                    "outlettype": [ "dictionary" ],
+                    "patching_rect": [ 884.0, 213.0, 143.0, 36.0 ],
+                    "text": "dict.pack type: ping schemaVersion: payload:"
+                }
+            },
+            {
+                "box": {
+                    "comment": "Send a ping event",
+                    "id": "obj-2",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 884.0, 65.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -60,7 +143,7 @@
             },
             {
                 "box": {
-                    "comment": "Complete Audiaptic event JSON",
+                    "comment": "Complete DAVHI event JSON string",
                     "id": "event-inlet",
                     "index": 0,
                     "maxclass": "inlet",
@@ -117,7 +200,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 600.0, 145.0, 104.0, 22.0 ],
+                    "patching_rect": [ 374.0, 305.0, 104.0, 22.0 ],
                     "text": "prepend setDelay"
                 }
             },
@@ -131,7 +214,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 288.0, 12.0, 125.0, 30.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 291.0, 13.5, 120.0, 30.0 ],
+                    "presentation_rect": [ 304.0, 13.5, 120.0, 30.0 ],
                     "text": "Start Connection"
                 }
             },
@@ -229,7 +312,7 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 79.0, 128.0, 300.0, 22.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 80.0, 129.0, 340.0, 22.0 ],
+                    "presentation_rect": [ 80.0, 129.0, 299.0, 22.0 ],
                     "text": "waiting for connection",
                     "textcolor": [ 0.95, 0.95, 0.95, 1.0 ]
                 }
@@ -302,7 +385,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ -1.0, -1.0, 449.0, 189.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 0.0, 0.0, 437.0, 190.0 ]
+                    "presentation_rect": [ 0.0, 0.0, 443.0, 174.0 ]
                 }
             }
         ],
@@ -310,7 +393,7 @@
             {
                 "patchline": {
                     "destination": [ "set-delay", 0 ],
-                    "midpoints": [ 28.5, 131.0, 27.0, 131.0, 27.0, 175.0, 585.0, 175.0, 585.0, 141.0, 609.5, 141.0 ],
+                    "midpoints": [ 28.5, 111.0, 6.0, 111.0, 6.0, 291.0, 383.5, 291.0 ],
                     "source": [ "delay", 0 ]
                 }
             },
@@ -325,13 +408,6 @@
                     "destination": [ "node", 0 ],
                     "midpoints": [ 609.5, 255.0, 573.0, 255.0, 573.0, 345.0, 609.5, 345.0 ],
                     "source": [ "install", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-1", 0 ],
-                    "midpoints": [ 803.5, 432.0, 9.0, 432.0, 9.0, 192.0, 33.0, 192.0 ],
-                    "source": [ "node", 1 ]
                 }
             },
             {
@@ -351,6 +427,70 @@
             },
             {
                 "patchline": {
+                    "destination": [ "obj-4", 1 ],
+                    "source": [ "obj-11", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 2 ],
+                    "source": [ "obj-16", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "delay", 0 ],
+                    "source": [ "obj-17", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 0 ],
+                    "source": [ "obj-2", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-5", 0 ],
+                    "source": [ "obj-4", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-6", 0 ],
+                    "source": [ "obj-5", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "node", 0 ],
+                    "midpoints": [ 893.5, 336.0, 609.5, 336.0 ],
+                    "source": [ "obj-6", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 0 ],
+                    "midpoints": [ 403.5, 177.0, 870.0, 177.0, 870.0, 176.0, 893.5, 176.0 ],
+                    "source": [ "obj-7", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-11", 0 ],
+                    "order": 1,
+                    "source": [ "obj-8", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-16", 0 ],
+                    "order": 0,
+                    "source": [ "obj-8", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "set-status", 0 ],
                     "source": [ "route-connection", 0 ]
                 }
@@ -365,7 +505,7 @@
             {
                 "patchline": {
                     "destination": [ "node", 0 ],
-                    "midpoints": [ 609.5, 207.0, 564.0, 207.0, 564.0, 345.0, 609.5, 345.0 ],
+                    "midpoints": [ 383.5, 345.0, 609.5, 345.0 ],
                     "source": [ "set-delay", 0 ]
                 }
             },

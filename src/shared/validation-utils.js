@@ -120,7 +120,8 @@ const payloadValidators = {
 	caption: validateCaptionPayload,
 	image: validateImagePayload,
 	audio: validateAudioPayload,
-	video: validateVideoPayload
+	video: validateVideoPayload,
+	ping: () => null
 };
 
 function validatePayload(type, payload) {

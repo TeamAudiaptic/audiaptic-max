@@ -43,7 +43,10 @@ function parseEvent(argumentsList) {
 }
 
 function resolveExecTimestamp(event) {
-	if (event.execTimestamp !== null || universalDelayMs === 0) {
+	if (Object.hasOwn(event, "execTimestamp") &&
+		event.execTimestamp !== null &&
+		event.execTimestamp !== 0
+	) {
 		return event.execTimestamp;
 	}
 	return Date.now() + universalDelayMs;
@@ -118,12 +121,12 @@ async function handleInboundMessage(rawMessage) {
 			await emitError("protocol", "-", "Acknowledgement requires eventId and integer status");
 			return;
 		}
-		await maxAPI.outlet("ack", message.eventId, message.status, message.error || "");
+		await maxAPI.outlet("ack", rawMessage.toString());
 		return;
 	}
 
 	// Future server-to-Max performance events and metadata messages route here.
-	await maxAPI.outlet("inbound", message.type, JSON.stringify(message));
+	await maxAPI.outlet("inbound", rawMessage.toString());
 }
 
 function attachSocketHandlers(nextSocket, url) {
@@ -237,16 +240,16 @@ async function send(...argumentsList) {
 		return;
 	}
 
-	// if (!socketIsOpen()) {
-	// 	await emitError("send", event.eventId, "WebSocket is not connected");
-	// 	return;
-	// }
+	if (!socketIsOpen()) {
+		await emitError("send", event.eventId, "WebSocket is not connected");
+		return;
+	}
 
 	try {
-		// await new Promise((resolve, reject) => {
-		// 	socket.send(JSON.stringify(event), error => (error ? reject(error) : resolve()));
+		await new Promise((resolve, reject) => {
+			socket.send(JSON.stringify(event), error => (error ? reject(error) : resolve()));
 			nextSequence += 1;
-		// });
+		});
 		await maxAPI.outlet("sent", event.eventId, event.execTimestamp === null ? "null" : event.execTimestamp);
 		await maxAPI.outlet("sent", JSON.stringify(event));
 	} catch (error) {
