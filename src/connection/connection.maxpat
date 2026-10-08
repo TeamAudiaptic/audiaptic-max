@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 200.0, 161.0, 1108.0, 778.0 ],
+        "rect": [ 200.0, 161.0, 1046.0, 778.0 ],
         "openinpresentation": 1,
         "boxes": [
             {
@@ -330,6 +330,7 @@
             {
                 "patchline": {
                     "destination": [ "obj-1", 0 ],
+                    "midpoints": [ 803.5, 432.0, 9.0, 432.0, 9.0, 192.0, 33.0, 192.0 ],
                     "source": [ "node", 1 ]
                 }
             },
