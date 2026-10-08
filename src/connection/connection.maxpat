@@ -9,12 +9,36 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 611.0, 107.0, 1046.0, 778.0 ],
+        "rect": [ 611.0, 107.0, 592.0, 778.0 ],
         "openinpresentation": 1,
         "boxes": [
             {
                 "box": {
-                    "comment": "",
+                    "comment": "Send a bang to stop the connection",
+                    "id": "obj-3",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 923.0, 65.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "comment": "Send a bang to start the connection",
+                    "id": "obj-1",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 834.0, 65.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "comment": "Set the univeral delay in Epoch MS",
                     "id": "obj-17",
                     "index": 0,
                     "maxclass": "inlet",
@@ -31,7 +55,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 994.0, 159.0, 56.0, 22.0 ],
+                    "patching_rect": [ 1122.0, 159.0, 56.0, 22.0 ],
                     "text": "dict.pack"
                 }
             },
@@ -42,7 +66,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 932.0, 151.0, 34.0, 22.0 ],
+                    "patching_rect": [ 1060.0, 151.0, 34.0, 22.0 ],
                     "text": "\"1.0\""
                 }
             },
@@ -53,7 +77,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "bang" ],
-                    "patching_rect": [ 932.0, 117.0, 58.0, 22.0 ],
+                    "patching_rect": [ 1060.0, 117.0, 58.0, 22.0 ],
                     "text": "loadbang"
                 }
             },
@@ -78,7 +102,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 884.0, 321.0, 82.0, 22.0 ],
+                    "patching_rect": [ 1012.0, 321.0, 82.0, 22.0 ],
                     "text": "prepend send"
                 }
             },
@@ -89,7 +113,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 884.0, 270.0, 145.0, 22.0 ],
+                    "patching_rect": [ 1012.0, 270.0, 145.0, 22.0 ],
                     "text": "dict.serialize @mode json"
                 }
             },
@@ -101,7 +125,7 @@
                     "numinlets": 4,
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 884.0, 213.0, 143.0, 36.0 ],
+                    "patching_rect": [ 1012.0, 213.0, 143.0, 36.0 ],
                     "text": "dict.pack type: ping schemaVersion: payload:"
                 }
             },
@@ -114,7 +138,7 @@
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 884.0, 65.0, 30.0, 30.0 ]
+                    "patching_rect": [ 1012.0, 65.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -350,8 +374,6 @@
                     "saved_object_attributes": {
                         "autostart": 1,
                         "defer": 0,
-                        "node_bin_path": "",
-                        "npm_bin_path": "",
                         "watch": 0
                     },
                     "text": "node.script connection.js @autostart 1",
@@ -427,6 +449,12 @@
             },
             {
                 "patchline": {
+                    "destination": [ "start-connection", 0 ],
+                    "source": [ "obj-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "obj-4", 1 ],
                     "source": [ "obj-11", 0 ]
                 }
@@ -451,6 +479,12 @@
             },
             {
                 "patchline": {
+                    "destination": [ "stop-connection", 0 ],
+                    "source": [ "obj-3", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "obj-5", 0 ],
                     "source": [ "obj-4", 0 ]
                 }
@@ -464,14 +498,14 @@
             {
                 "patchline": {
                     "destination": [ "node", 0 ],
-                    "midpoints": [ 893.5, 336.0, 609.5, 336.0 ],
+                    "midpoints": [ 1021.5, 336.0, 609.5, 336.0 ],
                     "source": [ "obj-6", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-4", 0 ],
-                    "midpoints": [ 403.5, 177.0, 870.0, 177.0, 870.0, 176.0, 893.5, 176.0 ],
+                    "midpoints": [ 403.5, 177.0, 870.0, 177.0, 870.0, 176.0, 1021.5, 176.0 ],
                     "source": [ "obj-7", 0 ]
                 }
             },
