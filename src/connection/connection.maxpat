@@ -200,7 +200,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 600.0, 145.0, 104.0, 22.0 ],
+                    "patching_rect": [ 374.0, 305.0, 104.0, 22.0 ],
                     "text": "prepend setDelay"
                 }
             },
@@ -393,7 +393,7 @@
             {
                 "patchline": {
                     "destination": [ "set-delay", 0 ],
-                    "midpoints": [ 28.5, 131.0, 27.0, 131.0, 27.0, 175.0, 585.0, 175.0, 585.0, 141.0, 609.5, 141.0 ],
+                    "midpoints": [ 28.5, 111.0, 6.0, 111.0, 6.0, 291.0, 383.5, 291.0 ],
                     "source": [ "delay", 0 ]
                 }
             },
@@ -505,7 +505,7 @@
             {
                 "patchline": {
                     "destination": [ "node", 0 ],
-                    "midpoints": [ 609.5, 207.0, 564.0, 207.0, 564.0, 345.0, 609.5, 345.0 ],
+                    "midpoints": [ 383.5, 345.0, 609.5, 345.0 ],
                     "source": [ "set-delay", 0 ]
                 }
             },
