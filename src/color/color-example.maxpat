@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 527.0, 84.0, 760.0, 697.0 ],
+        "rect": [ 139.0, 127.0, 1468.0, 627.0 ],
         "boxes": [
             {
                 "box": {
@@ -18,7 +18,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 636.0, 206.0, 79.0, 22.0 ],
+                    "patching_rect": [ 629.0, 203.0, 79.0, 22.0 ],
                     "text": "random 2000"
                 }
             },
@@ -29,7 +29,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 545.0, 206.0, 79.0, 22.0 ],
+                    "patching_rect": [ 533.0, 203.0, 79.0, 22.0 ],
                     "text": "random 2000"
                 }
             },
@@ -70,7 +70,7 @@
                     "numoutlets": 1,
                     "offset": [ 0.0, 0.0 ],
                     "outlettype": [ "" ],
-                    "patching_rect": [ 238.0, 309.0, 382.0, 124.0 ],
+                    "patching_rect": [ 238.0, 309.0, 374.0, 140.0 ],
                     "viewvisibility": 1
                 }
             },
@@ -112,7 +112,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 220.0, 205.0, 24.0, 24.0 ]
+                    "patching_rect": [ 238.0, 202.0, 24.0, 24.0 ]
                 }
             },
             {
@@ -123,8 +123,8 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 238.0, 471.0, 203.0, 133.0 ],
-                    "text": "\"{\r\n    \\\"payload\\\": {\r\n        \\\"color\\\": \\\"#f86efc\\\",\r\n        \\\"durationMs\\\": 52,\r\n        \\\"transitionMs\\\": 689\r\n    },\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"color\\\"\r\n}\""
+                    "patching_rect": [ 238.0, 505.0, 203.0, 133.0 ],
+                    "text": "\"{\r\n    \\\"payload\\\": {\r\n        \\\"color\\\": \\\"#2989b5\\\",\r\n        \\\"durationMs\\\": 356,\r\n        \\\"transitionMs\\\": 1481\r\n    },\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"color\\\"\r\n}\""
                 }
             },
             {
@@ -134,7 +134,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 437.0, 206.0, 73.0, 22.0 ],
+                    "patching_rect": [ 451.0, 203.0, 73.0, 22.0 ],
                     "text": "random 255"
                 }
             },
@@ -145,7 +145,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 356.0, 206.0, 73.0, 22.0 ],
+                    "patching_rect": [ 363.0, 203.0, 73.0, 22.0 ],
                     "text": "random 255"
                 }
             },
@@ -156,7 +156,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 272.0, 206.0, 73.0, 22.0 ],
+                    "patching_rect": [ 279.0, 203.0, 73.0, 22.0 ],
                     "text": "random 255"
                 }
             },
