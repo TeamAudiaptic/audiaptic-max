@@ -96,7 +96,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 590.0, 252.0, 78.0, 55.0 ],
+                    "patching_rect": [ 555.0, 254.0, 78.0, 55.0 ],
                     "presentation_linecount": 3,
                     "text": "Exec Timestamp",
                     "textjustification": 1
@@ -113,7 +113,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 517.0, 239.0, 69.73333333333335, 70.0 ],
+                    "patching_rect": [ 470.93333333333334, 239.0, 69.73333333333335, 70.0 ],
                     "presentation_linecount": 3,
                     "text": "Transition Time (MS)",
                     "textjustification": 1
@@ -127,7 +127,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 604.0, 309.0, 50.0, 22.0 ],
+                    "patching_rect": [ 569.0, 309.0, 50.0, 22.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 567.0, 199.0, 50.0, 22.0 ]
                 }
@@ -143,7 +143,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 444.0, 252.0, 62.5333333333333, 55.0 ],
+                    "patching_rect": [ 394.0666666666667, 252.0, 62.5333333333333, 55.0 ],
                     "text": "Duration (MS)",
                     "textjustification": 1
                 }
@@ -159,7 +159,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 258.0, 246.0, 121.0, 55.0 ],
+                    "patching_rect": [ 245.16666666666674, 246.5, 121.0, 55.0 ],
                     "presentation_linecount": 2,
                     "text": "Set RGB values (limited to 0-255)",
                     "textjustification": 1
@@ -173,7 +173,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 527.0, 309.0, 50.0, 22.0 ],
+                    "patching_rect": [ 480.79999999999995, 309.0, 50.0, 22.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 314.5, 46.0, 50.0, 22.0 ]
                 }
@@ -186,7 +186,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 450.0, 309.0, 50.0, 22.0 ],
+                    "patching_rect": [ 400.33333333333337, 309.0, 50.0, 22.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 230.5, 46.0, 50.0, 22.0 ],
                     "textcolor": [ 0.9019607843137255, 0.9019607843137255, 0.9019607843137255, 1.0 ]
@@ -200,7 +200,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 374.0, 309.0, 50.0, 22.0 ],
+                    "patching_rect": [ 340.5, 309.0, 50.0, 22.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 149.0, 49.0, 50.0, 22.0 ],
                     "textcolor": [ 0.0, 0.047058823529411764, 1.0, 1.0 ]
@@ -214,7 +214,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 297.0, 309.0, 50.0, 22.0 ],
+                    "patching_rect": [ 280.6666666666667, 309.0, 50.0, 22.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 87.0, 49.0, 50.0, 22.0 ],
                     "textcolor": [ 0.0, 1.0, 0.011764705882352941, 1.0 ]
