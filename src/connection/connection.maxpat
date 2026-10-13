@@ -1,0 +1,591 @@
+{
+    "patcher": {
+        "fileversion": 1,
+        "appversion": {
+            "major": 9,
+            "minor": 1,
+            "revision": 5,
+            "architecture": "x64",
+            "modernui": 1
+        },
+        "classnamespace": "box",
+        "rect": [ 611.0, 107.0, 592.0, 778.0 ],
+        "openinpresentation": 1,
+        "boxes": [
+            {
+                "box": {
+                    "comment": "Send a bang to stop the connection",
+                    "id": "obj-3",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 923.0, 65.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "comment": "Send a bang to start the connection",
+                    "id": "obj-1",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 834.0, 65.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "comment": "Set the univeral delay in Epoch MS",
+                    "id": "obj-17",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 740.0, 65.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-16",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "dictionary" ],
+                    "patching_rect": [ 1122.0, 159.0, 56.0, 22.0 ],
+                    "text": "dict.pack"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-11",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1060.0, 151.0, 34.0, 22.0 ],
+                    "text": "\"1.0\""
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "bang" ],
+                    "patching_rect": [ 1060.0, 117.0, 58.0, 22.0 ],
+                    "text": "loadbang"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-7",
+                    "maxclass": "textbutton",
+                    "numinlets": 1,
+                    "numoutlets": 3,
+                    "outlettype": [ "", "", "int" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 394.0, 124.5, 34.0, 29.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 390.0, 125.5, 34.0, 29.0 ],
+                    "text": "Ping"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-6",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1012.0, 321.0, 82.0, 22.0 ],
+                    "text": "prepend send"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-5",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1012.0, 270.0, 145.0, 22.0 ],
+                    "text": "dict.serialize @mode json"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-4",
+                    "linecount": 2,
+                    "maxclass": "newobj",
+                    "numinlets": 4,
+                    "numoutlets": 1,
+                    "outlettype": [ "dictionary" ],
+                    "patching_rect": [ 1012.0, 213.0, 143.0, 36.0 ],
+                    "text": "dict.pack type: ping schemaVersion: payload:"
+                }
+            },
+            {
+                "box": {
+                    "comment": "Send a ping event",
+                    "id": "obj-2",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1012.0, 65.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "fontsize": 18.0,
+                    "id": "title",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 19.0, 13.0, 220.0, 27.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 20.0, 15.0, 240.0, 27.0 ],
+                    "text": "DAVHI Connection",
+                    "textcolor": [ 0.95, 0.95, 0.95, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "event-label",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 600.0, 35.0, 80.0, 20.0 ],
+                    "text": "Events"
+                }
+            },
+            {
+                "box": {
+                    "comment": "Complete DAVHI event JSON string",
+                    "id": "event-inlet",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 600.0, 65.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "send",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 600.0, 110.0, 82.0, 22.0 ],
+                    "text": "prepend send"
+                }
+            },
+            {
+                "box": {
+                    "id": "delay-label",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 19.0, 58.0, 145.0, 20.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 20.0, 60.0, 125.0, 20.0 ],
+                    "text": "Universal delay (ms)",
+                    "textcolor": [ 0.8, 0.8, 0.8, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "bgcolor": [ 0.12, 0.12, 0.12, 1.0 ],
+                    "id": "delay",
+                    "maxclass": "number",
+                    "minimum": 0,
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 19.0, 87.0, 125.0, 22.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 20.0, 85.0, 125.0, 22.0 ],
+                    "textcolor": [ 0.95, 0.95, 0.95, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "set-delay",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 374.0, 305.0, 104.0, 22.0 ],
+                    "text": "prepend setDelay"
+                }
+            },
+            {
+                "box": {
+                    "id": "start-control",
+                    "maxclass": "textbutton",
+                    "numinlets": 1,
+                    "numoutlets": 3,
+                    "outlettype": [ "", "", "int" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 288.0, 12.0, 125.0, 30.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 304.0, 13.5, 120.0, 30.0 ],
+                    "text": "Start Connection"
+                }
+            },
+            {
+                "box": {
+                    "id": "stop-control",
+                    "maxclass": "textbutton",
+                    "numinlets": 1,
+                    "numoutlets": 3,
+                    "outlettype": [ "", "", "int" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 314.0, 83.0, 125.0, 30.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 304.0, 67.0, 120.0, 31.0 ],
+                    "text": "Stop Connection"
+                }
+            },
+            {
+                "box": {
+                    "id": "setup-control",
+                    "maxclass": "textbutton",
+                    "numinlets": 1,
+                    "numoutlets": 3,
+                    "outlettype": [ "", "", "int" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 154.0, 86.0, 150.0, 25.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 157.0, 67.0, 133.0, 31.0 ],
+                    "text": "Install Dependencies"
+                }
+            },
+            {
+                "box": {
+                    "hidden": 1,
+                    "id": "install",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 600.0, 220.0, 105.0, 22.0 ],
+                    "text": "script npm install"
+                }
+            },
+            {
+                "box": {
+                    "hidden": 1,
+                    "id": "start-connection",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 715.0, 220.0, 55.0, 22.0 ],
+                    "text": "connect"
+                }
+            },
+            {
+                "box": {
+                    "hidden": 1,
+                    "id": "stop-connection",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 780.0, 220.0, 67.0, 22.0 ],
+                    "text": "disconnect"
+                }
+            },
+            {
+                "box": {
+                    "id": "status-label",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 19.0, 128.0, 55.0, 20.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 20.0, 130.0, 55.0, 20.0 ],
+                    "text": "Status",
+                    "textcolor": [ 0.8, 0.8, 0.8, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "bgcolor": [ 0.12, 0.12, 0.12, 1.0 ],
+                    "bgcolor2": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
+                    "bgfillcolor_autogradient": 0.0,
+                    "bgfillcolor_color": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
+                    "bgfillcolor_color1": [ 0.12, 0.12, 0.12, 1.0 ],
+                    "bgfillcolor_color2": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
+                    "bgfillcolor_type": "gradient",
+                    "gradient": 1,
+                    "id": "status",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 79.0, 128.0, 300.0, 22.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 80.0, 129.0, 299.0, 22.0 ],
+                    "text": "waiting for connection",
+                    "textcolor": [ 0.95, 0.95, 0.95, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "route-connection",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 600.0, 270.0, 106.0, 22.0 ],
+                    "text": "route connection"
+                }
+            },
+            {
+                "box": {
+                    "id": "set-status",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 600.0, 305.0, 82.0, 22.0 ],
+                    "text": "prepend set"
+                }
+            },
+            {
+                "box": {
+                    "id": "node",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 600.0, 350.0, 213.0, 22.0 ],
+                    "saved_object_attributes": {
+                        "autostart": 1,
+                        "defer": 0,
+                        "watch": 0
+                    },
+                    "text": "node.script connection.js @autostart 1",
+                    "textfile": {
+                        "filename": "connection.js",
+                        "flags": 0,
+                        "embed": 0,
+                        "autowatch": 1
+                    }
+                }
+            },
+            {
+                "box": {
+                    "comment": "Connection, acknowledgement, inbound, and error messages",
+                    "id": "output",
+                    "index": 0,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 600.0, 390.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "background": 1,
+                    "bgcolor": [ 0.04, 0.04, 0.04, 1.0 ],
+                    "id": "control-panel",
+                    "maxclass": "panel",
+                    "mode": 0,
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ -1.0, -1.0, 449.0, 189.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 0.0, 0.0, 443.0, 174.0 ]
+                }
+            }
+        ],
+        "lines": [
+            {
+                "patchline": {
+                    "destination": [ "set-delay", 0 ],
+                    "midpoints": [ 28.5, 111.0, 6.0, 111.0, 6.0, 291.0, 383.5, 291.0 ],
+                    "source": [ "delay", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "send", 0 ],
+                    "source": [ "event-inlet", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "node", 0 ],
+                    "midpoints": [ 609.5, 255.0, 573.0, 255.0, 573.0, 345.0, 609.5, 345.0 ],
+                    "source": [ "install", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "output", 0 ],
+                    "order": 0,
+                    "source": [ "node", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "route-connection", 0 ],
+                    "midpoints": [ 609.5, 375.0, 583.0, 375.0, 583.0, 267.0, 609.5, 267.0 ],
+                    "order": 1,
+                    "source": [ "node", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "start-connection", 0 ],
+                    "source": [ "obj-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 1 ],
+                    "source": [ "obj-11", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 2 ],
+                    "source": [ "obj-16", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "delay", 0 ],
+                    "source": [ "obj-17", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 0 ],
+                    "source": [ "obj-2", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "stop-connection", 0 ],
+                    "source": [ "obj-3", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-5", 0 ],
+                    "source": [ "obj-4", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-6", 0 ],
+                    "source": [ "obj-5", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "node", 0 ],
+                    "midpoints": [ 1021.5, 336.0, 609.5, 336.0 ],
+                    "source": [ "obj-6", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 0 ],
+                    "midpoints": [ 403.5, 177.0, 870.0, 177.0, 870.0, 176.0, 1021.5, 176.0 ],
+                    "source": [ "obj-7", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-11", 0 ],
+                    "order": 1,
+                    "source": [ "obj-8", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-16", 0 ],
+                    "order": 0,
+                    "source": [ "obj-8", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "set-status", 0 ],
+                    "source": [ "route-connection", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "node", 0 ],
+                    "midpoints": [ 609.5, 135.0, 554.0, 135.0, 554.0, 345.0, 609.5, 345.0 ],
+                    "source": [ "send", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "node", 0 ],
+                    "midpoints": [ 383.5, 345.0, 609.5, 345.0 ],
+                    "source": [ "set-delay", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "status", 0 ],
+                    "midpoints": [ 609.5, 330.0, 544.0, 330.0, 544.0, 177.0, 88.5, 177.0 ],
+                    "source": [ "set-status", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "install", 0 ],
+                    "midpoints": [ 163.5, 172.0, 546.0, 172.0, 546.0, 196.0, 609.5, 196.0 ],
+                    "source": [ "setup-control", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "node", 0 ],
+                    "midpoints": [ 724.5, 255.0, 724.0, 255.0, 724.0, 339.0, 609.5, 339.0 ],
+                    "source": [ "start-connection", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "start-connection", 0 ],
+                    "midpoints": [ 297.5, 65.0, 544.0, 65.0, 544.0, 196.0, 724.5, 196.0 ],
+                    "source": [ "start-control", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "node", 0 ],
+                    "midpoints": [ 789.5, 255.0, 789.0, 255.0, 789.0, 339.0, 609.5, 339.0 ],
+                    "source": [ "stop-connection", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "stop-connection", 0 ],
+                    "midpoints": [ 323.5, 173.0, 545.0, 173.0, 545.0, 196.0, 789.5, 196.0 ],
+                    "source": [ "stop-control", 0 ]
+                }
+            }
+        ],
+        "autosave": 0
+    }
+}
