@@ -489,16 +489,6 @@
             },
             {
                 "box": {
-                    "id": "obj-7",
-                    "maxclass": "newobj",
-                    "numinlets": 1,
-                    "numoutlets": 0,
-                    "patching_rect": [ 197.0, 452.0, 32.0, 22.0 ],
-                    "text": "print"
-                }
-            },
-            {
-                "box": {
                     "id": "obj-1",
                     "maxclass": "number",
                     "numinlets": 1,
@@ -762,15 +752,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-7", 0 ],
-                    "order": 0,
-                    "source": [ "obj-22", 0 ]
-                }
-            },
-            {
-                "patchline": {
                     "destination": [ "obj-8", 0 ],
-                    "order": 1,
                     "source": [ "obj-22", 0 ]
                 }
             },
