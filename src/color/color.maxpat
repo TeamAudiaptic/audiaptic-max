@@ -34,34 +34,21 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 1010.5, 145.0, 50.0, 22.0 ],
+                    "patching_rect": [ 1010.0, 144.5, 50.0, 22.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 197.0, 100.0, 50.0, 22.0 ]
                 }
             },
             {
                 "box": {
-                    "id": "obj-15",
-                    "maxclass": "comment",
-                    "numinlets": 1,
-                    "numoutlets": 0,
-                    "patching_rect": [ 981.0, 14.5, 89.0, 20.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 981.0, 14.5, 89.0, 20.0 ],
-                    "text": "Tiemstamp",
-                    "textjustification": 1
-                }
-            },
-            {
-                "box": {
                     "comment": "Timestamp",
                     "id": "obj-14",
-                    "index": 0,
+                    "index": 7,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 1010.5, 41.5, 30.0, 30.0 ]
+                    "patching_rect": [ 1010.0, 41.5, 30.0, 30.0 ]
                 }
             },
             {
@@ -149,7 +136,7 @@
                 "box": {
                     "comment": "Transition MS",
                     "id": "obj-26",
-                    "index": 0,
+                    "index": 6,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -161,7 +148,7 @@
                 "box": {
                     "comment": "Duration MS",
                     "id": "obj-25",
-                    "index": 0,
+                    "index": 5,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -230,13 +217,13 @@
             {
                 "box": {
                     "id": "obj-76",
-                    "linecount": 11,
+                    "linecount": 13,
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 484.0, 590.0, 142.0, 160.0 ],
-                    "text": "\"{\r\n    \\\"payload\\\": {\r\n        \\\"color\\\": \\\"#000000\\\",\r\n        \\\"durationMs\\\": 0,\r\n        \\\"transitionMs\\\": 0\r\n    },\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"color\\\"\r\n}\""
+                    "patching_rect": [ 484.0, 590.0, 142.0, 188.0 ],
+                    "text": "\"{\r\n    \\\"payload\\\": {\r\n        \\\"color\\\": \\\"#000000\\\",\r\n        \\\"durationMs\\\": 0,\r\n        \\\"transitionMs\\\": 0,\r\n        \\\"execTimestamp\\\": 0\r\n    },\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"color\\\"\r\n}\""
                 }
             },
             {
@@ -443,22 +430,22 @@
                 "box": {
                     "id": "obj-28",
                     "maxclass": "newobj",
-                    "numinlets": 4,
+                    "numinlets": 5,
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 587.0, 463.0, 252.0, 22.0 ],
-                    "text": "dict.pack color payload: schemaVersion: type:"
+                    "patching_rect": [ 587.0, 460.0, 353.0, 22.0 ],
+                    "text": "dict.pack color payload: schemaVersion: type: execTimestamp: 0"
                 }
             },
             {
                 "box": {
                     "id": "obj-20",
                     "maxclass": "newobj",
-                    "numinlets": 5,
+                    "numinlets": 4,
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 587.0, 307.0, 442.0, 22.0 ],
-                    "text": "dict.pack payload color: #000000 durationMs: 0 transitionMs: 0 execTimestamp: 0"
+                    "patching_rect": [ 587.0, 307.0, 363.0, 22.0 ],
+                    "text": "dict.pack payload color: #000000 durationMs: 0 transitionMs: 0"
                 }
             },
             {
@@ -467,7 +454,7 @@
                     "comment": "Activation (send Bang to trigger event)",
                     "hint": "",
                     "id": "obj-10",
-                    "index": 0,
+                    "index": 1,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -480,7 +467,7 @@
                     "annotation": "Color event JSON string",
                     "comment": "",
                     "id": "obj-6",
-                    "index": 0,
+                    "index": 1,
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
@@ -493,7 +480,7 @@
                     "comment": "Blue",
                     "hint": "",
                     "id": "obj-5",
-                    "index": 0,
+                    "index": 4,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -507,7 +494,7 @@
                     "comment": "Green",
                     "hint": "",
                     "id": "obj-4",
-                    "index": 0,
+                    "index": 3,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -521,7 +508,7 @@
                     "comment": "Red",
                     "hint": "",
                     "id": "obj-3",
-                    "index": 0,
+                    "index": 2,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -583,7 +570,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-20", 3 ],
+                    "destination": [ "obj-28", 3 ],
                     "source": [ "obj-17", 0 ]
                 }
             },
@@ -799,7 +786,6 @@
                     "source": [ "obj-9", 0 ]
                 }
             }
-        ],
-        "autosave": 0
+        ]
     }
 }
