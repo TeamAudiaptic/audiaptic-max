@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 137.0, 84.0, 1026.0, 894.0 ],
+        "rect": [ 687.0, 206.0, 508.0, 526.0 ],
         "openinpresentation": 1,
         "boxes": [
             {
@@ -491,6 +491,8 @@
                 "box": {
                     "id": "obj-1",
                     "maxclass": "number",
+                    "maximum": 100,
+                    "minimum": 0,
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
@@ -504,6 +506,8 @@
                 "box": {
                     "id": "obj-58",
                     "maxclass": "number",
+                    "maximum": 100,
+                    "minimum": 0,
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
@@ -531,6 +535,7 @@
                 "box": {
                     "id": "obj-37",
                     "maxclass": "number",
+                    "minimum": 0,
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
@@ -556,6 +561,7 @@
                 "box": {
                     "id": "obj-32",
                     "maxclass": "number",
+                    "minimum": 0,
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
@@ -581,6 +587,7 @@
                 "box": {
                     "id": "obj-26",
                     "maxclass": "number",
+                    "minimum": 0,
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],

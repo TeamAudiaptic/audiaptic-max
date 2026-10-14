@@ -9,8 +9,30 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 62.0, 107.0, 997.0, 780.0 ],
+        "rect": [ 62.0, 84.0, 997.0, 691.0 ],
         "boxes": [
+            {
+                "box": {
+                    "id": "obj-3",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 415.0, 565.0, 32.0, 22.0 ],
+                    "text": "print"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-2",
+                    "linecount": 11,
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 151.0, 565.0, 235.0, 160.0 ],
+                    "text": "\"{\r\n    \\\"payload\\\": {\r\n        \\\"intensity\\\": 0.0,\r\n        \\\"sharpness\\\": 0.0,\r\n        \\\"durationMs\\\": 0,\r\n        \\\"transitionMs\\\": 0\r\n    },\r\n    \\\"execTimestamp\\\": 0,\r\n    \\\"type\\\": \\\"haptic\\\",\r\n    \\\"schemaVersion\\\": \\\"1.0\\\"\r\n}\""
+                }
+            },
             {
                 "box": {
                     "id": "obj-39",
@@ -57,16 +79,6 @@
             },
             {
                 "box": {
-                    "id": "obj-31",
-                    "maxclass": "newobj",
-                    "numinlets": 1,
-                    "numoutlets": 0,
-                    "patching_rect": [ 151.0, 565.0, 32.0, 22.0 ],
-                    "text": "print"
-                }
-            },
-            {
-                "box": {
                     "id": "obj-30",
                     "linecount": 4,
                     "maxclass": "comment",
@@ -94,7 +106,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 507.0, 122.0, 150.0, 48.0 ],
+                    "patching_rect": [ 507.0, 122.0, 153.0, 48.0 ],
                     "text": "The unix epoch timestamp that the event should execute. "
                 }
             },
@@ -138,7 +150,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 8.0, 136.0, 91.0, 34.0 ],
+                    "patching_rect": [ 8.0, 136.0, 92.0, 34.0 ],
                     "text": "A bang outputs the event"
                 }
             },
@@ -241,7 +253,22 @@
         "lines": [
             {
                 "patchline": {
-                    "destination": [ "obj-31", 0 ],
+                    "destination": [ "obj-2", 1 ],
+                    "order": 1,
+                    "source": [ "obj-10", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-2", 0 ],
+                    "order": 2,
+                    "source": [ "obj-10", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-3", 0 ],
+                    "order": 0,
                     "source": [ "obj-10", 0 ]
                 }
             },
