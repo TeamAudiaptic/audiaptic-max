@@ -11,7 +11,7 @@ DAVHI_WEBSOCKET_URL=wss://example.org/path
 DAVHI_PERFORMANCE_TOKEN=
 ```
 
-The token is sensitive. A local `.env` file supplies its value and must not be committed. An `.env-template` documents the required variable names without values.
+The token is sensitive. A local `.env` file supplies its value and must not be committed. An `.env.example` documents the required variable names without values.
 
 ## Connection flow
 
@@ -21,7 +21,7 @@ sequenceDiagram
     participant Node as Node connection process
     participant Server as DAVHI server
 
-    Max->>Node: start
+    Max->>Node: connect
     Node->>Node: read and validate environment
     Node->>Server: WebSocket upgrade with Authorization header
     alt authenticated
@@ -78,7 +78,7 @@ Authentication failures occur during the WebSocket upgrade and use HTTP `401` or
 
 ## Inbound message routing
 
-`type` reserves a stable discriminator for server-originated messages. The initial client recognizes `"ack"`. A future server-to-Max performance event can use a separate type, for example:
+`type` reserves a stable discriminator for server-originated messages. The initial implementation recognizes `"ack"`. A future server-to-Max performance event can use a separate type, for example:
 
 ```json
 {
