@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 140.0, 140.0, 720.0, 500.0 ],
+        "rect": [ 588.0, 160.0, 720.0, 510.0 ],
         "openinpresentation": 1,
         "boxes": [
             {
@@ -89,10 +89,11 @@
             },
             {
                 "box": {
-                    "bgcolor": [ 0.2, 0.24, 0.28, 1.0 ],
+                    "bgcolor": [ 0.2, 0.24, 0.28, 1 ],
                     "bgcolor2": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
+                    "bgfillcolor_autogradient": 0.0,
                     "bgfillcolor_color": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
-                    "bgfillcolor_color1": [ 0.2, 0.24, 0.28, 1.0 ],
+                    "bgfillcolor_color1": [ 0.2, 0.24, 0.28, 1 ],
                     "bgfillcolor_color2": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
                     "bgfillcolor_type": "gradient",
                     "gradient": 1,
@@ -175,10 +176,10 @@
                 "box": {
                     "id": "torch-abstraction",
                     "maxclass": "newobj",
-                    "numinlets": 4,
+                    "numinlets": 5,
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 400.0, 135.0, 50.5, 22.0 ],
+                    "patching_rect": [ 400.0, 135.0, 100.0, 22.0 ],
                     "text": "torch"
                 }
             },
@@ -207,24 +208,25 @@
             },
             {
                 "box": {
-                    "bgcolor": [ 0.2, 0.24, 0.28, 1.0 ],
+                    "bgcolor": [ 0.2, 0.24, 0.28, 1 ],
                     "bgcolor2": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
+                    "bgfillcolor_autogradient": 0.0,
                     "bgfillcolor_color": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
-                    "bgfillcolor_color1": [ 0.2, 0.24, 0.28, 1.0 ],
+                    "bgfillcolor_color1": [ 0.2, 0.24, 0.28, 1 ],
                     "bgfillcolor_color2": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
                     "bgfillcolor_type": "gradient",
                     "gradient": 1,
                     "id": "output-display",
-                    "linecount": 10,
+                    "linecount": 11,
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 400.0, 230.0, 260.0, 146.0 ],
+                    "patching_rect": [ 400.0, 230.0, 260.0, 160.0 ],
                     "presentation": 1,
-                    "presentation_linecount": 10,
-                    "presentation_rect": [ 28.0, 334.0, 420.0, 146.0 ],
-                    "text": "\"{\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"torch\\\",\r\n    \\\"sentTimestamp\\\": 1791322682716.0,\r\n    \\\"execTimestamp\\\": 129,\r\n    \\\"payload\\\": {\r\n        \\\"durationMs\\\": 87,\r\n        \\\"transitionMs\\\": 85\r\n    }\r\n}\""
+                    "presentation_linecount": 11,
+                    "presentation_rect": [ 28.0, 334.0, 420.0, 160.0 ],
+                    "text": "\"{\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"torch\\\",\r\n    \\\"sentTimestamp\\\": 1791495335371.0,\r\n    \\\"execTimestamp\\\": \\\"null\\\",\r\n    \\\"payload\\\": {\r\n        \\\"durationMs\\\": 250,\r\n        \\\"intensity\\\": 2,\r\n        \\\"transitionMs\\\": 182\r\n    }\r\n}\""
                 }
             },
             {
@@ -250,7 +252,7 @@
             },
             {
                 "box": {
-                    "comment": "torch durationMs execTimestamp transitionMs",
+                    "comment": "Torch event dictionary with durationMs, transitionMs, and intensity in payload",
                     "id": "event-outlet",
                     "index": 0,
                     "maxclass": "outlet",
@@ -261,8 +263,44 @@
             },
             {
                 "box": {
+                    "id": "intensity-label",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 200.0, 280.0, 170.0, 20.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 175.0, 252.0, 140.0, 20.0 ],
+                    "text": "Intensity (integer)"
+                }
+            },
+            {
+                "box": {
+                    "id": "intensity-value",
+                    "maxclass": "number",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 200.0, 305.0, 100.0, 22.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 175.0, 276.0, 115.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "intensity-default",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 200.0, 335.0, 85.0, 22.0 ],
+                    "text": "loadmess 0"
+                }
+            },
+            {
+                "box": {
                     "background": 1,
-                    "bgcolor": [ 0.12, 0.14, 0.17, 1.0 ],
+                    "bgcolor": [ 0.12, 0.14, 0.17, 1 ],
                     "id": "background",
                     "maxclass": "panel",
                     "mode": 0,
@@ -270,7 +308,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 10.0, 10.0, 700.0, 470.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 0.0, 0.0, 480.0, 375.0 ]
+                    "presentation_rect": [ 0.0, 0.0, 480.0, 500.0 ]
                 }
             }
         ],
@@ -289,6 +327,18 @@
             },
             {
                 "patchline": {
+                    "destination": [ "intensity-value", 0 ],
+                    "source": [ "intensity-default", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "torch-abstraction", 3 ],
+                    "source": [ "intensity-value", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "display-set", 0 ],
                     "order": 1,
                     "source": [ "json-view", 0 ]
@@ -303,7 +353,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "torch-abstraction", 3 ],
+                    "destination": [ "torch-abstraction", 4 ],
                     "source": [ "send-button", 0 ]
                 }
             },

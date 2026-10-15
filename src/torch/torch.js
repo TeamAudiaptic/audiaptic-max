@@ -5,6 +5,7 @@ outlets = 1;
 var durationMs = 250;
 var execTimestamp = null;
 var transitionMs = 0;
+var intensityValue = 0;
 
 function isNonNegativeInteger(value) {
     return isFinite(value) && value >= 0 && Math.floor(value) === value;
@@ -42,11 +43,21 @@ function transition(value) {
     transitionMs = value;
 }
 
+function intensity(value) {
+    if (typeof value !== "number" || !isFinite(value) || Math.floor(value) !== value) {
+        error("Torch intensity must be an integer.\n");
+        return;
+    }
+
+    intensityValue = value;
+}
+
 function bang() {
     outlet(0, "schemaVersion", "1.0");
     outlet(0, "type", "torch");
     outlet(0, "sentTimestamp", new Date().getTime());
     outlet(0, "execTimestamp", execTimestamp === null ? "null" : execTimestamp);
     outlet(0, "durationMs", durationMs);
+    outlet(0, "intensity", intensityValue);
     outlet(0, "transitionMs", transitionMs);
 }

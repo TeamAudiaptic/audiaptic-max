@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 818.0, 217.0, 850.0, 470.0 ],
+        "rect": [ 539.0, 223.0, 850.0, 470.0 ],
         "boxes": [
             {
                 "box": {
@@ -97,7 +97,7 @@
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 30.0, 200.0, 30.0, 30.0 ]
+                    "patching_rect": [ 30.0, 266.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -106,8 +106,8 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 75.0, 205.0, 170.0, 20.0 ],
-                    "text": "Inlet 3: transition (ms)"
+                    "patching_rect": [ 75.0, 271.0, 170.0, 20.0 ],
+                    "text": "Inlet 4: transition (ms)"
                 }
             },
             {
@@ -117,7 +117,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 230.0, 230.0, 125.0, 22.0 ],
+                    "patching_rect": [ 230.0, 293.0, 125.0, 22.0 ],
                     "text": "prepend transition"
                 }
             },
@@ -140,7 +140,7 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 445.0, 85.0, 170.0, 20.0 ],
-                    "text": "Inlet 4: bang to send"
+                    "text": "Inlet 5: bang to send"
                 }
             },
             {
@@ -162,22 +162,22 @@
                 "box": {
                     "id": "route-fields",
                     "maxclass": "newobj",
-                    "numinlets": 7,
-                    "numoutlets": 7,
-                    "outlettype": [ "", "", "", "", "", "", "" ],
-                    "patching_rect": [ 400.0, 195.0, 450.0, 22.0 ],
-                    "text": "route schemaVersion type sentTimestamp execTimestamp durationMs transitionMs"
+                    "numinlets": 8,
+                    "numoutlets": 8,
+                    "outlettype": [ "", "", "", "", "", "", "", "" ],
+                    "patching_rect": [ 400.0, 195.0, 498.0, 22.0 ],
+                    "text": "route schemaVersion type sentTimestamp execTimestamp durationMs intensity transitionMs"
                 }
             },
             {
                 "box": {
                     "id": "payload-dict-pack",
                     "maxclass": "newobj",
-                    "numinlets": 3,
+                    "numinlets": 4,
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 400.0, 235.0, 280.0, 22.0 ],
-                    "text": "dict.pack durationMs: transitionMs: @triggers 1"
+                    "patching_rect": [ 400.0, 235.0, 309.0, 22.0 ],
+                    "text": "dict.pack durationMs: intensity: transitionMs: @triggers 2"
                 }
             },
             {
@@ -186,7 +186,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 690.0, 236.0, 165.0, 20.0 ],
+                    "patching_rect": [ 760.0, 236.0, 165.0, 20.0 ],
                     "text": "Nested payload dictionary"
                 }
             },
@@ -242,6 +242,39 @@
                     "numoutlets": 0,
                     "patching_rect": [ 400.0, 395.0, 30.0, 30.0 ]
                 }
+            },
+            {
+                "box": {
+                    "comment": "Torch intensity (integer)",
+                    "id": "intensity-inlet",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 30.0, 200.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "intensity-label",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 75.0, 205.0, 180.0, 20.0 ],
+                    "text": "Inlet 3: intensity (integer)"
+                }
+            },
+            {
+                "box": {
+                    "id": "intensity-message",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 230.0, 229.0, 115.0, 22.0 ],
+                    "text": "prepend intensity"
+                }
             }
         ],
         "lines": [
@@ -269,6 +302,18 @@
                     "destination": [ "output", 0 ],
                     "order": 0,
                     "source": [ "event-dict-pack", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "intensity-message", 0 ],
+                    "source": [ "intensity-inlet", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "torch-js", 0 ],
+                    "source": [ "intensity-message", 0 ]
                 }
             },
             {
@@ -305,6 +350,12 @@
                 "patchline": {
                     "destination": [ "event-dict-pack", 0 ],
                     "source": [ "route-fields", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "payload-dict-pack", 2 ],
+                    "source": [ "route-fields", 6 ]
                 }
             },
             {
