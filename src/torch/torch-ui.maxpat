@@ -53,6 +53,7 @@
                 "box": {
                     "id": "duration-value",
                     "maxclass": "number",
+                    "minimum": 0,
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
@@ -78,6 +79,7 @@
                 "box": {
                     "id": "timestamp-value",
                     "maxclass": "number",
+                    "minimum": 0,
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
@@ -136,6 +138,7 @@
                 "box": {
                     "id": "transition-value",
                     "maxclass": "number",
+                    "minimum": 0,
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
@@ -277,6 +280,7 @@
                 "box": {
                     "id": "intensity-value",
                     "maxclass": "number",
+                    "minimum": 0,
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],

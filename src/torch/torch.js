@@ -7,17 +7,17 @@ var execTimestamp = null;
 var transitionMs = 0;
 var intensityValue = 0;
 
-function isNonNegativeInteger(value) {
-    return isFinite(value) && value >= 0 && Math.floor(value) === value;
+function isInteger(value) {
+    return typeof value === "number" && isFinite(value) && Math.floor(value) === value;
 }
 
 function duration(value) {
-    if (!isNonNegativeInteger(value)) {
-        error("Torch duration must be a non-negative integer in ms.\n");
+    if (!isInteger(value)) {
+        error("Torch duration must be an integer in ms.\n");
         return;
     }
 
-    durationMs = value;
+    durationMs = Math.max(0, value);
 }
 
 function timestamp(value) {
@@ -26,30 +26,30 @@ function timestamp(value) {
         return;
     }
 
-    if (!isNonNegativeInteger(value)) {
-        error("Torch timestamp must be null or a non-negative integer in ms.\n");
+    if (!isInteger(value)) {
+        error("Torch timestamp must be null or an integer in ms.\n");
         return;
     }
 
-    execTimestamp = value;
+    execTimestamp = Math.max(0, value);
 }
 
 function transition(value) {
-    if (!isNonNegativeInteger(value)) {
-        error("Torch transition must be a non-negative integer in ms.\n");
+    if (!isInteger(value)) {
+        error("Torch transition must be an integer in ms.\n");
         return;
     }
 
-    transitionMs = value;
+    transitionMs = Math.max(0, value);
 }
 
 function intensity(value) {
-    if (typeof value !== "number" || !isFinite(value) || Math.floor(value) !== value) {
+    if (!isInteger(value)) {
         error("Torch intensity must be an integer.\n");
         return;
     }
 
-    intensityValue = value;
+    intensityValue = Math.max(0, value);
 }
 
 function bang() {
