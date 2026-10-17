@@ -66,6 +66,7 @@ function assignEventIdentity(event) {
 		eventId: randomUUID(),
 		sequence: nextSequence
 	};
+	nextSequence += 1;
 	return identifiedEvent;
 }
 
@@ -248,7 +249,6 @@ async function send(...argumentsList) {
 	try {
 		await new Promise((resolve, reject) => {
 			socket.send(JSON.stringify(event), error => (error ? reject(error) : resolve()));
-			nextSequence += 1;
 		});
 		await maxAPI.outlet("sent", event.eventId, event.execTimestamp === null ? "null" : event.execTimestamp);
 		await maxAPI.outlet("sent", JSON.stringify(event));
