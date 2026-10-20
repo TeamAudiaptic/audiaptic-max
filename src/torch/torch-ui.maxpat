@@ -181,76 +181,9 @@
                     "maxclass": "newobj",
                     "numinlets": 5,
                     "numoutlets": 1,
-                    "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 400.0, 135.0, 100.0, 22.0 ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 436.0, 145.0, 100.0, 22.0 ],
                     "text": "torch"
-                }
-            },
-            {
-                "box": {
-                    "id": "json-view",
-                    "maxclass": "newobj",
-                    "numinlets": 1,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "patching_rect": [ 400.0, 175.0, 180.0, 22.0 ],
-                    "text": "dict.serialize @mode json"
-                }
-            },
-            {
-                "box": {
-                    "id": "output-label",
-                    "maxclass": "comment",
-                    "numinlets": 1,
-                    "numoutlets": 0,
-                    "patching_rect": [ 400.0, 200.0, 250.0, 20.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 28.0, 312.0, 120.0, 20.0 ],
-                    "text": "Last event:"
-                }
-            },
-            {
-                "box": {
-                    "bgcolor": [ 0.2, 0.24, 0.28, 1 ],
-                    "bgcolor2": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
-                    "bgfillcolor_autogradient": 0.0,
-                    "bgfillcolor_color": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
-                    "bgfillcolor_color1": [ 0.2, 0.24, 0.28, 1 ],
-                    "bgfillcolor_color2": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
-                    "bgfillcolor_type": "gradient",
-                    "gradient": 1,
-                    "id": "output-display",
-                    "linecount": 11,
-                    "maxclass": "message",
-                    "numinlets": 2,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "patching_rect": [ 400.0, 230.0, 260.0, 160.0 ],
-                    "presentation": 1,
-                    "presentation_linecount": 11,
-                    "presentation_rect": [ 28.0, 334.0, 420.0, 160.0 ],
-                    "text": "\"{\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"torch\\\",\r\n    \\\"sentTimestamp\\\": 1791495335371.0,\r\n    \\\"execTimestamp\\\": \\\"null\\\",\r\n    \\\"payload\\\": {\r\n        \\\"durationMs\\\": 250,\r\n        \\\"intensity\\\": 2,\r\n        \\\"transitionMs\\\": 182\r\n    }\r\n}\""
-                }
-            },
-            {
-                "box": {
-                    "id": "display-set",
-                    "maxclass": "newobj",
-                    "numinlets": 1,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "patching_rect": [ 400.0, 265.0, 75.0, 22.0 ],
-                    "text": "prepend set"
-                }
-            },
-            {
-                "box": {
-                    "id": "print-output",
-                    "maxclass": "newobj",
-                    "numinlets": 1,
-                    "numoutlets": 0,
-                    "patching_rect": [ 500.0, 265.0, 130.0, 22.0 ],
-                    "text": "print torch-performer"
                 }
             },
             {
@@ -319,12 +252,6 @@
         "lines": [
             {
                 "patchline": {
-                    "destination": [ "output-display", 0 ],
-                    "source": [ "display-set", 0 ]
-                }
-            },
-            {
-                "patchline": {
                     "destination": [ "torch-abstraction", 0 ],
                     "source": [ "duration-value", 0 ]
                 }
@@ -343,20 +270,6 @@
             },
             {
                 "patchline": {
-                    "destination": [ "display-set", 0 ],
-                    "order": 1,
-                    "source": [ "json-view", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "print-output", 0 ],
-                    "order": 0,
-                    "source": [ "json-view", 0 ]
-                }
-            },
-            {
-                "patchline": {
                     "destination": [ "torch-abstraction", 4 ],
                     "source": [ "send-button", 0 ]
                 }
@@ -370,14 +283,6 @@
             {
                 "patchline": {
                     "destination": [ "event-outlet", 0 ],
-                    "order": 0,
-                    "source": [ "torch-abstraction", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "json-view", 0 ],
-                    "order": 1,
                     "source": [ "torch-abstraction", 0 ]
                 }
             },

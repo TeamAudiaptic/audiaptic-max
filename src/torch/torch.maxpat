@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 539.0, 223.0, 850.0, 470.0 ],
+        "rect": [ 436.0, 228.0, 850.0, 470.0 ],
         "boxes": [
             {
                 "box": {
@@ -218,7 +218,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 400.0, 315.0, 180.0, 22.0 ],
+                    "patching_rect": [ 400.0, 326.0, 180.0, 22.0 ],
                     "text": "dict.serialize @mode json"
                 }
             },
@@ -228,7 +228,7 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 400.0, 355.0, 125.0, 22.0 ],
+                    "patching_rect": [ 427.5, 361.0, 125.0, 22.0 ],
                     "text": "print torch-json"
                 }
             },
@@ -293,14 +293,6 @@
             {
                 "patchline": {
                     "destination": [ "json-view", 0 ],
-                    "order": 1,
-                    "source": [ "event-dict-pack", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "output", 0 ],
-                    "order": 0,
                     "source": [ "event-dict-pack", 0 ]
                 }
             },
@@ -318,7 +310,15 @@
             },
             {
                 "patchline": {
+                    "destination": [ "output", 0 ],
+                    "order": 1,
+                    "source": [ "json-view", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "print-output", 0 ],
+                    "order": 0,
                     "source": [ "json-view", 0 ]
                 }
             },
