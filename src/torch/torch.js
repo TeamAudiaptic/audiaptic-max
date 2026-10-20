@@ -3,7 +3,7 @@ inlets = 1;
 outlets = 1;
 
 var durationMs = 250;
-var execTimestamp = null;
+var execTimestamp = 0;
 var transitionMs = 0;
 var intensityValue = 0;
 
@@ -21,13 +21,8 @@ function duration(value) {
 }
 
 function timestamp(value) {
-    if (value === "null") {
-        execTimestamp = null;
-        return;
-    }
-
     if (!isInteger(value)) {
-        error("Torch timestamp must be null or an integer in ms.\n");
+        error("Torch timestamp must be an integer in ms.\n");
         return;
     }
 
@@ -55,8 +50,7 @@ function intensity(value) {
 function bang() {
     outlet(0, "schemaVersion", "1.0");
     outlet(0, "type", "torch");
-    outlet(0, "sentTimestamp", new Date().getTime());
-    outlet(0, "execTimestamp", execTimestamp === null ? "null" : execTimestamp);
+    outlet(0, "execTimestamp", execTimestamp);
     outlet(0, "durationMs", durationMs);
     outlet(0, "intensity", intensityValue);
     outlet(0, "transitionMs", transitionMs);

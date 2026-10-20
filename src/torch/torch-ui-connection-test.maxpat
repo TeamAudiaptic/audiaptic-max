@@ -36,8 +36,8 @@
                     "lockeddragscroll": 0,
                     "lockedsize": 0,
                     "maxclass": "bpatcher",
-                    "name": "torch-ui.maxpat",
-                    "numinlets": 0,
+                    "name": "torch.maxpat",
+                    "numinlets": 5,
                     "numoutlets": 1,
                     "offset": [ 0.0, 0.0 ],
                     "outlettype": [ "" ],
@@ -80,7 +80,7 @@
                     "presentation": 1,
                     "presentation_linecount": 9,
                     "presentation_rect": [ 530.0, 255.0, 496.0, 131.0 ],
-                    "text": "1. Start the local server and configure connection/.env.\n2. Install Dependencies if needed; reopen this patch afterward.\n3. Start Connection and wait for connected.\n4. Enter duration, transition, intensity, and timestamp 0.\n5. Press SEND; inspect torch-server in the Max Console.\n\nUse timestamp 0 to apply Universal delay. The existing null button may serialize null as text.\n\nSee README.md for setup and troubleshooting."
+                    "text": "1. Start the local server and configure connection/.env.\n2. Install Dependencies if needed; reopen this patch afterward.\n3. Start Connection and wait for connected.\n4. Enter duration, transition, intensity, and timestamp 0.\n5. Press SEND; inspect torch-server in the Max Console.\n\nUse timestamp 0 to apply Universal delay.\n\nSee README.md for setup and troubleshooting."
                 }
             },
             {
