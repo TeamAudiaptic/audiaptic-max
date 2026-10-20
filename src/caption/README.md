@@ -4,6 +4,16 @@
 `schemaVersion: "1.0"` as a JSON string. Connect its outlet to the event inlet
 of `[connection]` to complete and send the event.
 
+Like the color patch, caption sends serialized JSON through a message box to
+its outlet. `dict.serialize @mode json` feeds `t b s`, which first stores the
+latest JSON in the message box's right inlet, then bangs its left inlet to emit
+it. The output is JSON text, not a `dictionary <name>` reference. The payload
+keeps `text` and `durationMs` (case-sensitive); `execTimestamp` remains at the
+event's top level. `caption-ui.maxpat` forwards this output unchanged.
+
+Use `s` here because JSON serialization outputs a single symbol. In Max,
+`a` is a constant symbol, so `t b a` replaces the JSON with the literal `a`.
+
 ## Inlets
 
 The abstraction has two inlets:
@@ -31,6 +41,13 @@ connection-owned fields above. Enter a positive epoch timestamp for an explicit
 execution time, or 0 to use the connection's universal delay.
 
 ## Interactive controls
+
+Open [caption-ui-to-connection.maxpat](caption-ui-to-connection.maxpat) to use
+the caption UI and server connection together. Configure `src/connection/.env`,
+install the connection dependencies if needed, then click **Start Connection**.
+Once the status reads `connected`, click **Send caption** to send the caption
+through the connection patch to the server. Connection responses and errors are
+printed to the Max Console and forwarded through the combined patch's outlet.
 
 Open [caption.maxhelp](caption.maxhelp) for a demo, or embed
 [caption-ui.maxpat](caption-ui.maxpat) in another patcher. Both offer caption

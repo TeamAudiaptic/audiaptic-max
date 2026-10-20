@@ -9,8 +9,30 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 120.0, 120.0, 760.0, 340.0 ],
+        "rect": [ 120.0, 120.0, 760.0, 440.0 ],
         "boxes": [
+            {
+                "box": {
+                    "id": "store-then-output",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "bang", "symbol" ],
+                    "patching_rect": [ 35.0, 250.0, 45.0, 22.0 ],
+                    "text": "t b s"
+                }
+            },
+            {
+                "box": {
+                    "id": "event-message",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 35.0, 290.0, 650.0, 40.0 ],
+                    "text": ""
+                }
+            },
             {
                 "box": {
                     "comment": "Caption payload dictionary: text and optional durationMs",
@@ -63,7 +85,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 35.0, 260.0, 30.0, 30.0 ]
+                    "patching_rect": [ 35.0, 360.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -72,7 +94,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 80.0, 265.0, 390.0, 20.0 ],
+                    "patching_rect": [ 80.0, 365.0, 390.0, 20.0 ],
                     "text": "Connect to connection to add identity and sent time, then send."
                 }
             },
@@ -114,8 +136,26 @@
             },
             {
                 "patchline": {
-                    "destination": [ "event-out", 0 ],
+                    "destination": [ "store-then-output", 0 ],
                     "source": [ "serialize-event", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "source": [ "store-then-output", 1 ],
+                    "destination": [ "event-message", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "source": [ "store-then-output", 0 ],
+                    "destination": [ "event-message", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "source": [ "event-message", 0 ],
+                    "destination": [ "event-out", 0 ]
                 }
             },
             {
