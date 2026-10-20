@@ -1,3 +1,48 @@
 # Caption patch
 
-This directory will contain the Max patch used to prepare and send caption events.
+`caption.maxpat` packages a caption payload, user-supplied `execTimestamp`, `type: "caption"`, and
+`schemaVersion: "1.0"` as a JSON string. Connect its outlet to the event inlet
+of `[connection]` to complete and send the event.
+
+## Inlets
+
+The abstraction has two inlets:
+
+1. A payload dictionary containing the required `text` string and optional
+   non-negative integer `durationMs`. Sending the dictionary triggers the output.
+2. `execTimestamp`: the user-supplied execution time in Unix epoch milliseconds.
+   Set this before sending the payload.
+
+Build the payload with `dict.pack text: durationMs:`, or `dict.pack text:`
+when omitting duration. An empty text string clears the current caption.
+
+## Automatically assigned fields
+
+The connection patch adds these fields before validation and transmission:
+
+- `eventId`: a new UUID for each submission.
+- `sequence`: an incrementing number starting at 0 for the Node process.
+- `sentTimestamp`: the current Unix epoch time in milliseconds.
+
+Connection always assigns identity, sequence, and sent time. It defaults
+execution time when omitted, null, or zero; a supplied nonzero execution time
+is preserved. Caption includes the user's execution time and omits the three
+connection-owned fields above. Enter a positive epoch timestamp for an explicit
+execution time, or 0 to use the connection's universal delay.
+
+## Interactive controls
+
+Open [caption.maxhelp](caption.maxhelp) for a demo, or embed
+[caption-ui.maxpat](caption-ui.maxpat) in another patcher. Both offer caption
+text, non-negative duration, non-negative execution time, and a **Send caption** button.
+
+Click Send caption to print the caption JSON to the Max console. This preview
+includes the chosen execution time and precedes the identity and sent time added
+by connection. The UI patch also
+emits the JSON through its outlet; connect that outlet to `[connection]`.
+
+For programmatic use, set execution time through the second inlet and send a
+payload dictionary into the first inlet of `[caption]`, then connect
+its outlet to the event inlet of `[connection]`. Existing patches using the
+former five-inlet caption interface must remove the event ID, sequence, and sent-time connections.
+Ensure Max can resolve `src/caption/` and `src/connection/`.
