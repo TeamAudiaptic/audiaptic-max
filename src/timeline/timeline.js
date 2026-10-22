@@ -19,8 +19,7 @@ mgraphics.autofill = 0;
 
 const DICT_NAME = "davhi_timeline";
 const BUFFER_NAME = "davhi_timeline_audio";
-const FORMAT = "davhi-timeline";
-const FORMAT_VERSION = 1;
+const TIMELINE_TYPE = "timeline";
 const SCHEMA_VERSION = "1.0";
 
 const LANES = ["haptic", "torch", "color", "caption", "image", "audio", "video", "other"];
@@ -43,6 +42,9 @@ const TICK_STEPS_MS = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 15000
 const store = new Dict(DICT_NAME);
 
 let timeline = emptyTimeline();
+// Length of the loaded audio, read from the buffer~. It limits where events can
+// be placed and is not saved with the timeline.
+let audioDurationMs = 0;
 let selected = new Set();
 let viewStartMs = 0;
 let viewLengthMs = 10000;
@@ -50,11 +52,21 @@ let positionMs = 0;
 let drag = null;
 
 function emptyTimeline() {
+	return { events: [] };
+}
+
+/**
+ * Wraps the timeline in the shared event envelope with type "timeline". The
+ * connection patch assigns eventId, sequence, and sentTimestamp when sending,
+ * so they are left out here as they are for every event patch.
+ */
+function toDocument(state) {
 	return {
-		format: FORMAT,
-		formatVersion: FORMAT_VERSION,
-		audio: { file: "", durationMs: 0, sampleRate: 0 },
-		events: []
+		schemaVersion: SCHEMA_VERSION,
+		type: TIMELINE_TYPE,
+		payload: {
+			events: state.events
+		}
 	};
 }
 
@@ -79,15 +91,13 @@ function sortEvents(events) {
 
 function normalizeTimeline(raw) {
 	const result = emptyTimeline();
-	if (!isPlainObject(raw)) {
+	if (!isPlainObject(raw) || raw.type !== TIMELINE_TYPE || !isPlainObject(raw.payload)) {
 		return result;
 	}
-	if (isPlainObject(raw.audio)) {
-		Object.assign(result.audio, raw.audio);
-	}
+	const content = raw.payload;
 
 	// A Max dictionary can collapse a one-element array into a single object.
-	let events = raw.events === undefined || raw.events === null ? [] : raw.events;
+	let events = content.events === undefined || content.events === null ? [] : content.events;
 	if (!Array.isArray(events)) {
 		events = [events];
 	}
@@ -113,7 +123,7 @@ function load() {
 
 function save() {
 	sortEvents(timeline.events);
-	store.parse(JSON.stringify(timeline));
+	store.parse(JSON.stringify(toDocument(timeline)));
 }
 
 function commit() {
@@ -153,7 +163,7 @@ function outputSelection() {
 }
 
 function maxTimeMs() {
-	return timeline.audio.durationMs > 0 ? timeline.audio.durationMs : Infinity;
+	return audioDurationMs > 0 ? audioDurationMs : Infinity;
 }
 
 function clampMs(ms) {
@@ -245,22 +255,14 @@ function displaylength(ms) {
 	}
 }
 
-function audiofile(name) {
-	timeline.audio.file = String(name);
-	save();
-}
-
 /** Reads the loaded audio's length from the buffer~ once it finishes loading. */
 function audioloaded() {
-	const buffer = new Buffer(BUFFER_NAME);
-	const lengthMs = buffer.length();
-	timeline.audio.durationMs = Math.round(lengthMs);
-	timeline.audio.sampleRate = lengthMs > 0 ? Math.round(buffer.framecount() * 1000 / lengthMs) : 0;
+	const lengthMs = new Buffer(BUFFER_NAME).length();
+	audioDurationMs = Math.round(lengthMs);
 	if (lengthMs > 0) {
 		viewStartMs = 0;
 		viewLengthMs = lengthMs;
 	}
-	save();
 	outlet(0, "duration", lengthMs);
 	mgraphics.redraw();
 }
@@ -449,8 +451,8 @@ function paint() {
 	}
 	mgraphics.stroke();
 
-	if (timeline.audio.durationMs > 0) {
-		const endX = Math.max(LABEL_WIDTH, msToX(timeline.audio.durationMs, width));
+	if (audioDurationMs > 0) {
+		const endX = Math.max(LABEL_WIDTH, msToX(audioDurationMs, width));
 		if (endX < width) {
 			setColor([0, 0, 0], 0.4);
 			fillRect(endX, RULER_HEIGHT, width - endX, height - RULER_HEIGHT);
@@ -462,10 +464,12 @@ function paint() {
 		if (x + eventWidth < LABEL_WIDTH || x > width) {
 			continue;
 		}
-		const base = event.type === "color" ? hexToRgb(event.payload.color) : null;
-		setColor(base || LANE_COLORS[LANES[laneIndex(event.type)]], 0.85);
+		const base = (event.type === "color" ? hexToRgb(event.payload.color) : null)
+			|| LANE_COLORS[LANES[laneIndex(event.type)]];
+		setColor(base, 0.85);
 		fillRect(x, y, eventWidth, eventHeight);
 		setColor(darken(base));
+
 		mgraphics.set_line_width(2);
 		mgraphics.rectangle(x, y, eventWidth, eventHeight);
 		mgraphics.stroke();
