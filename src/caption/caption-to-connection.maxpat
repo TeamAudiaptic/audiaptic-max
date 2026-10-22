@@ -42,12 +42,12 @@
                 "box": {
                     "id": "caption-ui",
                     "maxclass": "bpatcher",
-                    "name": "caption-ui.maxpat",
+                    "name": "caption.maxpat",
                     "border": 1,
                     "bgmode": 2,
                     "bgcolor": [0.15, 0.15, 0.15, 1.0],
                     "hidden": 0,
-                    "numinlets": 0,
+                    "numinlets": 3,
                     "numoutlets": 1,
                     "outlettype": [""],
                     "patching_rect": [20.0, 115.0, 590.0, 240.0],
@@ -133,7 +133,7 @@
         ],
         "dependency_cache": [
             {
-                "name": "caption-ui.maxpat",
+                "name": "caption.maxpat",
                 "patcherrelativepath": ".",
                 "type": "JSON",
                 "implicit": 1
