@@ -42,7 +42,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
                     "patching_rect": [ 35.0, 364.0, 620.0, 22.0 ],
-                    "text": "dict.pack payload: execTimestamp: schemaVersion: type: caption @triggers 0 @unmatched 0"
+                    "text": "dict.pack schemaVersion: type: caption execTimestamp: payload: @triggers 3 @unmatched 0"
                 }
             },
             {
@@ -343,7 +343,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "caption-event", 0 ],
+                    "destination": [ "caption-event", 3 ],
                     "source": [ "payload-pack", 0 ]
                 }
             },
@@ -355,7 +355,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "caption-event", 2 ],
+                    "destination": [ "caption-event", 0 ],
                     "source": [ "schema-version-string", 0 ]
                 }
             },
@@ -405,7 +405,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "caption-event", 1 ],
+                    "destination": [ "caption-event", 2 ],
                     "source": [ "ui-exec-timestamp", 0 ]
                 }
             },
