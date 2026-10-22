@@ -9,14 +9,38 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 611.0, 107.0, 592.0, 778.0 ],
+        "rect": [ 392.0, 107.0, 811.0, 778.0 ],
         "openinpresentation": 1,
         "boxes": [
             {
                 "box": {
+                    "format": 8,
+                    "id": "obj-15",
+                    "maxclass": "number",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 79.0, 210.0, 138.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "format": 8,
+                    "id": "obj-14",
+                    "maxclass": "number",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 79.0, 173.0, 138.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
                     "comment": "Send a bang to stop the connection",
                     "id": "obj-3",
-                    "index": 0,
+                    "index": 4,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -28,7 +52,7 @@
                 "box": {
                     "comment": "Send a bang to start the connection",
                     "id": "obj-1",
-                    "index": 0,
+                    "index": 3,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -40,7 +64,7 @@
                 "box": {
                     "comment": "Set the univeral delay in Epoch MS",
                     "id": "obj-17",
-                    "index": 0,
+                    "index": 2,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -133,7 +157,7 @@
                 "box": {
                     "comment": "Send a ping event",
                     "id": "obj-2",
-                    "index": 0,
+                    "index": 5,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -169,7 +193,7 @@
                 "box": {
                     "comment": "Complete DAVHI event JSON string",
                     "id": "event-inlet",
-                    "index": 0,
+                    "index": 1,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -337,7 +361,7 @@
                     "patching_rect": [ 79.0, 128.0, 300.0, 22.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 80.0, 129.0, 299.0, 22.0 ],
-                    "text": "waiting for connection",
+                    "text": "disconnected",
                     "textcolor": [ 0.95, 0.95, 0.95, 1.0 ]
                 }
             },
@@ -374,6 +398,8 @@
                     "saved_object_attributes": {
                         "autostart": 1,
                         "defer": 0,
+                        "node_bin_path": "",
+                        "npm_bin_path": "",
                         "watch": 0
                     },
                     "text": "node.script connection.js @autostart 1",
@@ -389,7 +415,7 @@
                 "box": {
                     "comment": "Connection, acknowledgement, inbound, and error messages",
                     "id": "output",
-                    "index": 0,
+                    "index": 1,
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
@@ -405,7 +431,7 @@
                     "mode": 0,
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ -1.0, -1.0, 449.0, 189.0 ],
+                    "patching_rect": [ -1.0, -1.0, 449.0, 249.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 0.0, 0.0, 443.0, 174.0 ]
                 }
@@ -505,7 +531,7 @@
             {
                 "patchline": {
                     "destination": [ "obj-4", 0 ],
-                    "midpoints": [ 403.5, 177.0, 870.0, 177.0, 870.0, 176.0, 1021.5, 176.0 ],
+                    "midpoints": [ 403.5, 163.0, 870.0, 163.0, 870.0, 176.0, 1021.5, 176.0 ],
                     "source": [ "obj-7", 0 ]
                 }
             },
@@ -546,14 +572,14 @@
             {
                 "patchline": {
                     "destination": [ "status", 0 ],
-                    "midpoints": [ 609.5, 330.0, 544.0, 330.0, 544.0, 177.0, 88.5, 177.0 ],
+                    "midpoints": [ 609.5, 330.0, 544.0, 330.0, 544.0, 163.0, 88.5, 163.0 ],
                     "source": [ "set-status", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "install", 0 ],
-                    "midpoints": [ 163.5, 172.0, 546.0, 172.0, 546.0, 196.0, 609.5, 196.0 ],
+                    "midpoints": [ 163.5, 163.0, 546.0, 163.0, 546.0, 196.0, 609.5, 196.0 ],
                     "source": [ "setup-control", 0 ]
                 }
             },
@@ -581,11 +607,10 @@
             {
                 "patchline": {
                     "destination": [ "stop-connection", 0 ],
-                    "midpoints": [ 323.5, 173.0, 545.0, 173.0, 545.0, 196.0, 789.5, 196.0 ],
+                    "midpoints": [ 323.5, 163.0, 545.0, 163.0, 545.0, 196.0, 789.5, 196.0 ],
                     "source": [ "stop-control", 0 ]
                 }
             }
-        ],
-        "autosave": 0
+        ]
     }
 }
