@@ -9,8 +9,52 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 646.0, 150.0, 1029.0, 804.0 ],
+        "rect": [ 60.0, 131.0, 981.0, 804.0 ],
         "boxes": [
+            {
+                "box": {
+                    "bubble": 1,
+                    "fontname": "Arial",
+                    "fontsize": 13.0,
+                    "id": "obj-9",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 618.0, 444.0, 166.0, 25.0 ],
+                    "text": "Clear dropdown options",
+                    "textjustification": 1
+                }
+            },
+            {
+                "box": {
+                    "bubble": 1,
+                    "bubbleside": 3,
+                    "fontname": "Arial",
+                    "fontsize": 13.0,
+                    "id": "obj-8",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 149.0, 475.0, 162.0, 25.0 ],
+                    "text": "Manually set the asset",
+                    "textjustification": 1
+                }
+            },
+            {
+                "box": {
+                    "bubble": 1,
+                    "bubbleside": 3,
+                    "fontname": "Arial",
+                    "fontsize": 13.0,
+                    "id": "obj-2",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 123.0, 448.0, 188.0, 25.0 ],
+                    "text": "Select asset from dropdown",
+                    "textjustification": 1
+                }
+            },
             {
                 "box": {
                     "bubble": 1,
@@ -22,8 +66,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 231.0, 245.0, 151.0, 70.0 ],
-                    "presentation_linecount": 4,
+                    "patching_rect": [ 246.0, 261.0, 151.0, 70.0 ],
                     "text": "Set dropdown options with a comma seperated list",
                     "textjustification": 1
                 }
@@ -36,7 +79,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 270.0, 317.0, 73.0, 50.0 ],
+                    "patching_rect": [ 285.0, 332.0, 73.0, 50.0 ],
                     "text": "test1.jpg, test2.png, test3.svg"
                 }
             },
@@ -51,7 +94,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 32.0, 432.0, 213.0, 55.0 ],
+                    "patching_rect": [ 31.0, 249.0, 213.0, 55.0 ],
                     "text": "Asset Alias must match the name of an asset uploaded through the performer portal",
                     "textjustification": 1
                 }
@@ -66,7 +109,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 490.0, 664.0, 213.0, 40.0 ],
+                    "patching_rect": [ 560.0, 631.0, 213.0, 40.0 ],
                     "text": "Outputs event as JSON that's sent to the Connection patch",
                     "textjustification": 1
                 }
@@ -80,7 +123,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 724.0, 523.0, 175.0, 25.0 ],
+                    "patching_rect": [ 618.0, 558.0, 175.0, 25.0 ],
                     "text": "Manually send message",
                     "textjustification": 1
                 }
@@ -94,7 +137,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 724.0, 469.0, 213.0, 25.0 ],
+                    "patching_rect": [ 618.0, 527.0, 213.0, 25.0 ],
                     "text": "Preview or manually set fields",
                     "textjustification": 1
                 }
@@ -106,11 +149,12 @@
                     "fontname": "Arial",
                     "fontsize": 13.0,
                     "id": "obj-20",
+                    "linecount": 3,
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 362.0, 317.0, 79.0, 40.0 ],
-                    "text": "Asset Alias",
+                    "patching_rect": [ 411.2, 290.0, 104.0, 70.0 ],
+                    "text": "Set Asset Alias (and add it to the dropdown)",
                     "textjustification": 1
                 }
             },
@@ -124,7 +168,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 133.0, 341.0, 112.5, 40.0 ],
+                    "patching_rect": [ 116.0, 320.0, 112.5, 40.0 ],
                     "text": "Send message",
                     "textjustification": 1
                 }
@@ -140,7 +184,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 645.0, 302.0, 111.0, 55.0 ],
+                    "patching_rect": [ 705.2, 305.0, 111.0, 55.0 ],
                     "text": "Exec Timestamp (MS)",
                     "textjustification": 1
                 }
@@ -156,7 +200,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 552.0, 302.0, 73.0, 55.0 ],
+                    "patching_rect": [ 615.2, 305.0, 73.0, 55.0 ],
                     "text": "Transition Time (MS)",
                     "textjustification": 1
                 }
@@ -172,7 +216,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 468.0, 302.0, 67.0, 55.0 ],
+                    "patching_rect": [ 532.2, 305.0, 67.0, 55.0 ],
                     "text": "Duration (MS)",
                     "textjustification": 1
                 }
@@ -207,7 +251,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 675.0, 357.0, 50.0, 22.0 ]
+                    "patching_rect": [ 736.2, 360.0, 50.0, 22.0 ]
                 }
             },
             {
@@ -218,7 +262,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 563.0, 357.0, 50.0, 22.0 ]
+                    "patching_rect": [ 627.2, 360.0, 50.0, 22.0 ]
                 }
             },
             {
@@ -229,7 +273,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 476.0, 357.0, 50.0, 22.0 ]
+                    "patching_rect": [ 540.2, 360.0, 50.0, 22.0 ]
                 }
             },
             {
@@ -239,7 +283,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 360.0, 357.0, 73.0, 22.0 ],
+                    "patching_rect": [ 426.2, 360.0, 73.0, 22.0 ],
                     "text": "example.jpg"
                 }
             },
@@ -251,7 +295,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 177.0, 382.0, 24.0, 24.0 ]
+                    "patching_rect": [ 160.0, 359.0, 24.0, 24.0 ]
                 }
             },
             {
@@ -262,7 +306,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 243.0, 664.0, 244.0, 146.0 ],
+                    "patching_rect": [ 313.0, 631.0, 244.0, 146.0 ],
                     "text": "\"{\r\n    \\\"payload\\\": {\r\n        \\\"assetAlias\\\": \\\"example.jpg\\\",\r\n        \\\"durationMs\\\": 500,\r\n        \\\"transitionMs\\\": 0\r\n    },\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"image\\\",\r\n    \\\"relativeTimestamp\\\": 0\r\n}\""
                 }
             },
@@ -282,7 +326,7 @@
                     "numoutlets": 1,
                     "offset": [ 0.0, 0.0 ],
                     "outlettype": [ "" ],
-                    "patching_rect": [ 247.0, 432.0, 302.0, 175.0 ],
+                    "patching_rect": [ 313.0, 414.0, 302.0, 175.0 ],
                     "viewvisibility": 1
                 }
             }
