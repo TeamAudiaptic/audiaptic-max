@@ -394,16 +394,15 @@
             },
             {
                 "box": {
-                    "bgcolor": [ 0.12, 0.62, 0.48, 1.0 ],
                     "id": "ui-send-button",
                     "maxclass": "button",
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 1135.0, 220.0, 40.0, 40.0 ],
+                    "patching_rect": [ 1135.0, 220.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 330.0, 250.0, 64.0, 64.0 ]
+                    "presentation_rect": [ 330.0, 276.0, 24.0, 24.0 ]
                 }
             },
             {
@@ -413,10 +412,10 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 1135.0, 150.0, 65.0, 20.0 ],
+                    "patching_rect": [ 1165.0, 222.0, 80.0, 20.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 400.0, 272.0, 48.0, 20.0 ],
-                    "text": "SEND"
+                    "presentation_rect": [ 360.0, 278.0, 80.0, 20.0 ],
+                    "text": "textbutton"
                 }
             },
             {
