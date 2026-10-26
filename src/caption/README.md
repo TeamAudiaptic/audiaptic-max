@@ -7,7 +7,12 @@ as a JSON string. Connect its outlet to the event inlet of `[connection]` to com
 logging in the Max Console and to the patch's outlet. The output is JSON text,
 not a `dictionary <name>` reference. The payload keeps `text` and `durationMs`
 (case-sensitive); `execTimestamp` remains at the event's top level.
-`caption.maxpat` includes presentation controls
+`caption.maxpat` includes presentation controls. Type directly into the Caption
+text editor, set the duration and execution time, then click **Send caption**.
+The button sends the current text, duration and execution time.
+The editor output is gated: clicking Send opens the gate, reads the current
+text, and closes the gate. Editor output outside that sequence is ignored.
+The abstraction's text inlet still sends immediately, as described below.
 
 ## Inlets
 

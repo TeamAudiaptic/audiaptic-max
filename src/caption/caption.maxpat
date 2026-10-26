@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ -1418.0, 178.0, 880.0, 600.0 ],
+        "rect": [ 144.0, 197.0, 1221.0, 710.0 ],
         "openinpresentation": 1,
         "boxes": [
             {
@@ -171,14 +171,60 @@
             {
                 "box": {
                     "id": "ui-caption-text",
-                    "maxclass": "message",
+                    "maxclass": "textedit",
+                    "numinlets": 1,
+                    "numoutlets": 4,
+                    "outlettype": [ "", "int", "", "" ],
+                    "outputmode": 1,
+                    "parameter_enable": 0,
+                    "patching_rect": [ 691.0, 84.0, 360.0, 32.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 20.0, 80.0, 360.0, 32.0 ],
+                    "text": "Yo"
+                }
+            },
+            {
+                "box": {
+                    "id": "ui-caption-route",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 691.0, 260.0, 65.0, 22.0 ],
+                    "text": "route text"
+                }
+            },
+            {
+                "box": {
+                    "id": "ui-caption-gate",
+                    "maxclass": "newobj",
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 691.0, 84.0, 360.0, 22.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 20.0, 80.0, 360.0, 22.0 ],
-                    "text": "Follow the lights"
+                    "patching_rect": [ 691.0, 300.0, 65.0, 22.0 ],
+                    "text": "gate 1 0"
+                }
+            },
+            {
+                "box": {
+                    "id": "ui-read-caption",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 3,
+                    "outlettype": [ "int", "bang", "int" ],
+                    "patching_rect": [ 800.0, 300.0, 65.0, 22.0 ],
+                    "text": "t 0 b 1"
+                }
+            },
+            {
+                "box": {
+                    "id": "ui-caption-set",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 160.0, 239.0, 85.0, 22.0 ],
+                    "text": "prepend set"
                 }
             },
             {
@@ -218,7 +264,7 @@
                     "patching_rect": [ 691.0, 189.0, 150.0, 36.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 20.0, 185.0, 150.0, 36.0 ],
-                    "text": "Send caption"
+                    "text": "Send"
                 }
             },
             {
@@ -312,7 +358,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 675.0, 3.0, 590.0, 240.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 0.0, 0.0, 590.0, 240.0 ]
+                    "presentation_rect": [ 0.0, 0.0, 570.0, 239.0 ]
                 }
             }
         ],
@@ -381,7 +427,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "ui-caption-text", 1 ],
+                    "destination": [ "ui-caption-set", 0 ],
                     "source": [ "sync-text", 1 ]
                 }
             },
@@ -394,6 +440,24 @@
             {
                 "patchline": {
                     "destination": [ "text-symbol", 0 ],
+                    "source": [ "ui-caption-gate", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "ui-caption-gate", 1 ],
+                    "source": [ "ui-caption-route", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "ui-caption-text", 0 ],
+                    "source": [ "ui-caption-set", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "ui-caption-route", 0 ],
                     "source": [ "ui-caption-text", 0 ]
                 }
             },
@@ -411,14 +475,26 @@
             },
             {
                 "patchline": {
-                    "destination": [ "ui-send-order", 0 ],
-                    "source": [ "ui-send-button", 0 ]
+                    "destination": [ "ui-caption-gate", 0 ],
+                    "source": [ "ui-read-caption", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "ui-caption-gate", 0 ],
+                    "source": [ "ui-read-caption", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "ui-caption-text", 0 ],
-                    "source": [ "ui-send-order", 0 ]
+                    "source": [ "ui-read-caption", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "ui-send-order", 0 ],
+                    "source": [ "ui-send-button", 0 ]
                 }
             },
             {
@@ -431,6 +507,12 @@
                 "patchline": {
                     "destination": [ "ui-exec-timestamp", 0 ],
                     "source": [ "ui-send-order", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "ui-read-caption", 0 ],
+                    "source": [ "ui-send-order", 0 ]
                 }
             }
         ],
