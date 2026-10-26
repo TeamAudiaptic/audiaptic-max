@@ -224,12 +224,12 @@
             {
                 "box": {
                     "id": "obj-24",
-                    "linecount": 10,
+                    "linecount": 11,
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 30.0, 75.0, 550.0, 158.0 ],
-                    "text": "Generates an image event to be sent to the DAVHI Connection patch. The event payload can be set manually in the patch UI, or provided through the inlets. The event is sent out (as JSON) when a signal is sent to the Activation inlet, or the Send button is pressed.\n\nInputs:\nActivation: send the image event\nAsset Alias: name of the image file that has been uploaded to the server through the performer portal.\nDuration: how long the image event will last, (positive int, milliseconds), 0 = until changed\nTransition Time: how long to fade between the current image and this one (positive int, milliseconds)\nTimestamp: when to execute the event relative to the Start event (positive int, milliseconds), 0 = ASAP\n"
+                    "patching_rect": [ 30.0, 75.0, 550.0, 172.0 ],
+                    "text": "Generates an image event to be sent to the DAVHI Connection patch. The event payload can be set manually in the patch UI, or provided through the inlets. The event is sent out (as JSON) when a signal is sent to the Activation inlet, or the Send button is pressed.\n\nInputs:\nActivation: send the image event\nAsset List: comma seperated list of available assets\nAsset Alias: name of the image file that has been uploaded to the server through the performer portal.\nDuration: how long the image event will last, (positive int, milliseconds), 0 = until changed\nTransition Time: how long to fade between the current image and this one (positive int, milliseconds)\nTimestamp: when to execute the event relative to the Start event (positive int, milliseconds), 0 = ASAP\n"
                 }
             },
             {
@@ -307,7 +307,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 313.0, 631.0, 244.0, 146.0 ],
-                    "text": "\"{\r\n    \\\"payload\\\": {\r\n        \\\"assetAlias\\\": \\\"example.jpg\\\",\r\n        \\\"durationMs\\\": 500,\r\n        \\\"transitionMs\\\": 0\r\n    },\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"image\\\",\r\n    \\\"relativeTimestamp\\\": 0\r\n}\""
+                    "text": "\"{\r\n    \\\"payload\\\": {\r\n        \\\"assetAlias\\\": \\\"example.jpg\\\",\r\n        \\\"durationMs\\\": 0,\r\n        \\\"transitionMs\\\": 0\r\n    },\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"image\\\",\r\n    \\\"relativeTimestamp\\\": 0\r\n}\""
                 }
             },
             {
