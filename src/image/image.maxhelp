@@ -3,13 +3,13 @@
         "fileversion": 1,
         "appversion": {
             "major": 9,
-            "minor": 2,
-            "revision": 0,
+            "minor": 1,
+            "revision": 5,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 60.0, 131.0, 981.0, 804.0 ],
+        "rect": [ 127.0, 131.0, 981.0, 612.0 ],
         "boxes": [
             {
                 "box": {
@@ -67,7 +67,7 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 246.0, 261.0, 151.0, 70.0 ],
-                    "text": "Set dropdown options with a comma seperated list",
+                    "text": "Append options to the dropdown with a comma seperated list",
                     "textjustification": 1
                 }
             },
@@ -383,6 +383,7 @@
                 }
             }
         ],
-        "autosave": 0
+        "autosave": 0,
+        "oscreceiveudpport": 0
     }
 }
