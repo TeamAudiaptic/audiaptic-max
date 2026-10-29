@@ -14,6 +14,49 @@
         "boxes": [
             {
                 "box": {
+                    "id": "ui-caption-empty-route",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 691.0, 340.0, 75.0, 22.0 ],
+                    "text": "route bang"
+                }
+            },
+            {
+                "box": {
+                    "id": "empty-caption-duration",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1000.0, 390.0, 180.0, 22.0 ],
+                    "text": "prepend replace durationMs"
+                }
+            },
+            {
+                "box": {
+                    "data": {
+                        "text": "",
+                        "durationMs": 0
+                    },
+                    "id": "empty-caption-payload",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 5,
+                    "outlettype": [ "dictionary", "", "", "", "" ],
+                    "patching_rect": [ 691.0, 430.0, 100.0, 22.0 ],
+                    "saved_object_attributes": {
+                        "embed": 1,
+                        "legacy": 0,
+                        "parameter_enable": 0,
+                        "parameter_mappable": 0
+                    },
+                    "text": "dict @embed 1"
+                }
+            },
+            {
+                "box": {
                     "comment": "Caption text; sends an event using the stored duration and execution time",
                     "id": "payload-in",
                     "index": 0,
@@ -179,8 +222,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 691.0, 84.0, 360.0, 32.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 20.0, 80.0, 360.0, 32.0 ],
-                    "text": "Yo"
+                    "presentation_rect": [ 20.0, 80.0, 360.0, 32.0 ]
                 }
             },
             {
@@ -377,6 +419,18 @@
             },
             {
                 "patchline": {
+                    "destination": [ "empty-caption-payload", 0 ],
+                    "source": [ "empty-caption-duration", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "caption-event", 3 ],
+                    "source": [ "empty-caption-payload", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "ui-exec-timestamp", 0 ],
                     "source": [ "exec-timestamp-in", 0 ]
                 }
@@ -439,7 +493,19 @@
             },
             {
                 "patchline": {
+                    "destination": [ "empty-caption-payload", 0 ],
+                    "source": [ "ui-caption-empty-route", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "text-symbol", 0 ],
+                    "source": [ "ui-caption-empty-route", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "ui-caption-empty-route", 0 ],
                     "source": [ "ui-caption-gate", 0 ]
                 }
             },
@@ -463,7 +529,15 @@
             },
             {
                 "patchline": {
+                    "destination": [ "empty-caption-duration", 0 ],
+                    "order": 0,
+                    "source": [ "ui-duration", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "payload-pack", 1 ],
+                    "order": 1,
                     "source": [ "ui-duration", 0 ]
                 }
             },
