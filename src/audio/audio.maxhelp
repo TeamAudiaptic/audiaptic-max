@@ -23,8 +23,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 716.7469879518072, 359.03614457831327, 67.0, 40.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 716.7469879518072, 359.03614457831327, 67.0, 40.0 ],
                     "text": "Loop?",
                     "textjustification": 1
                 }
@@ -37,9 +35,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 738.433734939759, 400.0, 24.0, 24.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 738.433734939759, 400.0, 24.0, 24.0 ]
+                    "patching_rect": [ 738.433734939759, 400.0, 24.0, 24.0 ]
                 }
             },
             {
@@ -54,9 +50,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 614.3373493975904, 344.5783132530121, 84.0, 55.0 ],
-                    "presentation": 1,
-                    "presentation_linecount": 2,
-                    "presentation_rect": [ 614.3373493975904, 344.5783132530121, 84.0, 55.0 ],
                     "text": "Start Offset (MS)",
                     "textjustification": 1
                 }
@@ -69,9 +62,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 631.2048192771084, 400.0, 50.0, 22.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 631.2048192771084, 400.0, 50.0, 22.0 ]
+                    "patching_rect": [ 631.2048192771084, 400.0, 50.0, 22.0 ]
                 }
             },
             {
@@ -85,8 +76,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 137.2289156626506, 534.9397590361446, 162.0, 25.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 137.2289156626506, 534.9397590361446, 162.0, 25.0 ],
                     "text": "Manually set the asset",
                     "textjustification": 1
                 }
@@ -102,8 +91,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 110.72289156626506, 508.43373493975906, 188.0, 25.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 110.72289156626506, 508.43373493975906, 188.0, 25.0 ],
                     "text": "Select asset from dropdown",
                     "textjustification": 1
                 }
@@ -120,9 +107,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 244.4578313253012, 300.0, 155.0, 70.0 ],
-                    "presentation": 1,
-                    "presentation_linecount": 3,
-                    "presentation_rect": [ 244.4578313253012, 300.0, 155.0, 70.0 ],
                     "text": "Append options to the dropdown with a comma seperated list",
                     "textjustification": 1
                 }
@@ -136,9 +120,6 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 284.21686746987956, 371.08433734939763, 73.0, 50.0 ],
-                    "presentation": 1,
-                    "presentation_linecount": 3,
-                    "presentation_rect": [ 284.21686746987956, 371.08433734939763, 73.0, 50.0 ],
                     "text": "test1.jpg, test2.png, test3.svg"
                 }
             },
@@ -154,9 +135,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 30.0, 287.9518072289157, 213.0, 55.0 ],
-                    "presentation": 1,
-                    "presentation_linecount": 3,
-                    "presentation_rect": [ 30.0, 287.9518072289157, 213.0, 55.0 ],
                     "text": "Asset Alias must match the name of an asset uploaded through the performer portal",
                     "textjustification": 1
                 }
@@ -172,9 +150,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 548.0722891566265, 690.3614457831326, 213.0, 40.0 ],
-                    "presentation": 1,
-                    "presentation_linecount": 2,
-                    "presentation_rect": [ 548.0722891566265, 690.3614457831326, 213.0, 40.0 ],
                     "text": "Outputs event as JSON that's sent to the Connection patch",
                     "textjustification": 1
                 }
@@ -189,8 +164,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 691.0361445783133, 604.8192771084338, 175.0, 25.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 691.0361445783133, 604.8192771084338, 175.0, 25.0 ],
                     "text": "Manually send message",
                     "textjustification": 1
                 }
@@ -205,8 +178,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 691.0361445783133, 573.4939759036145, 213.0, 25.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 691.0361445783133, 573.4939759036145, 213.0, 25.0 ],
                     "text": "Preview or manually set fields",
                     "textjustification": 1
                 }
@@ -223,9 +194,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 409.5180722891567, 328.9156626506024, 104.0, 70.0 ],
-                    "presentation": 1,
-                    "presentation_linecount": 3,
-                    "presentation_rect": [ 409.5180722891567, 328.9156626506024, 104.0, 70.0 ],
                     "text": "Set Asset Alias (and add it to the dropdown)",
                     "textjustification": 1
                 }
@@ -241,8 +209,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 114.33734939759036, 359.03614457831327, 112.5, 40.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 114.33734939759036, 359.03614457831327, 112.5, 40.0 ],
                     "text": "Send message",
                     "textjustification": 1
                 }
@@ -259,9 +225,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 887.8313253012049, 345.7831325301205, 111.0, 55.0 ],
-                    "presentation": 1,
-                    "presentation_linecount": 2,
-                    "presentation_rect": [ 887.8313253012049, 345.7831325301205, 111.0, 55.0 ],
                     "text": "Exec Timestamp (MS)",
                     "textjustification": 1
                 }
@@ -278,9 +241,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 798.6746987951807, 345.7831325301205, 73.0, 55.0 ],
-                    "presentation": 1,
-                    "presentation_linecount": 2,
-                    "presentation_rect": [ 798.6746987951807, 345.7831325301205, 73.0, 55.0 ],
                     "text": "Transition Time (MS)",
                     "textjustification": 1
                 }
@@ -297,9 +257,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 530.0, 344.5783132530121, 67.0, 55.0 ],
-                    "presentation": 1,
-                    "presentation_linecount": 2,
-                    "presentation_rect": [ 530.0, 344.5783132530121, 67.0, 55.0 ],
                     "text": "Duration (MS)",
                     "textjustification": 1
                 }
@@ -312,9 +269,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 30.0, 75.0, 569.0, 200.0 ],
-                    "presentation": 1,
-                    "presentation_linecount": 13,
-                    "presentation_rect": [ 30.0, 75.0, 569.0, 200.0 ],
                     "text": "Generates an audio event to be sent to the DAVHI Connection patch. The event payload can be set manually in the patch UI, or provided through the inlets. The event is sent out (as JSON) when a signal is sent to the Activation inlet, or the Send button is pressed.\n\nInputs:\nActivation: send the audio event\nAsset List: comma seperated list of available assets\nAsset Alias: name of the audio file that has been uploaded to the server through the performer portal\nDuration: how long the audio event will last, (positive int, milliseconds), 0 = until end of audio or changed\nStart Offset: how long into the audio file it should start playing (positive int, milliseconds)\nLoop: if the audio should loop after it finishes. If duration is 0, loop once\nTransition Time: how long to fade between the current audio and this one (positive int, milliseconds)\nTimestamp: when to execute the event relative to the Start event (positive int, milliseconds), 0 = ASAP\n"
                 }
             },
@@ -326,8 +280,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 30.0, 30.0, 345.0, 43.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 30.0, 30.0, 345.0, 43.0 ],
                     "text": "Audio"
                 }
             },
@@ -339,9 +291,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 919.156626506024, 400.0, 50.0, 22.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 919.156626506024, 400.0, 50.0, 22.0 ]
+                    "patching_rect": [ 919.156626506024, 400.0, 50.0, 22.0 ]
                 }
             },
             {
@@ -352,9 +302,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 810.722891566265, 400.0, 50.0, 22.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 810.722891566265, 400.0, 50.0, 22.0 ]
+                    "patching_rect": [ 810.722891566265, 400.0, 50.0, 22.0 ]
                 }
             },
             {
@@ -365,9 +313,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 538.433734939759, 400.0, 50.0, 22.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 538.433734939759, 400.0, 50.0, 22.0 ]
+                    "patching_rect": [ 538.433734939759, 400.0, 50.0, 22.0 ]
                 }
             },
             {
@@ -378,8 +324,6 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 423.9759036144579, 400.0, 73.0, 22.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 423.9759036144579, 400.0, 73.0, 22.0 ],
                     "text": "example.jpg"
                 }
             },
@@ -391,9 +335,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 158.9156626506024, 398.7951807228916, 24.0, 24.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 158.9156626506024, 398.7951807228916, 24.0, 24.0 ]
+                    "patching_rect": [ 158.9156626506024, 398.7951807228916, 24.0, 24.0 ]
                 }
             },
             {
@@ -405,9 +347,6 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 301.08433734939763, 690.3614457831326, 244.0, 174.0 ],
-                    "presentation": 1,
-                    "presentation_linecount": 12,
-                    "presentation_rect": [ 301.08433734939763, 690.3614457831326, 244.0, 174.0 ],
                     "text": "\"{\r\n    \\\"payload\\\": {\r\n        \\\"assetAlias\\\": \\\"example.jpg\\\",\r\n        \\\"startOffsetMs\\\": 0,\r\n        \\\"durationMs\\\": 0,\r\n        \\\"loop\\\": \\\"false\\\",\r\n        \\\"transitionMs\\\": 0\r\n    },\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"audio\\\",\r\n    \\\"relativeTimestamp\\\": 0\r\n}\""
                 }
             },
@@ -428,8 +367,6 @@
                     "offset": [ 0.0, 0.0 ],
                     "outlettype": [ "" ],
                     "patching_rect": [ 301.08433734939763, 473.49397590361446, 387.9518072289157, 171.0843373493976 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 301.08433734939763, 473.49397590361446, 387.9518072289157, 171.0843373493976 ],
                     "viewvisibility": 1
                 }
             }

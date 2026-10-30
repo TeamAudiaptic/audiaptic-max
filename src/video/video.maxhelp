@@ -10,7 +10,6 @@
         },
         "classnamespace": "box",
         "rect": [ 127.0, 131.0, 1285.0, 612.0 ],
-        "openinpresentation": 1,
         "boxes": [
             {
                 "box": {
@@ -50,7 +49,6 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 614.3373493975904, 344.5783132530121, 84.0, 55.0 ],
-                    "presentation_linecount": 3,
                     "text": "Start Offset (MS)",
                     "textjustification": 1
                 }
