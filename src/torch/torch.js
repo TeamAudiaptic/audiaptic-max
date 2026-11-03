@@ -23,7 +23,7 @@ function strobeHz(value) {
         error("Torch strobeHz must be a finite number.\n");
         return;
     }
-    strobeHzValue = Math.max(0, Math.min(20, value));
+    strobeHzValue = Math.floor(Math.max(0, Math.min(20, value)));
 }
 
 function dutyCycle(value) {
@@ -31,7 +31,7 @@ function dutyCycle(value) {
         error("Torch dutyCycle must be a finite number.\n");
         return;
     }
-    dutyCycleValue = Math.max(0.05, Math.min(0.95, value));
+    dutyCycleValue = Math.round(Math.max(0.05, Math.min(0.95, value)) * 100) / 100;
 }
 
 function isInteger(value) {

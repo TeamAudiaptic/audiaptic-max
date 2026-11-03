@@ -14,15 +14,79 @@
         "boxes": [
             {
                 "box": {
+                    "comment": "Include strobe: 0 = off, 1 = on",
+                    "id": "strobe-enabled-inlet",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1320.0, 100.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "strobe-enabled-inlet-label",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1320.0, 65.0, 220.0, 20.0 ],
+                    "text": "Inlet 6: strobe enabled (0/1)"
+                }
+            },
+            {
+                "box": {
+                    "comment": "Strobe frequency in Hz (0-20)",
+                    "id": "strobeHz-inlet",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1550.0, 100.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "strobeHz-inlet-label",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1550.0, 65.0, 230.0, 20.0 ],
+                    "text": "Inlet 7: strobe frequency (Hz)"
+                }
+            },
+            {
+                "box": {
+                    "comment": "Strobe duty cycle (0.05-0.95)",
+                    "id": "dutyCycle-inlet",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1790.0, 100.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "dutyCycle-inlet-label",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1790.0, 65.0, 230.0, 20.0 ],
+                    "text": "Inlet 8: strobe duty cycle"
+                }
+            },
+            {
+                "box": {
                     "id": "strobe-pack",
                     "maxclass": "newobj",
                     "numinlets": 3,
                     "numoutlets": 1,
-                    "patching_rect": [ 1400, 680, 280, 22 ],
-                    "text": "dict.pack strobeHz: dutyCycle: @triggers 1",
-                    "outlettype": [
-                        "dictionary"
-                    ]
+                    "outlettype": [ "dictionary" ],
+                    "patching_rect": [ 1400.0, 680.0, 280.0, 22.0 ],
+                    "text": "dict.pack strobeHz: dutyCycle: @triggers 1"
                 }
             },
             {
@@ -31,11 +95,9 @@
                     "maxclass": "newobj",
                     "numinlets": 5,
                     "numoutlets": 1,
-                    "patching_rect": [ 1120, 800, 500, 22 ],
-                    "text": "dict.pack durationMs: intensity: transitionMs: strobe: @triggers 2",
-                    "outlettype": [
-                        "dictionary"
-                    ]
+                    "outlettype": [ "dictionary" ],
+                    "patching_rect": [ 1120.0, 800.0, 500.0, 22.0 ],
+                    "text": "dict.pack durationMs: intensity: transitionMs: strobe: @triggers 2"
                 }
             },
             {
@@ -44,11 +106,9 @@
                     "maxclass": "newobj",
                     "numinlets": 2,
                     "numoutlets": 1,
-                    "patching_rect": [ 1200, 600, 40, 22 ],
-                    "text": "+ 1",
-                    "outlettype": [
-                        ""
-                    ]
+                    "outlettype": [ "int" ],
+                    "patching_rect": [ 1200.0, 600.0, 40.0, 22.0 ],
+                    "text": "+ 1"
                 }
             },
             {
@@ -57,12 +117,9 @@
                     "maxclass": "newobj",
                     "numinlets": 2,
                     "numoutlets": 2,
-                    "patching_rect": [ 1080, 680, 65, 22 ],
-                    "text": "gate 2 1",
-                    "outlettype": [
-                        "",
-                        ""
-                    ]
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 1080.0, 680.0, 65.0, 22.0 ],
+                    "text": "gate 2 1"
                 }
             },
             {
@@ -71,38 +128,25 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 1550, 150, 210, 20 ],
-                    "text": "Strobe frequency (Hz)",
+                    "patching_rect": [ 1550.0, 150.0, 210.0, 20.0 ],
                     "presentation": 1,
-                    "presentation_rect": [
-                        28,
-                        355,
-                        210,
-                        20
-                    ]
+                    "presentation_rect": [ 28.0, 355.0, 210.0, 20.0 ],
+                    "text": "Strobe frequency (Hz)"
                 }
             },
             {
                 "box": {
                     "id": "ui-strobeHz",
-                    "maxclass": "flonum",
+                    "maxclass": "number",
+                    "maximum": 20,
+                    "minimum": 0,
                     "numinlets": 1,
                     "numoutlets": 2,
-                    "patching_rect": [ 1550, 220, 115, 22 ],
-                    "minimum": 0.0,
-                    "maximum": 20.0,
+                    "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "outlettype": [
-                        "",
-                        "bang"
-                    ],
+                    "patching_rect": [ 1550.0, 220.0, 115.0, 22.0 ],
                     "presentation": 1,
-                    "presentation_rect": [
-                        28,
-                        380,
-                        115,
-                        22
-                    ]
+                    "presentation_rect": [ 28.0, 380.0, 115.0, 22.0 ]
                 }
             },
             {
@@ -111,11 +155,9 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "patching_rect": [ 1550, 175, 110, 22 ],
-                    "text": "loadmess 0.0",
-                    "outlettype": [
-                        ""
-                    ]
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1550.0, 175.0, 110.0, 22.0 ],
+                    "text": "loadmess 0."
                 }
             },
             {
@@ -124,11 +166,9 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "patching_rect": [ 1550, 330, 150, 22 ],
-                    "text": "prepend strobeHz",
-                    "outlettype": [
-                        ""
-                    ]
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1550.0, 330.0, 150.0, 22.0 ],
+                    "text": "prepend strobeHz"
                 }
             },
             {
@@ -137,38 +177,28 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 1790, 150, 210, 20 ],
-                    "text": "Duty cycle",
+                    "patching_rect": [ 1790.0, 150.0, 210.0, 20.0 ],
                     "presentation": 1,
-                    "presentation_rect": [
-                        250,
-                        355,
-                        210,
-                        20
-                    ]
+                    "presentation_rect": [ 250.0, 355.0, 210.0, 20.0 ],
+                    "text": "Duty cycle"
                 }
             },
             {
                 "box": {
+                    "format": 6,
+                    "hint": "Drag to the right of the decimal point for 0.01 increments.",
                     "id": "ui-dutyCycle",
                     "maxclass": "flonum",
+                    "maximum": 0.95,
+                    "minimum": 0.05,
+                    "numdecimalplaces": 2,
                     "numinlets": 1,
                     "numoutlets": 2,
-                    "patching_rect": [ 1790, 220, 115, 22 ],
-                    "minimum": 0.05,
-                    "maximum": 0.95,
+                    "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "outlettype": [
-                        "",
-                        "bang"
-                    ],
+                    "patching_rect": [ 1790.0, 220.0, 115.0, 22.0 ],
                     "presentation": 1,
-                    "presentation_rect": [
-                        250,
-                        380,
-                        115,
-                        22
-                    ]
+                    "presentation_rect": [ 250.0, 380.0, 115.0, 22.0 ]
                 }
             },
             {
@@ -177,11 +207,9 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "patching_rect": [ 1790, 175, 110, 22 ],
-                    "text": "loadmess 0.5",
-                    "outlettype": [
-                        ""
-                    ]
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1790.0, 175.0, 110.0, 22.0 ],
+                    "text": "loadmess 0.5"
                 }
             },
             {
@@ -190,11 +218,9 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "patching_rect": [ 1790, 330, 150, 22 ],
-                    "text": "prepend dutyCycle",
-                    "outlettype": [
-                        ""
-                    ]
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1790.0, 330.0, 150.0, 22.0 ],
+                    "text": "prepend dutyCycle"
                 }
             },
             {
@@ -203,18 +229,11 @@
                     "maxclass": "toggle",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "patching_rect": [ 1320, 220, 24, 24 ],
+                    "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "outlettype": [
-                        "int"
-                    ],
+                    "patching_rect": [ 1320.0, 220.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [
-                        28,
-                        320,
-                        24,
-                        24
-                    ]
+                    "presentation_rect": [ 28.0, 320.0, 24.0, 24.0 ]
                 }
             },
             {
@@ -223,15 +242,10 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 1320, 150, 200, 20 ],
-                    "text": "Include strobe",
+                    "patching_rect": [ 1320.0, 150.0, 200.0, 20.0 ],
                     "presentation": 1,
-                    "presentation_rect": [
-                        62,
-                        322,
-                        200,
-                        20
-                    ]
+                    "presentation_rect": [ 62.0, 322.0, 200.0, 20.0 ],
+                    "text": "Include strobe"
                 }
             },
             {
@@ -240,11 +254,9 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "patching_rect": [ 1320, 330, 155, 22 ],
-                    "text": "prepend strobeEnabled",
-                    "outlettype": [
-                        ""
-                    ]
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1320.0, 330.0, 155.0, 22.0 ],
+                    "text": "prepend strobeEnabled"
                 }
             },
             {
@@ -400,19 +412,8 @@
                     "maxclass": "newobj",
                     "numinlets": 10,
                     "numoutlets": 10,
-                    "outlettype": [
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        ""
-                    ],
-                    "patching_rect": [ 40, 530, 1760, 22.0 ],
+                    "outlettype": [ "", "", "", "", "", "", "", "", "", "" ],
+                    "patching_rect": [ 40.0, 530.0, 1760.0, 22.0 ],
                     "text": "route schemaVersion type execTimestamp durationMs intensity transitionMs strobeEnabled strobeHz dutyCycle"
                 }
             },
@@ -423,7 +424,7 @@
                     "numinlets": 4,
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 540, 800, 430.0, 22.0 ],
+                    "patching_rect": [ 540.0, 800.0, 430.0, 22.0 ],
                     "text": "dict.pack durationMs: intensity: transitionMs: @triggers 2"
                 }
             },
@@ -433,7 +434,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 540, 850, 200.0, 20.0 ],
+                    "patching_rect": [ 540.0, 850.0, 200.0, 20.0 ],
                     "text": "Nested payload dictionary"
                 }
             },
@@ -444,7 +445,7 @@
                     "numinlets": 5,
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 40, 930, 600.0, 22.0 ],
+                    "patching_rect": [ 40.0, 930.0, 600.0, 22.0 ],
                     "text": "dict.pack schemaVersion: type: execTimestamp: payload: @triggers 3"
                 }
             },
@@ -454,7 +455,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 680, 930, 600.0, 20.0 ],
+                    "patching_rect": [ 680.0, 930.0, 600.0, 20.0 ],
                     "text": "Outer event dictionary: schemaVersion, type, execTimestamp, payload"
                 }
             },
@@ -465,7 +466,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 40, 1000, 180.0, 22.0 ],
+                    "patching_rect": [ 40.0, 1000.0, 180.0, 22.0 ],
                     "text": "dict.serialize @mode json"
                 }
             },
@@ -475,7 +476,7 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 140, 1060, 125.0, 22.0 ],
+                    "patching_rect": [ 140.0, 1060.0, 125.0, 22.0 ],
                     "text": "print torch-json"
                 }
             },
@@ -487,7 +488,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 40, 1060, 30.0, 30.0 ]
+                    "patching_rect": [ 40.0, 1060.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -530,7 +531,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 2100, 65, 300.0, 32.0 ],
+                    "patching_rect": [ 2100.0, 65.0, 300.0, 32.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 24.0, 18.0, 360.0, 32.0 ],
                     "text": "DAVHI Torch"
@@ -542,7 +543,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 2100, 105, 450.0, 20.0 ],
+                    "patching_rect": [ 2100.0, 105.0, 450.0, 20.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 26.0, 52.0, 420.0, 20.0 ],
                     "text": "Set the event values, then send a torch event."
@@ -606,7 +607,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 2100, 665, 420.0, 20.0 ],
+                    "patching_rect": [ 2100.0, 665.0, 420.0, 20.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 28.0, 222.0, 420.0, 20.0 ],
                     "text": "Use 0 to apply the connection’s universal delay."
@@ -704,265 +705,19 @@
             {
                 "box": {
                     "background": 1,
-                    "bgcolor": [
-                        0.12,
-                        0.14,
-                        0.17,
-                        1
-                    ],
+                    "bgcolor": [ 0.12, 0.14, 0.17, 1 ],
                     "id": "ui-background",
                     "maxclass": "panel",
                     "mode": 0,
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 2100, 145, 480.0, 500.0 ],
+                    "patching_rect": [ 2100.0, 145.0, 480.0, 500.0 ],
                     "presentation": 1,
-                    "presentation_rect": [
-                        0.0,
-                        0.0,
-                        480.0,
-                        425.0
-                    ]
+                    "presentation_rect": [ 0.0, 0.0, 480.0, 425.0 ]
                 }
             }
         ],
         "lines": [
-            {
-                "patchline": {
-                    "source": [
-                        "ui-strobeHz-default",
-                        0
-                    ],
-                    "destination": [
-                        "ui-strobeHz",
-                        0
-                    ],
-                    "midpoints": [ 1559.5, 205, 1560, 205, 1560, 215, 1559.5, 215 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "ui-strobeHz",
-                        0
-                    ],
-                    "destination": [
-                        "strobeHz-message",
-                        0
-                    ],
-                    "midpoints": [ 1559.5, 250, 1560, 250, 1560, 325, 1559.5, 325 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "strobeHz-message",
-                        0
-                    ],
-                    "destination": [
-                        "torch-js",
-                        0
-                    ],
-                    "midpoints": [ 1559.5, 360, 1560, 360, 1560, 455, 49.5, 455 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "ui-dutyCycle-default",
-                        0
-                    ],
-                    "destination": [
-                        "ui-dutyCycle",
-                        0
-                    ],
-                    "midpoints": [ 1799.5, 205, 1800, 205, 1800, 215, 1799.5, 215 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "ui-dutyCycle",
-                        0
-                    ],
-                    "destination": [
-                        "dutyCycle-message",
-                        0
-                    ],
-                    "midpoints": [ 1799.5, 250, 1800, 250, 1800, 325, 1799.5, 325 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "dutyCycle-message",
-                        0
-                    ],
-                    "destination": [
-                        "torch-js",
-                        0
-                    ],
-                    "midpoints": [ 1799.5, 360, 1800, 360, 1800, 455, 49.5, 455 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "ui-strobe-enabled",
-                        0
-                    ],
-                    "destination": [
-                        "strobe-enabled-message",
-                        0
-                    ],
-                    "midpoints": [ 1329.5, 250, 1330, 250, 1330, 325, 1329.5, 325 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "strobe-enabled-message",
-                        0
-                    ],
-                    "destination": [
-                        "torch-js",
-                        0
-                    ],
-                    "midpoints": [ 1329.5, 360, 1330, 360, 1330, 455, 49.5, 455 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "route-fields",
-                        6
-                    ],
-                    "destination": [
-                        "strobe-branch-index",
-                        0
-                    ],
-                    "midpoints": [ 1210.1666666666667, 560, 1210, 560, 1210, 595, 1209.5, 595 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "strobe-branch-index",
-                        0
-                    ],
-                    "destination": [
-                        "strobe-payload-gate",
-                        0
-                    ],
-                    "midpoints": [ 1209.5, 630, 1210, 630, 1210, 675, 1089.5, 675 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "route-fields",
-                        7
-                    ],
-                    "destination": [
-                        "strobe-pack",
-                        0
-                    ],
-                    "midpoints": [ 1403.611111111111, 560, 1405, 560, 1405, 675, 1409.5, 675 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "route-fields",
-                        8
-                    ],
-                    "destination": [
-                        "strobe-pack",
-                        1
-                    ],
-                    "midpoints": [ 1597.0555555555557, 560, 1595, 560, 1595, 675, 1540, 675 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "strobe-pack",
-                        0
-                    ],
-                    "destination": [
-                        "strobe-payload-pack",
-                        3
-                    ],
-                    "midpoints": [ 1409.5, 710, 1410, 710, 1410, 795, 1490.25, 795 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "route-fields",
-                        3
-                    ],
-                    "destination": [
-                        "strobe-payload-pack",
-                        0
-                    ],
-                    "order": 1,
-                    "midpoints": [ 629.8333333333334, 560, 630, 560, 630, 795, 1129.5, 795 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "route-fields",
-                        4
-                    ],
-                    "destination": [
-                        "strobe-payload-pack",
-                        1
-                    ],
-                    "order": 1,
-                    "midpoints": [ 823.2777777777778, 560, 825, 560, 825, 795, 1249.75, 795 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "strobe-payload-gate",
-                        0
-                    ],
-                    "destination": [
-                        "payload-dict-pack",
-                        2
-                    ],
-                    "midpoints": [ 1089.5, 710, 1090, 710, 1090, 795, 823.5, 795 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "strobe-payload-gate",
-                        1
-                    ],
-                    "destination": [
-                        "strobe-payload-pack",
-                        2
-                    ],
-                    "midpoints": [ 1135.5, 710, 1135, 710, 1135, 795, 1370, 795 ]
-                }
-            },
-            {
-                "patchline": {
-                    "source": [
-                        "strobe-payload-pack",
-                        0
-                    ],
-                    "destination": [
-                        "event-dict-pack",
-                        3
-                    ],
-                    "midpoints": [ 1129.5, 830, 1130, 830, 1130, 925, 485.25, 925 ]
-                }
-            },
             {
                 "patchline": {
                     "destination": [ "duration-message", 0 ],
@@ -979,9 +734,22 @@
             },
             {
                 "patchline": {
+                    "destination": [ "dutyCycle-message", 0 ],
+                    "source": [ "dutyCycle-inlet", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "torch-js", 0 ],
+                    "midpoints": [ 1799.5, 360.0, 1800.0, 360.0, 1800.0, 455.0, 49.5, 455.0 ],
+                    "source": [ "dutyCycle-message", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "json-view", 0 ],
-                    "source": [ "event-dict-pack", 0 ],
-                    "midpoints": [ 49.5, 960, 50, 960, 50, 995, 49.5, 995 ]
+                    "midpoints": [ 49.5, 960.0, 50.0, 960.0, 50.0, 995.0, 49.5, 995.0 ],
+                    "source": [ "event-dict-pack", 0 ]
                 }
             },
             {
@@ -1001,86 +769,105 @@
             {
                 "patchline": {
                     "destination": [ "output", 0 ],
+                    "midpoints": [ 49.5, 1030.0, 50.0, 1030.0, 50.0, 1055.0, 49.5, 1055.0 ],
                     "order": 1,
-                    "source": [ "json-view", 0 ],
-                    "midpoints": [ 49.5, 1030, 50, 1030, 50, 1055, 49.5, 1055 ]
+                    "source": [ "json-view", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "print-output", 0 ],
+                    "midpoints": [ 49.5, 1030.0, 50.0, 1030.0, 50.0, 1055.0, 149.5, 1055.0 ],
                     "order": 0,
-                    "source": [ "json-view", 0 ],
-                    "midpoints": [ 49.5, 1030, 50, 1030, 50, 1055, 149.5, 1055 ]
+                    "source": [ "json-view", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "event-dict-pack", 3 ],
-                    "source": [ "payload-dict-pack", 0 ],
-                    "midpoints": [ 549.5, 830, 485, 830, 485, 925, 485.25, 925 ]
+                    "midpoints": [ 549.5, 830.0, 485.0, 830.0, 485.0, 925.0, 485.25, 925.0 ],
+                    "source": [ "payload-dict-pack", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "event-dict-pack", 2 ],
-                    "midpoints": [ 436.3888888888889, 560, 435, 560, 435, 925, 340, 925 ],
+                    "midpoints": [ 436.3888888888889, 560.0, 435.0, 560.0, 435.0, 925.0, 340.0, 925.0 ],
                     "source": [ "route-fields", 2 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "event-dict-pack", 1 ],
-                    "midpoints": [ 242.94444444444446, 560, 245, 560, 245, 925, 194.75, 925 ],
+                    "midpoints": [ 242.94444444444446, 560.0, 245.0, 560.0, 245.0, 925.0, 194.75, 925.0 ],
                     "source": [ "route-fields", 1 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "event-dict-pack", 0 ],
-                    "midpoints": [ 49.5, 560, 50, 560, 50, 925, 49.5, 925 ],
+                    "midpoints": [ 49.5, 560.0, 50.0, 560.0, 50.0, 925.0, 49.5, 925.0 ],
                     "source": [ "route-fields", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "strobe-payload-gate",
-                        1
-                    ],
-                    "source": [
-                        "route-fields",
-                        5
-                    ],
-                    "midpoints": [ 1016.7222222222222, 560, 1015, 560, 1015, 675, 1135.5, 675 ]
+                    "destination": [ "payload-dict-pack", 1 ],
+                    "midpoints": [ 823.2777777777778, 560.0, 825.0, 560.0, 825.0, 795.0, 686.5, 795.0 ],
+                    "order": 1,
+                    "source": [ "route-fields", 4 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "payload-dict-pack",
-                        1
-                    ],
-                    "midpoints": [ 823.2777777777778, 560, 825, 560, 825, 795, 686.5, 795 ],
-                    "source": [
-                        "route-fields",
-                        4
-                    ],
-                    "order": 0
+                    "destination": [ "payload-dict-pack", 0 ],
+                    "midpoints": [ 629.8333333333334, 560.0, 630.0, 560.0, 630.0, 795.0, 549.5, 795.0 ],
+                    "order": 1,
+                    "source": [ "route-fields", 3 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [
-                        "payload-dict-pack",
-                        0
-                    ],
-                    "midpoints": [ 629.8333333333334, 560, 630, 560, 630, 795, 549.5, 795 ],
-                    "source": [
-                        "route-fields",
-                        3
-                    ],
-                    "order": 0
+                    "destination": [ "strobe-branch-index", 0 ],
+                    "midpoints": [ 1210.1666666666667, 560.0, 1210.0, 560.0, 1210.0, 595.0, 1209.5, 595.0 ],
+                    "source": [ "route-fields", 6 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "strobe-pack", 1 ],
+                    "midpoints": [ 1597.0555555555557, 560.0, 1595.0, 560.0, 1595.0, 675.0, 1540.0, 675.0 ],
+                    "source": [ "route-fields", 8 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "strobe-pack", 0 ],
+                    "midpoints": [ 1403.611111111111, 560.0, 1405.0, 560.0, 1405.0, 675.0, 1409.5, 675.0 ],
+                    "source": [ "route-fields", 7 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "strobe-payload-gate", 1 ],
+                    "midpoints": [ 1016.7222222222222, 560.0, 1015.0, 560.0, 1015.0, 675.0, 1135.5, 675.0 ],
+                    "source": [ "route-fields", 5 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "strobe-payload-pack", 1 ],
+                    "midpoints": [ 823.2777777777778, 560.0, 825.0, 560.0, 825.0, 795.0, 1249.75, 795.0 ],
+                    "order": 0,
+                    "source": [ "route-fields", 4 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "strobe-payload-pack", 0 ],
+                    "midpoints": [ 629.8333333333334, 560.0, 630.0, 560.0, 630.0, 795.0, 1129.5, 795.0 ],
+                    "order": 0,
+                    "source": [ "route-fields", 3 ]
                 }
             },
             {
@@ -1088,6 +875,67 @@
                     "destination": [ "torch-js", 0 ],
                     "midpoints": [ 1089.5, 370.0, 49.5, 370.0 ],
                     "source": [ "send-inlet", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "strobe-payload-gate", 0 ],
+                    "midpoints": [ 1209.5, 630.0, 1210.0, 630.0, 1210.0, 675.0, 1089.5, 675.0 ],
+                    "source": [ "strobe-branch-index", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "strobe-enabled-message", 0 ],
+                    "source": [ "strobe-enabled-inlet", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "torch-js", 0 ],
+                    "midpoints": [ 1329.5, 360.0, 1330.0, 360.0, 1330.0, 455.0, 49.5, 455.0 ],
+                    "source": [ "strobe-enabled-message", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "strobe-payload-pack", 3 ],
+                    "midpoints": [ 1409.5, 710.0, 1410.0, 710.0, 1410.0, 795.0, 1490.25, 795.0 ],
+                    "source": [ "strobe-pack", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "payload-dict-pack", 2 ],
+                    "midpoints": [ 1089.5, 710.0, 1090.0, 710.0, 1090.0, 795.0, 823.5, 795.0 ],
+                    "source": [ "strobe-payload-gate", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "strobe-payload-pack", 2 ],
+                    "midpoints": [ 1135.5, 710.0, 1135.0, 710.0, 1135.0, 795.0, 1370.0, 795.0 ],
+                    "source": [ "strobe-payload-gate", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "event-dict-pack", 3 ],
+                    "midpoints": [ 1129.5, 830.0, 1130.0, 830.0, 1130.0, 925.0, 485.25, 925.0 ],
+                    "source": [ "strobe-payload-pack", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "strobeHz-message", 0 ],
+                    "source": [ "strobeHz-inlet", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "torch-js", 0 ],
+                    "midpoints": [ 1559.5, 360.0, 1560.0, 360.0, 1560.0, 455.0, 49.5, 455.0 ],
+                    "source": [ "strobeHz-message", 0 ]
                 }
             },
             {
@@ -1107,8 +955,8 @@
             {
                 "patchline": {
                     "destination": [ "route-fields", 0 ],
-                    "source": [ "torch-js", 0 ],
-                    "midpoints": [ 49.5, 490, 50, 490, 50, 525, 49.5, 525 ]
+                    "midpoints": [ 49.5, 490.0, 50.0, 490.0, 50.0, 525.0, 49.5, 525.0 ],
+                    "source": [ "torch-js", 0 ]
                 }
             },
             {
@@ -1140,6 +988,20 @@
             },
             {
                 "patchline": {
+                    "destination": [ "dutyCycle-message", 0 ],
+                    "midpoints": [ 1799.5, 250.0, 1800.0, 250.0, 1800.0, 325.0, 1799.5, 325.0 ],
+                    "source": [ "ui-dutyCycle", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "ui-dutyCycle", 0 ],
+                    "midpoints": [ 1799.5, 205.0, 1800.0, 205.0, 1800.0, 215.0, 1799.5, 215.0 ],
+                    "source": [ "ui-dutyCycle-default", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "ui-intensity-value", 0 ],
                     "source": [ "ui-intensity-default", 0 ]
                 }
@@ -1160,6 +1022,27 @@
             },
             {
                 "patchline": {
+                    "destination": [ "strobe-enabled-message", 0 ],
+                    "midpoints": [ 1329.5, 250.0, 1330.0, 250.0, 1330.0, 325.0, 1329.5, 325.0 ],
+                    "source": [ "ui-strobe-enabled", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "strobeHz-message", 0 ],
+                    "midpoints": [ 1559.5, 250.0, 1560.0, 250.0, 1560.0, 325.0, 1559.5, 325.0 ],
+                    "source": [ "ui-strobeHz", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "ui-strobeHz", 0 ],
+                    "midpoints": [ 1559.5, 205.0, 1560.0, 205.0, 1560.0, 215.0, 1559.5, 215.0 ],
+                    "source": [ "ui-strobeHz-default", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "timestamp-message", 0 ],
                     "midpoints": [ 364.5, 290.0, 309.5, 290.0 ],
                     "source": [ "ui-timestamp-value", 0 ]
@@ -1173,6 +1056,17 @@
                 }
             }
         ],
+        "parameters": {
+            "parameterbanks": {
+                "0": {
+                    "index": 0,
+                    "name": "",
+                    "parameters": [ "-", "-", "-", "-", "-", "-", "-", "-" ],
+                    "buttons": [ "-", "-", "-", "-", "-", "-", "-", "-" ]
+                }
+            },
+            "inherited_shortname": 1
+        },
         "autosave": 0
     }
 }
