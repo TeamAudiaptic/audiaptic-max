@@ -3,13 +3,13 @@
         "fileversion": 1,
         "appversion": {
             "major": 9,
-            "minor": 1,
-            "revision": 5,
+            "minor": 2,
+            "revision": 0,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 127.0, 131.0, 981.0, 612.0 ],
+        "rect": [ 145.0, 130.0, 981.0, 612.0 ],
         "boxes": [
             {
                 "box": {
@@ -66,7 +66,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 246.0, 261.0, 151.0, 70.0 ],
+                    "patching_rect": [ 246.0, 261.0, 155.0, 70.0 ],
                     "text": "Append options to the dropdown with a comma seperated list",
                     "textjustification": 1
                 }
@@ -326,7 +326,7 @@
                     "numoutlets": 1,
                     "offset": [ 0.0, 0.0 ],
                     "outlettype": [ "" ],
-                    "patching_rect": [ 313.0, 414.0, 302.0, 175.0 ],
+                    "patching_rect": [ 313.0, 414.0, 302.0, 184.0 ],
                     "viewvisibility": 1
                 }
             }
