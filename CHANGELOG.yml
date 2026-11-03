@@ -49,3 +49,13 @@ entries:
     emoji: ✨
     label: Feature
     message: Image Max Patch
+- id: 6
+  pr: 54
+  author: ejs8021
+  time: '2026-11-03T22:54:31+00:00'
+  url: https://github.com/TeamAudiaptic/audiaptic-max/pull/54
+  changes:
+  - type: feature
+    emoji: ✨
+    label: Feature
+    message: Max patches for audio and video events
