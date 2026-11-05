@@ -103,6 +103,40 @@ async function emitError(scope, eventId, message) {
 	await maxAPI.outlet("error", scope, eventId || "-", message);
 }
 
+function isStringArray(value) {
+	return Array.isArray(value) && value.every(item => typeof item === "string");
+}
+
+/**
+ * See https://teamaudiaptic.github.io/audiaptic-docs/docs/dev-docs/events/acknowledgements
+ *
+ * @param {object} message The parsed server message with type "ack".
+ * @returns {string | null} Why the ack is malformed, or null when it is valid.
+ */
+function ackProblem(message) {
+	if (!Number.isInteger(message.status)) {
+		return "Acknowledgement requires an integer status";
+	}
+	if (!isStringArray(message.accepted)) {
+		return "Acknowledgement requires accepted to be a list of eventIds";
+	}
+	const rejectionIsValid = rejection => rejection !== null &&
+		typeof rejection === "object" &&
+		isNonNegativeInteger(rejection.index) &&
+		(typeof rejection.eventId === "string" || rejection.eventId === null) &&
+		isStringArray(rejection.errors);
+	if (!Array.isArray(message.rejected) || !message.rejected.every(rejectionIsValid)) {
+		return "Acknowledgement requires rejected to be a list of { index, eventId, errors }";
+	}
+	if (!isNonNegativeInteger(message.deliveredTo)) {
+		return "Acknowledgement requires deliveredTo to be a non-negative integer";
+	}
+	if (!isStringArray(message.errors)) {
+		return "Acknowledgement requires errors to be a list of strings";
+	}
+	return null;
+}
+
 async function handleInboundMessage(rawMessage) {
 	let message;
 	try {
@@ -118,8 +152,9 @@ async function handleInboundMessage(rawMessage) {
 	}
 
 	if (message.type === "ack") {
-		if (typeof message.eventId !== "string" || !Number.isInteger(message.status)) {
-			await emitError("protocol", "-", "Acknowledgement requires eventId and integer status");
+		const problem = ackProblem(message);
+		if (problem !== null) {
+			await emitError("protocol", "-", problem);
 			return;
 		}
 		await maxAPI.outlet("ack", rawMessage.toString());
