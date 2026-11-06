@@ -9,9 +9,20 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 611.0, 107.0, 592.0, 778.0 ],
+        "rect": [ 329.0, 86.0, 620.0, 515.0 ],
         "openinpresentation": 1,
         "boxes": [
+            {
+                "box": {
+                    "comment": "Node Script Debug Output",
+                    "id": "obj-9",
+                    "index": 0,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 794.0, 390.0, 30.0, 30.0 ]
+                }
+            },
             {
                 "box": {
                     "comment": "Send a bang to stop the connection",
@@ -272,7 +283,6 @@
             },
             {
                 "box": {
-                    "hidden": 1,
                     "id": "install",
                     "maxclass": "message",
                     "numinlets": 2,
@@ -284,7 +294,6 @@
             },
             {
                 "box": {
-                    "hidden": 1,
                     "id": "start-connection",
                     "maxclass": "message",
                     "numinlets": 2,
@@ -296,7 +305,6 @@
             },
             {
                 "box": {
-                    "hidden": 1,
                     "id": "stop-connection",
                     "maxclass": "message",
                     "numinlets": 2,
@@ -374,6 +382,8 @@
                     "saved_object_attributes": {
                         "autostart": 1,
                         "defer": 0,
+                        "node_bin_path": "",
+                        "npm_bin_path": "",
                         "watch": 0
                     },
                     "text": "node.script connection.js @autostart 1",
@@ -430,6 +440,12 @@
                     "destination": [ "node", 0 ],
                     "midpoints": [ 609.5, 255.0, 573.0, 255.0, 573.0, 345.0, 609.5, 345.0 ],
                     "source": [ "install", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-9", 0 ],
+                    "source": [ "node", 1 ]
                 }
             },
             {
