@@ -21,19 +21,25 @@ function isNormalizedNumber(value) {
 
 function requirePlainObject(value, field) {
 	if (!isPlainObject(value)) {
-		throw new Error(`${field} must be an object`);
+		throw new Error(`${field} must be an object and is ${value}`);
 	}
 }
 
 function requireString(value, field) {
 	if (typeof value !== "string" || value.length === 0) {
-		throw new Error(`${field} must be a non-empty string`);
+		throw new Error(`${field} must be a non-empty string and is ${value}`);
 	}
 }
 
 function requireDuration(value, field) {
 	if (!isNonNegativeInteger(value)) {
-		throw new Error(`${field} must be a non-negative integer in milliseconds`);
+		throw new Error(`${field} must be a non-negative integer in milliseconds and is ${value}`);
+	}
+}
+
+function requireNullOrNonNegativeInt(value, field) {
+	if (value !== undefined && value !== null && !isNonNegativeInteger(value)) {
+		throw new Error(`${field} must be null or non-negative integer in milliseconds and is ${value}`);
 	}
 }
 
@@ -52,10 +58,10 @@ function validateOptionalTransition(payload) {
 function validateHapticPayload(payload) {
 	requirePlainObject(payload, "payload");
 	if (!isNormalizedNumber(payload.intensity)) {
-		throw new Error("payload.intensity must be a number from 0 through 1");
+		throw new Error("payload.intensity must be a number from 0 through 1 and is ${value}");
 	}
 	if (payload.sharpness !== undefined && !isNormalizedNumber(payload.sharpness)) {
-		throw new Error("payload.sharpness must be a number from 0 through 1");
+		throw new Error("payload.sharpness must be a number from 0 through 1 and is ${value}");
 	}
 	requireDuration(payload.durationMs, "payload.durationMs");
 	validateOptionalTransition(payload);
@@ -65,7 +71,7 @@ function validateTorchPayload(payload) {
 	requirePlainObject(payload, "payload");
 	requireDuration(payload.durationMs, "payload.durationMs");
 	if (payload.intensity !== undefined && !Number.isSafeInteger(payload.intensity)) {
-		throw new Error("payload.intensity must be an integer");
+		throw new Error("payload.intensity must be an integer and is ${value}");
 	}
 	validateOptionalTransition(payload);
 }
@@ -73,7 +79,7 @@ function validateTorchPayload(payload) {
 function validateColorPayload(payload) {
 	requirePlainObject(payload, "payload");
 	if (typeof payload.color !== "string" || !/^#[0-9A-Fa-f]{6}$/.test(payload.color)) {
-		throw new Error('payload.color must be a six-digit sRGB hex string such as "#0057FF"');
+		throw new Error(`payload.color must be a six-digit sRGB hex string and is ${value}`);
 	}
 	requireDuration(payload.durationMs, "payload.durationMs");
 	validateOptionalTransition(payload);
@@ -82,7 +88,7 @@ function validateColorPayload(payload) {
 function validateCaptionPayload(payload) {
 	requirePlainObject(payload, "payload");
 	if (typeof payload.text !== "string") {
-		throw new Error("payload.text must be a string");
+		throw new Error(`payload.text must be a string and is ${typeof payload.text}`);
 	}
 	validateOptionalDuration(payload, "durationMs");
 }
@@ -146,9 +152,8 @@ function validateEvent(event) {
 	}
 	requireString(event.type, "type");
 	requireDuration(event.sentTimestamp, "sentTimestamp");
-	if (event.execTimestamp !== null && !isNonNegativeInteger(event.execTimestamp)) {
-		throw new Error("execTimestamp must be null or a non-negative Unix timestamp in milliseconds");
-	}
+	requireNullOrNonNegativeInt(event.epochTimestamp, "epochTimestamp");
+	requireNullOrNonNegativeInt(event.realativeTimestamp, "relativeTimestamp");
 	validatePayload(event.type, event.payload);
 }
 
