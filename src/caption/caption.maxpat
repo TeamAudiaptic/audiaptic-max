@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 144.0, 197.0, 1221.0, 710.0 ],
+        "rect": [ 174.0, 126.0, 1221.0, 573.0 ],
         "openinpresentation": 1,
         "boxes": [
             {
@@ -84,8 +84,8 @@
                     "numinlets": 4,
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 35.0, 364.0, 620.0, 22.0 ],
-                    "text": "dict.pack schemaVersion: type: caption execTimestamp: payload: @triggers 3 @unmatched 0"
+                    "patching_rect": [ 35.0, 364.0, 519.0, 22.0 ],
+                    "text": "dict.pack schemaVersion: type: caption relativeTimestamp: payload: @triggers 3 @unmatched 0"
                 }
             },
             {

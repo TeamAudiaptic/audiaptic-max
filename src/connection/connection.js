@@ -3,7 +3,7 @@ const { randomUUID } = require("crypto");
 const WebSocket = require("ws");
 const dotenv = require("dotenv");
 const maxAPI = require("max-api");
-const { validateEvent } = require("../shared/validation-utils");
+const { validateEvent } = require("./validation-utils");
 
 const ENV_PATH = path.join(__dirname, ".env");
 
@@ -42,13 +42,21 @@ function parseEvent(argumentsList) {
 	}
 }
 
-function resolveExecTimestamp(event) {
-	if (Object.hasOwn(event, "execTimestamp") &&
-		event.execTimestamp !== null &&
-		event.execTimestamp !== 0
+function resolveEpochTimestamp(event) {
+	if (Object.hasOwn(event, "epochTimestamp") &&
+		event.epochTimestamp !== null &&
+		event.epochTimestamp !== 0
 	) {
-		return event.execTimestamp;
+		return event.epochTimestamp;
 	}
+
+	if (Object.hasOwn(event, "relativeTimestamp") &&
+		event.relativeTimestamp !== null &&
+		event.relativeTimestamp !== 0
+	) {
+		return null;
+	}
+
 	return Date.now() + universalDelayMs;
 }
 
@@ -100,6 +108,7 @@ function socketIsOpen() {
 }
 
 async function emitError(scope, eventId, message) {
+	console.warn(`API Error in ${scope} with event id ${eventId}:${message}`);
 	await maxAPI.outlet("error", scope, eventId || "-", message);
 }
 
@@ -269,9 +278,10 @@ async function send(...argumentsList) {
 	let event;
 	try {
 		event = assignEventIdentity(parseEvent(argumentsList));
-		event = { ...event, execTimestamp: resolveExecTimestamp(event), sentTimestamp: Date.now() };
+		event = { ...event, epochTimestamp: resolveEpochTimestamp(event), sentTimestamp: Date.now() };
 		validateEvent(event);
 	} catch (error) {
+		console.warn(`Format invalid for event: ${JSON.stringify(event)}`);
 		await emitError("send", event && event.eventId, error.message);
 		return;
 	}
@@ -282,10 +292,11 @@ async function send(...argumentsList) {
 	}
 
 	try {
+		console.log(`send: ${JSON.stringify(event)}`);
 		await new Promise((resolve, reject) => {
 			socket.send(JSON.stringify(event), error => (error ? reject(error) : resolve()));
 		});
-		await maxAPI.outlet("sent", event.eventId, event.execTimestamp === null ? "null" : event.execTimestamp);
+		await maxAPI.outlet("sent", event.eventId, event.epochTimestamp === null ? "null" : event.epochTimestamp);
 		await maxAPI.outlet("sent", JSON.stringify(event));
 	} catch (error) {
 		await emitError("send", event.eventId, error.message);

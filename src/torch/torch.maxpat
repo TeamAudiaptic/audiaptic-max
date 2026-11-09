@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 436.0, 228.0, 980.0, 540.0 ],
+        "rect": [ 435.0, 228.0, 980.0, 540.0 ],
         "openinpresentation": 1,
         "boxes": [
             {
@@ -322,7 +322,7 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 300.0, 65.0, 250.0, 20.0 ],
-                    "text": "Inlet 2: exec timestamp (ms)"
+                    "text": "Inlet 2: timestamp (ms)"
                 }
             },
             {
@@ -445,8 +445,8 @@
                     "numinlets": 5,
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 40.0, 930.0, 600.0, 22.0 ],
-                    "text": "dict.pack schemaVersion: type: execTimestamp: payload: @triggers 3"
+                    "patching_rect": [ 40.0, 930.0, 392.0, 22.0 ],
+                    "text": "dict.pack schemaVersion: type: relativeTimestamp: payload: @triggers 3"
                 }
             },
             {
@@ -584,7 +584,7 @@
                     "patching_rect": [ 355.0, 150.0, 250.0, 20.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 28.0, 163.0, 320.0, 20.0 ],
-                    "text": "Execution timestamp (Unix ms)"
+                    "text": "Execution timestamp (ms)"
                 }
             },
             {
@@ -785,21 +785,21 @@
             {
                 "patchline": {
                     "destination": [ "event-dict-pack", 3 ],
-                    "midpoints": [ 549.5, 830.0, 485.0, 830.0, 485.0, 925.0, 485.25, 925.0 ],
+                    "midpoints": [ 549.5, 830.0, 485.0, 830.0, 485.0, 925.0, 329.25, 925.0 ],
                     "source": [ "payload-dict-pack", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "event-dict-pack", 2 ],
-                    "midpoints": [ 436.3888888888889, 560.0, 435.0, 560.0, 435.0, 925.0, 340.0, 925.0 ],
+                    "midpoints": [ 436.3888888888889, 560.0, 435.0, 560.0, 435.0, 925.0, 236.0, 925.0 ],
                     "source": [ "route-fields", 2 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "event-dict-pack", 1 ],
-                    "midpoints": [ 242.94444444444446, 560.0, 245.0, 560.0, 245.0, 925.0, 194.75, 925.0 ],
+                    "midpoints": [ 242.94444444444446, 560.0, 245.0, 560.0, 245.0, 925.0, 142.75, 925.0 ],
                     "source": [ "route-fields", 1 ]
                 }
             },
@@ -921,7 +921,7 @@
             {
                 "patchline": {
                     "destination": [ "event-dict-pack", 3 ],
-                    "midpoints": [ 1129.5, 830.0, 1130.0, 830.0, 1130.0, 925.0, 485.25, 925.0 ],
+                    "midpoints": [ 1129.5, 830.0, 1130.0, 830.0, 1130.0, 925.0, 329.25, 925.0 ],
                     "source": [ "strobe-payload-pack", 0 ]
                 }
             },
@@ -1056,17 +1056,6 @@
                 }
             }
         ],
-        "parameters": {
-            "parameterbanks": {
-                "0": {
-                    "index": 0,
-                    "name": "",
-                    "parameters": [ "-", "-", "-", "-", "-", "-", "-", "-" ],
-                    "buttons": [ "-", "-", "-", "-", "-", "-", "-", "-" ]
-                }
-            },
-            "inherited_shortname": 1
-        },
         "autosave": 0
     }
 }
