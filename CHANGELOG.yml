@@ -59,3 +59,17 @@ entries:
     emoji: ✨
     label: Feature
     message: Max patches for audio and video events
+- id: 7
+  pr: 58
+  author: ejs8021
+  time: '2026-11-10T22:07:25+00:00'
+  url: https://github.com/TeamAudiaptic/audiaptic-max/pull/58
+  changes:
+  - type: feature
+    emoji: ✨
+    label: Feature
+    message: Improved debugging for max connection patch NodeJS script
+  - type: fix
+    emoji: 🐛
+    label: Fix
+    message: Updated max patches to follow new relative timestamp format
