@@ -3,7 +3,6 @@ const { randomUUID } = require("crypto");
 const WebSocket = require("ws");
 const dotenv = require("dotenv");
 const maxAPI = require("max-api");
-const { validateEvent } = require("./validation-utils");
 
 const ENV_PATH = path.join(__dirname, ".env");
 
@@ -17,28 +16,29 @@ function isNonNegativeInteger(value) {
 }
 
 /**
- * Converts an event received from Max into a JavaScript value.
+ * Converts a frame received from Max into a JavaScript value: either one event
+ * or a list of events.
  *
- * Event patches normally send a serialized JSON event. Depending on how the
- * Max message is produced, that JSON can arrive as one string atom or several
- * whitespace-delimited atoms. Rejoining the latter with spaces preserves valid
- * JSON whitespace before parsing. A direct object is also accepted for
- * programmatic callers.
+ * Event patches normally send a serialized JSON event or list of events.
+ * Depending on how the Max message is produced, that JSON can arrive as one
+ * string atom or several whitespace-delimited atoms. Rejoining the latter with
+ * spaces preserves valid JSON whitespace before parsing. A direct object or
+ * array is also accepted for programmatic callers.
  *
  * @param {unknown[]} argumentsList The arguments received by the send handler.
- * @returns {*} The direct object or value parsed from the JSON input.
+ * @returns {*} The direct value or the value parsed from the JSON input.
  * @throws {Error} If the serialized input is not valid JSON.
  */
-function parseEvent(argumentsList) {
-	if (argumentsList.length === 1 && argumentsList[0] !== null && typeof argumentsList[0] === "object" && !Array.isArray(argumentsList[0])) {
+function parseFrame(argumentsList) {
+	if (argumentsList.length === 1 && argumentsList[0] !== null && typeof argumentsList[0] === "object") {
 		return argumentsList[0];
 	}
 
-	const rawEvent = argumentsList.join(" ");
+	const rawFrame = argumentsList.join(" ");
 	try {
-		return JSON.parse(rawEvent);
+		return JSON.parse(rawFrame);
 	} catch (error) {
-		throw new Error(`send requires a JSON event object: ${error.message}`);
+		throw new Error(`send requires a JSON event or list of events: ${error.message}`);
 	}
 }
 
@@ -121,16 +121,9 @@ async function handleInboundMessage(rawMessage) {
 		return;
 	}
 
-	if (message === null || typeof message !== "object" || Array.isArray(message) || typeof message.type !== "string") {
-		await emitError("protocol", "-", "Server message must include a string type");
-		return;
-	}
-
-	if (message.type === "ack") {
-		if (typeof message.eventId !== "string" || !Number.isInteger(message.status)) {
-			await emitError("protocol", "-", "Acknowledgement requires eventId and integer status");
-			return;
-		}
+	// Acks are not validated here; the server owns their shape. See
+	// https://teamaudiaptic.github.io/audiaptic-docs/docs/dev-docs/events/acknowledgements
+	if (message !== null && typeof message === "object" && message.type === "ack") {
 		await maxAPI.outlet("ack", rawMessage.toString());
 		return;
 	}
@@ -239,32 +232,59 @@ async function setDelay(value) {
 	await maxAPI.outlet("delay", universalDelayMs);
 }
 
+/**
+ * Prepares a parsed frame for the server. A single event gets an identity, a
+ * resolved epochTimestamp, and a sentTimestamp. Each event in a list gets an
+ * identity and a sentTimestamp only, with sequences in list order; list events
+ * are expected to carry their own timing, so it is not changed.
+ *
+ * @param {*} frame A single event or a list of events.
+ * @returns {object | object[]} The frame to send, in the same form it arrived.
+ */
+function prepareFrame(frame) {
+	const sentTimestamp = Date.now();
+	if (Array.isArray(frame)) {
+		return frame.map(event => ({ ...assignEventIdentity(event), sentTimestamp }));
+	}
+
+	const event = assignEventIdentity(frame);
+	return { ...event, epochTimestamp: resolveEpochTimestamp(event), sentTimestamp };
+}
+
+async function emitErrorForEach(events, message) {
+	for (const event of events) {
+		await emitError("send", event.eventId, message);
+	}
+}
+
 async function send(...argumentsList) {
-	let event;
+	let frame;
 	try {
-		event = assignEventIdentity(parseEvent(argumentsList));
-		event = { ...event, epochTimestamp: resolveEpochTimestamp(event), sentTimestamp: Date.now() };
-		validateEvent(event);
+		frame = prepareFrame(parseFrame(argumentsList));
 	} catch (error) {
-		console.warn(`Format invalid for event: ${JSON.stringify(event)}`);
-		await emitError("send", event && event.eventId, error.message);
+		await emitError("send", "-", error.message);
 		return;
 	}
+	const events = Array.isArray(frame) ? frame : [frame];
 
 	if (!socketIsOpen()) {
-		await emitError("send", event.eventId, "WebSocket is not connected");
+		await emitErrorForEach(events, "WebSocket is not connected");
 		return;
 	}
 
+	const serializedFrame = JSON.stringify(frame);
 	try {
-		console.log(`send: ${JSON.stringify(event)}`);
+		console.log(`send: ${serializedFrame}`);
 		await new Promise((resolve, reject) => {
-			socket.send(JSON.stringify(event), error => (error ? reject(error) : resolve()));
+			socket.send(serializedFrame, error => (error ? reject(error) : resolve()));
 		});
-		await maxAPI.outlet("sent", event.eventId, event.epochTimestamp === null ? "null" : event.epochTimestamp);
-		await maxAPI.outlet("sent", JSON.stringify(event));
+		for (const event of events) {
+			const epochTimestamp = event.epochTimestamp === undefined || event.epochTimestamp === null ? "null" : event.epochTimestamp;
+			await maxAPI.outlet("sent", event.eventId, epochTimestamp);
+		}
+		await maxAPI.outlet("sent", serializedFrame);
 	} catch (error) {
-		await emitError("send", event.eventId, error.message);
+		await emitErrorForEach(events, error.message);
 	}
 }
 
