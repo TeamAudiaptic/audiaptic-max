@@ -19,7 +19,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 430.0, 93.0, 150.0, 20.0 ],
+                    "patching_rect": [ 995.0, 14.5, 150.0, 20.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 249.0, 101.0, 104.0, 20.0 ],
                     "text": "Exec Timestamp"
@@ -43,7 +43,7 @@
                 "box": {
                     "comment": "Timestamp",
                     "id": "obj-14",
-                    "index": 7,
+                    "index": 0,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -136,7 +136,7 @@
                 "box": {
                     "comment": "Transition MS",
                     "id": "obj-26",
-                    "index": 6,
+                    "index": 0,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -148,7 +148,7 @@
                 "box": {
                     "comment": "Duration MS",
                     "id": "obj-25",
-                    "index": 5,
+                    "index": 0,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -217,13 +217,13 @@
             {
                 "box": {
                     "id": "obj-76",
-                    "linecount": 13,
+                    "linecount": 12,
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 484.0, 590.0, 142.0, 188.0 ],
-                    "text": "\"{\r\n    \\\"payload\\\": {\r\n        \\\"color\\\": \\\"#000000\\\",\r\n        \\\"durationMs\\\": 0,\r\n        \\\"transitionMs\\\": 0,\r\n        \\\"execTimestamp\\\": 0\r\n    },\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"color\\\"\r\n}\""
+                    "patching_rect": [ 484.0, 590.0, 142.0, 174.0 ],
+                    "text": "\"{\r\n    \\\"payload\\\": {\r\n        \\\"color\\\": \\\"#000000\\\",\r\n        \\\"durationMs\\\": 0,\r\n        \\\"transitionMs\\\": 0\r\n    },\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"color\\\",\r\n    \\\"execTimestamp\\\": 0\r\n}\""
                 }
             },
             {
@@ -433,8 +433,8 @@
                     "numinlets": 5,
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 587.0, 460.0, 353.0, 22.0 ],
-                    "text": "dict.pack color payload: schemaVersion: type: execTimestamp: 0"
+                    "patching_rect": [ 587.0, 460.0, 366.0, 22.0 ],
+                    "text": "dict.pack color payload: schemaVersion: type: relativeTimestamp: 0"
                 }
             },
             {
@@ -454,7 +454,7 @@
                     "comment": "Activation (send Bang to trigger event)",
                     "hint": "",
                     "id": "obj-10",
-                    "index": 1,
+                    "index": 0,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -467,7 +467,7 @@
                     "annotation": "Color event JSON string",
                     "comment": "",
                     "id": "obj-6",
-                    "index": 1,
+                    "index": 0,
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
@@ -480,7 +480,7 @@
                     "comment": "Blue",
                     "hint": "",
                     "id": "obj-5",
-                    "index": 4,
+                    "index": 0,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -494,7 +494,7 @@
                     "comment": "Green",
                     "hint": "",
                     "id": "obj-4",
-                    "index": 3,
+                    "index": 0,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -508,7 +508,7 @@
                     "comment": "Red",
                     "hint": "",
                     "id": "obj-3",
-                    "index": 2,
+                    "index": 0,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -786,6 +786,7 @@
                     "source": [ "obj-9", 0 ]
                 }
             }
-        ]
+        ],
+        "autosave": 0
     }
 }

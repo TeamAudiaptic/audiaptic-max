@@ -29,7 +29,8 @@
                             "modernui": 1
                         },
                         "classnamespace": "box",
-                        "rect": [ 84.0, 132.0, 1000.0, 780.0 ],
+                        "rect": [ 83.0, 132.0, 1000.0, 780.0 ],
+                        "visible": 1,
                         "boxes": [
                             {
                                 "box": {
@@ -82,8 +83,8 @@
                                     "numinlets": 5,
                                     "numoutlets": 1,
                                     "outlettype": [ "dictionary" ],
-                                    "patching_rect": [ 107.0, 363.0, 377.0, 22.0 ],
-                                    "text": "dict.pack payload: execTimestamp: type: haptic schemaVersion: \"1.0\""
+                                    "patching_rect": [ 107.0, 363.0, 391.0, 22.0 ],
+                                    "text": "dict.pack payload: relativeTimestamp: type: haptic schemaVersion: \"1.0\""
                                 }
                             },
                             {
