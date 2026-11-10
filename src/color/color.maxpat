@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 526.0, 162.0, 784.0, 550.0 ],
+        "rect": [ 173.0, 151.0, 784.0, 550.0 ],
         "openinpresentation": 1,
         "toolbars_unpinned_last_save": 4,
         "boxes": [
@@ -217,13 +217,13 @@
             {
                 "box": {
                     "id": "obj-76",
-                    "linecount": 12,
+                    "linecount": 13,
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 484.0, 590.0, 142.0, 174.0 ],
-                    "text": "\"{\r\n    \\\"payload\\\": {\r\n        \\\"color\\\": \\\"#000000\\\",\r\n        \\\"durationMs\\\": 0,\r\n        \\\"transitionMs\\\": 0\r\n    },\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"color\\\",\r\n    \\\"execTimestamp\\\": 0\r\n}\""
+                    "patching_rect": [ 484.0, 590.0, 142.0, 188.0 ],
+                    "text": "\"{\r\n    \\\"payload\\\": {\r\n        \\\"color\\\": \\\"#000000\\\",\r\n        \\\"durationMs\\\": 0,\r\n        \\\"transitionMs\\\": 0\r\n    },\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"color\\\",\r\n    \\\"relativeTimestamp\\\": 0\r\n}\""
                 }
             },
             {
@@ -433,8 +433,8 @@
                     "numinlets": 5,
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 587.0, 460.0, 366.0, 22.0 ],
-                    "text": "dict.pack color payload: schemaVersion: type: relativeTimestamp: 0"
+                    "patching_rect": [ 587.0, 460.0, 337.0, 22.0 ],
+                    "text": "dict.pack payload: schemaVersion: type: relativeTimestamp: 0"
                 }
             },
             {
@@ -444,8 +444,8 @@
                     "numinlets": 4,
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 587.0, 307.0, 363.0, 22.0 ],
-                    "text": "dict.pack payload color: #000000 durationMs: 0 transitionMs: 0"
+                    "patching_rect": [ 587.0, 307.0, 296.0, 22.0 ],
+                    "text": "dict.pack color: #000000 durationMs: 0 transitionMs: 0"
                 }
             },
             {
