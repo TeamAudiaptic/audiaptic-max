@@ -73,3 +73,13 @@ entries:
     emoji: 🐛
     label: Fix
     message: Updated max patches to follow new relative timestamp format
+- id: 8
+  pr: 57
+  author: Josh-mitch
+  time: '2026-11-10T22:10:54+00:00'
+  url: https://github.com/TeamAudiaptic/audiaptic-max/pull/57
+  changes:
+  - type: refactor
+    emoji: ♻️
+    label: Refactor
+    message: Updated ack validation
