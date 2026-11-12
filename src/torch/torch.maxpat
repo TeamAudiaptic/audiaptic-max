@@ -9,9 +9,20 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 435.0, 228.0, 980.0, 540.0 ],
+        "rect": [ 485.0, 206.0, 656.0, 540.0 ],
         "openinpresentation": 1,
         "boxes": [
+            {
+                "box": {
+                    "id": "obj-1",
+                    "maxclass": "newobj",
+                    "numinlets": 6,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 615.0, 270.0, 97.0, 22.0 ],
+                    "text": "scale 0 100 0. 1."
+                }
+            },
             {
                 "box": {
                     "comment": "Include strobe: 0 = off, 1 = on",
@@ -670,12 +681,13 @@
                 "box": {
                     "id": "ui-intensity-value",
                     "maxclass": "number",
+                    "maximum": 100,
                     "minimum": 0,
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 615.0, 220.0, 100.0, 22.0 ],
+                    "patching_rect": [ 615.0, 226.0, 100.0, 22.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 175.0, 276.0, 115.0, 22.0 ]
                 }
@@ -754,8 +766,8 @@
             },
             {
                 "patchline": {
-                    "destination": [ "intensity-message", 0 ],
-                    "midpoints": [ 569.5, 315.0, 569.5, 315.0 ],
+                    "destination": [ "ui-intensity-value", 0 ],
+                    "midpoints": [ 569.5, 211.0, 624.5, 211.0 ],
                     "source": [ "intensity-inlet", 0 ]
                 }
             },
@@ -780,6 +792,12 @@
                     "midpoints": [ 49.5, 1030.0, 50.0, 1030.0, 50.0, 1055.0, 149.5, 1055.0 ],
                     "order": 0,
                     "source": [ "json-view", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "intensity-message", 0 ],
+                    "source": [ "obj-1", 0 ]
                 }
             },
             {
@@ -1008,8 +1026,8 @@
             },
             {
                 "patchline": {
-                    "destination": [ "intensity-message", 0 ],
-                    "midpoints": [ 624.5, 290.0, 569.5, 290.0 ],
+                    "destination": [ "obj-1", 0 ],
+                    "midpoints": [ 624.5, 257.0, 624.5, 257.0 ],
                     "source": [ "ui-intensity-value", 0 ]
                 }
             },
