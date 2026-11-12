@@ -9,8 +9,30 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 77.0, 121.0, 1040.0, 650.0 ],
+        "rect": [ 34.0, 77.0, 1144.0, 705.0 ],
         "boxes": [
+            {
+                "box": {
+                    "id": "obj-30",
+                    "maxclass": "toggle",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 521.6867662668228, 77.10843658447266, 24.0, 24.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-31",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "bang" ],
+                    "patching_rect": [ 554.6506195068359, 166.2289196252823, 69.0, 22.0 ],
+                    "text": "metro 1000"
+                }
+            },
             {
                 "box": {
                     "id": "obj-29",
@@ -82,18 +104,6 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 780.7229204177856, 198.0, 388.0, 183.0 ],
                     "viewvisibility": 1
-                }
-            },
-            {
-                "box": {
-                    "id": "obj-28",
-                    "linecount": 10,
-                    "maxclass": "message",
-                    "numinlets": 2,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "patching_rect": [ -90.0, 437.0, 286.0, 146.0 ],
-                    "text": "\"{\r\n    \\\"payload\\\": {\r\n        \\\"color\\\": \\\"#0fd5ff\\\",\r\n        \\\"durationMs\\\": 0,\r\n        \\\"transitionMs\\\": 0\r\n    },\r\n    \\\"schemaVersion\\\": \\\"1.0\\\",\r\n    \\\"type\\\": \\\"color\\\",\r\n    \\\"relativeTimestamp\\\": 0\r\n}\""
                 }
             },
             {
@@ -320,13 +330,13 @@
             {
                 "box": {
                     "id": "obj-4",
-                    "linecount": 4,
+                    "linecount": 3,
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 29.0, 652.0, 263.0, 64.0 ],
-                    "text": "ack {\\\"type\\\":\\\"ack\\\"\\,\\\"status\\\":202\\,\\\"accepted\\\":[\\\"2e638c90-8cfd-4d63-99b2-03d8748058a6\\\"]\\,\\\"rejected\\\":[]\\,\\\"deliveredTo\\\":3\\,\\\"errors\\\":[]}"
+                    "patching_rect": [ 29.0, 652.0, 263.0, 50.0 ],
+                    "text": "error send c2c7c554-7fdf-4cca-b2f2-b2dd05d5c708 \"WebSocket is not connected\""
                 }
             },
             {
@@ -499,6 +509,12 @@
             },
             {
                 "patchline": {
+                    "destination": [ "obj-31", 0 ],
+                    "source": [ "obj-30", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "obj-1", 0 ],
                     "source": [ "obj-5", 0 ]
                 }
@@ -506,21 +522,6 @@
             {
                 "patchline": {
                     "destination": [ "obj-1", 0 ],
-                    "order": 1,
-                    "source": [ "obj-7", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-28", 1 ],
-                    "order": 0,
-                    "source": [ "obj-7", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-28", 0 ],
-                    "order": 2,
                     "source": [ "obj-7", 0 ]
                 }
             },
