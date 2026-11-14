@@ -408,6 +408,100 @@
             },
             {
                 "box": {
+                    "comment": "Send a bang to re-sync the clock with the DAVHI server",
+                    "id": "sync-inlet",
+                    "index": 0,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1230.0, 65.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "sync-control",
+                    "maxclass": "textbutton",
+                    "numinlets": 1,
+                    "numoutlets": 3,
+                    "outlettype": [ "", "", "int" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 394.0, 158.0, 34.0, 20.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 390.0, 155.0, 34.0, 18.0 ],
+                    "text": "Sync"
+                }
+            },
+            {
+                "box": {
+                    "id": "sync-message",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1230.0, 220.0, 35.0, 22.0 ],
+                    "text": "sync"
+                }
+            },
+            {
+                "box": {
+                    "id": "route-sync",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 860.0, 430.0, 65.0, 22.0 ],
+                    "text": "route sync"
+                }
+            },
+            {
+                "box": {
+                    "id": "format-sync",
+                    "maxclass": "newobj",
+                    "numinlets": 4,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 860.0, 465.0, 330.0, 22.0 ],
+                    "text": "sprintf set %s offset %.1f ms error %.1f ms age %ld ms"
+                }
+            },
+            {
+                "box": {
+                    "id": "sync-label",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 19.0, 156.0, 55.0, 20.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 20.0, 153.0, 55.0, 20.0 ],
+                    "text": "Sync",
+                    "textcolor": [ 0.8, 0.8, 0.8, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "bgcolor": [ 0.12, 0.12, 0.12, 1.0 ],
+                    "bgcolor2": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
+                    "bgfillcolor_autogradient": 0.0,
+                    "bgfillcolor_color": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
+                    "bgfillcolor_color1": [ 0.12, 0.12, 0.12, 1.0 ],
+                    "bgfillcolor_color2": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
+                    "bgfillcolor_type": "gradient",
+                    "gradient": 1,
+                    "id": "sync-status",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 79.0, 156.0, 300.0, 22.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 80.0, 152.0, 299.0, 22.0 ],
+                    "text": "not synced",
+                    "textcolor": [ 0.95, 0.95, 0.95, 1.0 ]
+                }
+            },
+            {
+                "box": {
                     "background": 1,
                     "bgcolor": [ 0.04, 0.04, 0.04, 1.0 ],
                     "id": "control-panel",
@@ -422,6 +516,46 @@
             }
         ],
         "lines": [
+            {
+                "patchline": {
+                    "destination": [ "sync-message", 0 ],
+                    "source": [ "sync-inlet", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "sync-message", 0 ],
+                    "midpoints": [ 403.5, 196.0, 1239.5, 196.0 ],
+                    "source": [ "sync-control", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "node", 0 ],
+                    "midpoints": [ 1239.5, 339.0, 609.5, 339.0 ],
+                    "source": [ "sync-message", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "route-sync", 0 ],
+                    "midpoints": [ 609.5, 381.0, 869.5, 381.0 ],
+                    "source": [ "node", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "format-sync", 0 ],
+                    "source": [ "route-sync", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "sync-status", 0 ],
+                    "midpoints": [ 869.5, 500.0, 500.0, 500.0, 500.0, 205.0, 88.5, 205.0 ],
+                    "source": [ "format-sync", 0 ]
+                }
+            },
             {
                 "patchline": {
                     "destination": [ "set-delay", 0 ],

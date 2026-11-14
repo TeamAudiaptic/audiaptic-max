@@ -2,7 +2,7 @@
     "name": "davhi",
     "version": 1,
     "creationdate": 3876835477,
-    "modificationdate": 3877356650,
+    "modificationdate": 3877452334,
     "viewrect": [ 995.0, 172.0, 552.0, 500.0 ],
     "autoorganize": 1,
     "hideprojectwindow": 0,
@@ -14,7 +14,7 @@
                 "kind": "patcher",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/connection",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/connection",
                     "projectrelativepath": "../connection"
                 },
                 "disclosed": 0
@@ -23,7 +23,7 @@
                 "kind": "patcher",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/audio",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/audio",
                     "projectrelativepath": "../audio"
                 }
             },
@@ -31,7 +31,7 @@
                 "kind": "patcher",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/color",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/color",
                     "projectrelativepath": "../color"
                 }
             },
@@ -39,7 +39,7 @@
                 "kind": "patcher",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/connection",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/connection",
                     "projectrelativepath": "../connection"
                 },
                 "disclosed": 0
@@ -48,7 +48,7 @@
                 "kind": "patcher",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/haptic",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/haptic",
                     "projectrelativepath": "../haptic"
                 }
             },
@@ -56,7 +56,7 @@
                 "kind": "patcher",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/image",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/image",
                     "projectrelativepath": "../image"
                 }
             },
@@ -64,7 +64,7 @@
                 "kind": "patcher",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/torch",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/torch",
                     "projectrelativepath": "../torch"
                 }
             },
@@ -72,7 +72,7 @@
                 "kind": "patcher",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/video",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/video",
                     "projectrelativepath": "../video"
                 }
             },
@@ -81,7 +81,7 @@
                 "local": 1,
                 "toplevel": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/audio",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/audio",
                     "projectrelativepath": "../audio"
                 }
             },
@@ -89,7 +89,7 @@
                 "kind": "patcher",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/caption",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/caption",
                     "projectrelativepath": "../caption"
                 }
             },
@@ -97,7 +97,7 @@
                 "kind": "helpfile",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/caption",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/caption",
                     "projectrelativepath": "../caption"
                 }
             },
@@ -105,7 +105,7 @@
                 "kind": "helpfile",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/color",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/color",
                     "projectrelativepath": "../color"
                 }
             },
@@ -113,7 +113,7 @@
                 "kind": "helpfile",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/haptic",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/haptic",
                     "projectrelativepath": "../haptic"
                 }
             },
@@ -121,7 +121,7 @@
                 "kind": "helpfile",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/image",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/image",
                     "projectrelativepath": "../image"
                 }
             },
@@ -129,7 +129,7 @@
                 "kind": "helpfile",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/torch",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/torch",
                     "projectrelativepath": "../torch"
                 }
             },
@@ -137,7 +137,7 @@
                 "kind": "helpfile",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/video",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/video",
                     "projectrelativepath": "../video"
                 }
             },
@@ -145,7 +145,7 @@
                 "kind": "helpfile",
                 "local": 1,
                 "singleton": {
-                    "bootpath": "~/davhi/audiaptic-max/src/connection",
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/connection",
                     "projectrelativepath": "../connection"
                 }
             },
@@ -154,7 +154,24 @@
                 "local": 1
             }
         },
-        "code": {        }
+        "code": {
+            "connection.js": {
+                "kind": "javascript",
+                "local": 1,
+                "singleton": {
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/connection",
+                    "projectrelativepath": "../connection"
+                }
+            },
+            "torch.js": {
+                "kind": "javascript",
+                "local": 1,
+                "singleton": {
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/torch",
+                    "projectrelativepath": "../torch"
+                }
+            }
+        }
     },
     "layout": {    },
     "searchpath": {    },

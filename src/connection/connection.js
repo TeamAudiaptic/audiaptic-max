@@ -1,15 +1,20 @@
 const path = require("path");
 const { randomUUID } = require("crypto");
+const { performance } = require("perf_hooks");
 const WebSocket = require("ws");
 const dotenv = require("dotenv");
 const maxAPI = require("max-api");
+const { createTimeSync } = require("./timeSync");
 
 const ENV_PATH = path.join(__dirname, ".env");
+const TIME_REQUEST_TIMEOUT_MS = 2000;
 
 let socket = null;
 let connecting = null;
 let universalDelayMs = 0;
 let nextSequence = 0;
+let timeURL = null;
+let warnedUnsynced = false;
 
 function isNonNegativeInteger(value) {
 	return Number.isSafeInteger(value) && value >= 0;
@@ -42,22 +47,110 @@ function parseFrame(argumentsList) {
 	}
 }
 
-function resolveEpochTimestamp(event) {
-	if (Object.hasOwn(event, "epochTimestamp") &&
-		event.epochTimestamp !== null &&
-		event.epochTimestamp !== 0
-	) {
-		return event.epochTimestamp;
+/**
+ * Reads the DAVHI server's clock once. The time sync controller measures the
+ * round trip around this call.
+ *
+ * @returns {Promise<number>} The server's Unix-epoch milliseconds.
+ */
+async function fetchServerTime() {
+	if (typeof fetch !== "function") {
+		throw new Error("this Node version has no fetch; Node 18 or later is required");
+	}
+	if (timeURL === null) {
+		timeURL = loadConfiguration().timeURL;
 	}
 
-	if (Object.hasOwn(event, "relativeTimestamp") &&
-		event.relativeTimestamp !== null &&
-		event.relativeTimestamp !== 0
-	) {
+	const response = await fetch(timeURL, {
+		cache: "no-store",
+		signal: AbortSignal.timeout(TIME_REQUEST_TIMEOUT_MS)
+	});
+	if (!response.ok) {
+		throw new Error(`${timeURL} returned HTTP ${response.status}`);
+	}
+	const body = await response.json();
+	if (body === null || typeof body !== "object" || !Number.isFinite(body.serverTimestamp)) {
+		throw new Error(`${timeURL} did not return a serverTimestamp`);
+	}
+	return body.serverTimestamp;
+}
+
+function roundTenth(value) {
+	return Math.round(value * 10) / 10;
+}
+
+/**
+ * Reports the clock sync state: sync <state> <offsetMs> <errorMs> <ageMs>.
+ * offsetMs is what is added to this machine's clock to get server time.
+ */
+async function emitSyncStatus() {
+	const status = timeSync.status();
+	await maxAPI.outlet(
+		"sync",
+		status.synced ? "synced" : "unsynced",
+		roundTenth(status.offset),
+		roundTenth(status.error),
+		Math.round(status.age)
+	);
+}
+
+const timeSync = createTimeSync({
+	fetchServerTime,
+	monotonicNow: () => performance.now(),
+	wallNow: () => Date.now(),
+	onResult: result => {
+		if (result.accepted) {
+			warnedUnsynced = false;
+		}
+		const report = result.reason === null
+			? emitSyncStatus()
+			: emitError("sync", "-", result.reason).then(emitSyncStatus);
+		report.catch(error => {
+			maxAPI.post(error.message, maxAPI.POST_LEVELS.ERROR);
+		});
+	}
+});
+
+/**
+ * Current time on the server's clock (whole epoch ms).
+ * - Offset already applied; don't add it again.
+ * - For timestamps created here; patch-supplied ones use convertEpochTimestamp.
+ * - Local clock until the first sync.
+ */
+function serverNow() {
+	return Math.round(timeSync.serverNow());
+}
+
+function hasTimestamp(event, field) {
+	return Object.hasOwn(event, field) && event[field] !== null && event[field] !== 0;
+}
+
+/**
+ * Moves an epochTimestamp supplied by a patch from this machine's clock to
+ * the DAVHI server's clock. Patches always work in local time; the offset is
+ * applied here and nowhere else. Values that are not numbers are left for the
+ * server to reject.
+ *
+ * @param {object} event An event that may carry an epochTimestamp.
+ * @returns {object} The event with any epochTimestamp on the server clock.
+ */
+function convertEpochTimestamp(event) {
+	if (!hasTimestamp(event, "epochTimestamp") || !Number.isFinite(event.epochTimestamp)) {
+		return event;
+	}
+	return { ...event, epochTimestamp: Math.round(event.epochTimestamp + timeSync.wallOffset()) };
+}
+
+function resolveEpochTimestamp(event) {
+	if (hasTimestamp(event, "epochTimestamp")) {
+		return convertEpochTimestamp(event).epochTimestamp;
+	}
+
+	if (hasTimestamp(event, "relativeTimestamp")) {
 		return null;
 	}
 
-	return Date.now() + universalDelayMs;
+	return serverNow() + universalDelayMs;
 }
 
 /**
@@ -76,6 +169,32 @@ function assignEventIdentity(event) {
 	};
 	nextSequence += 1;
 	return identifiedEvent;
+}
+
+/**
+ * The time endpoint is GET /api/time on the same host as the performer
+ * WebSocket (ws://host/api/performer -> http://host/api/time).
+ * DAVHI_TIME_URL overrides it.
+ */
+function resolveTimeURL(webSocketURL) {
+	const override = process.env.DAVHI_TIME_URL;
+	if (typeof override === "string" && override.length > 0) {
+		let parsedOverride;
+		try {
+			parsedOverride = new URL(override);
+		} catch (error) {
+			throw new Error(`DAVHI_TIME_URL is invalid: ${error.message}`);
+		}
+		if (parsedOverride.protocol !== "http:" && parsedOverride.protocol !== "https:") {
+			throw new Error("DAVHI_TIME_URL must use http: or https:");
+		}
+		return parsedOverride.toString();
+	}
+
+	const derived = new URL("time", webSocketURL);
+	derived.protocol = webSocketURL.protocol === "wss:" ? "https:" : "http:";
+	derived.search = "";
+	return derived.toString();
 }
 
 function loadConfiguration() {
@@ -100,7 +219,7 @@ function loadConfiguration() {
 		throw new Error("DAVHI_WEBSOCKET_URL must use ws: or wss:");
 	}
 
-	return { url: parsedURL.toString(), token };
+	return { url: parsedURL.toString(), token, timeURL: resolveTimeURL(parsedURL) };
 }
 
 function socketIsOpen() {
@@ -142,6 +261,7 @@ function attachSocketHandlers(nextSocket, url) {
 	nextSocket.on("close", (code, reason) => {
 		if (socket === nextSocket) {
 			socket = null;
+			timeSync.stop();
 		}
 		const detail = reason.toString();
 		maxAPI.outlet("connection", "disconnected", code, detail).catch(error => {
@@ -165,6 +285,7 @@ function openConnection() {
 	}
 
 	const configuration = loadConfiguration();
+	timeURL = configuration.timeURL;
 	connecting = new Promise((resolve, reject) => {
 		const nextSocket = new WebSocket(configuration.url, {
 			headers: { Authorization: `Bearer ${configuration.token}` },
@@ -199,6 +320,9 @@ function openConnection() {
 async function connect() {
 	try {
 		await openConnection();
+		// One burst before anything timed is sent, then every 60 s until the
+		// socket closes. A failed burst is reported but does not block sending.
+		await timeSync.start();
 		await maxAPI.outlet("connection", "connected");
 	} catch (error) {
 		await emitError("connection", "-", error.message);
@@ -233,18 +357,30 @@ async function setDelay(value) {
 }
 
 /**
+ * Runs a clock sync burst now, in addition to the automatic ones. The result
+ * is reported on the sync outlet, or as a sync error.
+ */
+async function sync() {
+	await timeSync.syncNow();
+}
+
+/**
  * Prepares a parsed frame for the server. A single event gets an identity, a
  * resolved epochTimestamp, and a sentTimestamp. Each event in a list gets an
- * identity and a sentTimestamp only, with sequences in list order; list events
- * are expected to carry their own timing, so it is not changed.
+ * identity and a sentTimestamp, with sequences in list order; list events are
+ * expected to carry their own timing, so no epochTimestamp is added.
+ *
+ * Every timestamp is on the DAVHI server's clock: sentTimestamp and the
+ * fallback epochTimestamp are read from it, and an epochTimestamp supplied by
+ * a patch is converted to it. relativeTimestamp is an offset and is unchanged.
  *
  * @param {*} frame A single event or a list of events.
  * @returns {object | object[]} The frame to send, in the same form it arrived.
  */
 function prepareFrame(frame) {
-	const sentTimestamp = Date.now();
+	const sentTimestamp = serverNow();
 	if (Array.isArray(frame)) {
-		return frame.map(event => ({ ...assignEventIdentity(event), sentTimestamp }));
+		return frame.map(event => ({ ...convertEpochTimestamp(assignEventIdentity(event)), sentTimestamp }));
 	}
 
 	const event = assignEventIdentity(frame);
@@ -266,6 +402,14 @@ async function send(...argumentsList) {
 		return;
 	}
 	const events = Array.isArray(frame) ? frame : [frame];
+
+	if (!timeSync.isSynced() && !warnedUnsynced) {
+		warnedUnsynced = true;
+		maxAPI.post(
+			"Clock is not synced with the DAVHI server; timestamps use this machine's clock.",
+			maxAPI.POST_LEVELS.WARN
+		);
+	}
 
 	if (!socketIsOpen()) {
 		await emitErrorForEach(events, "WebSocket is not connected");
@@ -293,6 +437,8 @@ maxAPI.addHandlers({
 	disconnect,
 	setDelay,
 	getDelay: async () => maxAPI.outlet("delay", universalDelayMs),
+	sync,
+	getSync: emitSyncStatus,
 	send
 });
 
