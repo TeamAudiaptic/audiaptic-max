@@ -8,6 +8,8 @@ For any work that builds, changes, debugs, or verifies a Node for Max integratio
 
 The Audiaptic server's accepted event schemas are defined in the [Audiaptic Events documentation](https://teamaudiaptic.github.io/audiaptic-docs/docs/category/events). This documentation is the source of truth for event names, fields, value types, and validation requirements. Consult it before creating, changing, or validating any event payload; do not infer a schema from existing client/server code when the documentation differs or is incomplete.
 
+Max does not validate event payloads or server acknowledgements against these schemas. The server validates every event and returns structured errors in its acknowledgement, so keeping a second copy of the schema in Max only creates drift. Do not add schema validation to the connection patch; event patches may still clamp or sanitize their own UI inputs.
+
 ## Project routing
 
 Current implementation work belongs in `src/`. The root-level demo files are proof-of-concept material and are out of scope unless a task explicitly names them.
