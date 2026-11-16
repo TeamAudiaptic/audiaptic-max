@@ -2,8 +2,8 @@
     "name": "davhi",
     "version": 1,
     "creationdate": 3876835477,
-    "modificationdate": 3877452334,
-    "viewrect": [ 995.0, 172.0, 552.0, 500.0 ],
+    "modificationdate": 3877654908,
+    "viewrect": [ 368.0, 194.0, 552.0, 500.0 ],
     "autoorganize": 1,
     "hideprojectwindow": 0,
     "showdependencies": 1,
@@ -152,6 +152,18 @@
             "DAVHI.maxpat": {
                 "kind": "patcher",
                 "local": 1
+            },
+            "timeline.maxpat": {
+                "kind": "patcher",
+                "local": 1,
+                "singleton": {
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/timeline",
+                    "projectrelativepath": "../timeline"
+                }
+            },
+            "timeline-test.maxpat": {
+                "kind": "patcher",
+                "local": 1
             }
         },
         "code": {
@@ -169,6 +181,14 @@
                 "singleton": {
                     "bootpath": "~/RIT/davhi/audiaptic-max/src/torch",
                     "projectrelativepath": "../torch"
+                }
+            },
+            "timeline.js": {
+                "kind": "javascript",
+                "local": 1,
+                "singleton": {
+                    "bootpath": "~/RIT/davhi/audiaptic-max/src/timeline",
+                    "projectrelativepath": "../timeline"
                 }
             }
         }

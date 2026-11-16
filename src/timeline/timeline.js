@@ -3,8 +3,12 @@
  *
  * Draws the timeline's events in one lane per event type, aligned with the
  * waveform~ display window, and handles selecting, moving, and removing them.
- * The timeline itself lives in the named dict DICT_NAME, so the patch saves and
- * loads it as JSON without going through this script.
+ *
+ * A timeline is a JSON array of events, the same list frame the connection
+ * patch sends to the server. While the patch is open, the events are kept in
+ * the named dict DICT_NAME so they survive this script reloading. A dict's root
+ * must be an object, so it holds them as { "events": [...] }, and this script
+ * reads and writes timeline files itself rather than through the dict.
  *
  * Every saved event carries a relativeTimestamp: milliseconds from the start
  * of the audio, which is aligned with the performance's start event.
@@ -19,8 +23,9 @@ mgraphics.autofill = 0;
 
 const DICT_NAME = "davhi_timeline";
 const BUFFER_NAME = "davhi_timeline_audio";
-const TIMELINE_TYPE = "timeline";
 const SCHEMA_VERSION = "1.0";
+// File reads and writes are split into chunks to stay within File limits.
+const FILE_CHUNK_SIZE = 16384;
 
 const LANES = ["haptic", "torch", "color", "caption", "image", "audio", "video", "other"];
 const LANE_COLORS = {
@@ -55,21 +60,6 @@ function emptyTimeline() {
 	return { events: [] };
 }
 
-/**
- * Wraps the timeline in the shared event envelope with type "timeline". The
- * connection patch assigns eventId, sequence, and sentTimestamp when sending,
- * so they are left out here as they are for every event patch.
- */
-function toDocument(state) {
-	return {
-		schemaVersion: SCHEMA_VERSION,
-		type: TIMELINE_TYPE,
-		payload: {
-			events: state.events
-		}
-	};
-}
-
 function isPlainObject(value) {
 	return value !== null && typeof value === "object" && !Array.isArray(value);
 }
@@ -89,31 +79,38 @@ function sortEvents(events) {
 	events.sort((a, b) => a.relativeTimestamp - b.relativeTimestamp);
 }
 
-function normalizeTimeline(raw) {
-	const result = emptyTimeline();
-	if (!isPlainObject(raw) || raw.type !== TIMELINE_TYPE || !isPlainObject(raw.payload)) {
-		return result;
+/**
+ * Keeps the fields a timeline event saves. The connection patch assigns
+ * eventId, sequence, and sentTimestamp when sending, so they are left out here
+ * as they are for every event patch.
+ */
+function normalizeEvents(raw) {
+	if (raw === undefined || raw === null) {
+		return [];
 	}
-	const content = raw.payload;
-
 	// A Max dictionary can collapse a one-element array into a single object.
-	let events = content.events === undefined || content.events === null ? [] : content.events;
-	if (!Array.isArray(events)) {
-		events = [events];
-	}
-	result.events = events.filter(isEvent).map(event => ({
+	const list = Array.isArray(raw) ? raw : [raw];
+	const events = list.filter(isEvent).map(event => ({
 		schemaVersion: event.schemaVersion || SCHEMA_VERSION,
 		type: event.type,
 		relativeTimestamp: toMs(event.relativeTimestamp),
 		payload: event.payload
 	}));
-	sortEvents(result.events);
-	return result;
+	sortEvents(events);
+	return events;
+}
+
+/** Reads the event list from a timeline file's parsed JSON. */
+function eventsFromFile(raw) {
+	if (!Array.isArray(raw)) {
+		throw new Error("expected a JSON array of events");
+	}
+	return normalizeEvents(raw);
 }
 
 function load() {
 	try {
-		timeline = normalizeTimeline(JSON.parse(store.stringify()));
+		timeline = { events: normalizeEvents(JSON.parse(store.stringify()).events) };
 	} catch (error) {
 		report(`Could not read ${DICT_NAME}: ${error.message}`);
 		timeline = emptyTimeline();
@@ -123,7 +120,53 @@ function load() {
 
 function save() {
 	sortEvents(timeline.events);
-	store.parse(JSON.stringify(toDocument(timeline)));
+	store.parse(JSON.stringify({ events: timeline.events }));
+}
+
+/**
+ * Escapes non-ASCII characters so the file's bytes do not depend on how File
+ * encodes strings. The result is still standard JSON.
+ */
+function asciiJson(value, indent) {
+	return JSON.stringify(value, null, indent).replace(/[\u007f-￿]/g,
+		character => `\\u${character.charCodeAt(0).toString(16).padStart(4, "0")}`);
+}
+
+function writeText(path, text) {
+	const file = new File(path, "write", "JSON");
+	if (!file.isopen) {
+		throw new Error("the file could not be opened for writing");
+	}
+	try {
+		file.position = 0;
+		file.eof = 0;
+		for (let start = 0; start < text.length; start += FILE_CHUNK_SIZE) {
+			file.writestring(text.slice(start, start + FILE_CHUNK_SIZE));
+		}
+	} finally {
+		file.close();
+	}
+}
+
+/** Reads a file as UTF-8, so hand-edited files with non-ASCII text load too. */
+function readText(path) {
+	const file = new File(path, "read");
+	if (!file.isopen) {
+		throw new Error("the file could not be opened");
+	}
+	let binary = "";
+	try {
+		while (file.position < file.eof) {
+			const bytes = file.readbytes(Math.min(FILE_CHUNK_SIZE, file.eof - file.position));
+			if (!bytes || bytes.length === 0) {
+				break;
+			}
+			binary += String.fromCharCode(...bytes);
+		}
+	} finally {
+		file.close();
+	}
+	return decodeURIComponent(escape(binary));
 }
 
 function commit() {
@@ -185,11 +228,57 @@ function bang() {
 	mgraphics.redraw();
 }
 
-/** Re-reads the dict, for example after the patch loads a timeline file. */
+/** Re-reads the dict, for example after the script is edited. */
 function reload() {
 	load();
 	outputSelection();
 	mgraphics.redraw();
+}
+
+/** Saves the timeline to a file as a JSON array of events. */
+function write(path) {
+	if (path === undefined) {
+		report("write needs a file path");
+		return;
+	}
+	let filePath = String(path);
+	if (!/\.json$/i.test(filePath)) {
+		filePath += ".json";
+	}
+	sortEvents(timeline.events);
+	try {
+		writeText(filePath, asciiJson(timeline.events, 2));
+	} catch (error) {
+		report(`Could not save ${filePath}: ${error.message}`);
+	}
+}
+
+/** Replaces the timeline with the events in a timeline file. */
+function read(path) {
+	if (path === undefined) {
+		report("read needs a file path");
+		return;
+	}
+	let events;
+	try {
+		events = eventsFromFile(JSON.parse(readText(String(path))));
+	} catch (error) {
+		report(`Could not load ${path}: ${error.message}`);
+		return;
+	}
+	timeline.events = events;
+	selected = new Set();
+	commit();
+}
+
+/** Outputs the timeline as a JSON array of events for the connection patch. */
+function dump() {
+	if (timeline.events.length === 0) {
+		report("The timeline has no events to send");
+		return;
+	}
+	sortEvents(timeline.events);
+	outlet(0, "timeline", JSON.stringify(timeline.events));
 }
 
 /** Adds an event JSON string from an event patch at the current position. */
