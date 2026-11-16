@@ -81,14 +81,14 @@ function roundTenth(value) {
 
 /**
  * Reports the clock sync state: sync <state> <offsetMs> <errorMs> <ageMs>.
- * offsetMs is what is added to this machine's clock to get server time.
+ * offsetMs is the wall offset: how far the server is ahead of this machine.
  */
 async function emitSyncStatus() {
 	const status = timeSync.status();
 	await maxAPI.outlet(
 		"sync",
 		status.synced ? "synced" : "unsynced",
-		roundTenth(status.offset),
+		roundTenth(status.wallOffset),
 		roundTenth(status.error),
 		Math.round(status.age)
 	);
@@ -115,7 +115,7 @@ const timeSync = createTimeSync({
  * Current time on the server's clock (whole epoch ms).
  * - Offset already applied; don't add it again.
  * - For timestamps created here; patch-supplied ones use convertEpochTimestamp.
- * - Local clock until the first sync.
+ * - Wall clock until the first sync.
  */
 function serverNow() {
 	return Math.round(timeSync.serverNow());
@@ -127,7 +127,7 @@ function hasTimestamp(event, field) {
 
 /**
  * Moves an epochTimestamp supplied by a patch from this machine's clock to
- * the DAVHI server's clock. Patches always work in local time; the offset is
+ * the DAVHI server's clock. Patches always work in wall-clock time; the offset is
  * applied here and nowhere else. Values that are not numbers are left for the
  * server to reject.
  *

@@ -2,37 +2,37 @@
   "description": "Shared test vectors for the DAVHI clock-sync algorithm. Any implementation (Max, mobile client) should produce these results. All values are milliseconds.",
   "computeSample": [
     {
-      "name": "local clock behind the server",
+      "name": "monotonic clock behind the server",
       "t1": 1000, "serverTimestamp": 5000, "t4": 1040,
-      "expected": { "offset": 3980, "delay": 40, "error": 20 }
+      "expected": { "monotonicOffset": 3980, "delay": 40, "error": 20 }
     },
     {
-      "name": "local clock ahead of the server",
+      "name": "monotonic clock ahead of the server",
       "t1": 9000, "serverTimestamp": 5000, "t4": 9010,
-      "expected": { "offset": -4005, "delay": 10, "error": 5 }
+      "expected": { "monotonicOffset": -4005, "delay": 10, "error": 5 }
     },
     {
       "name": "fractional timestamps",
       "t1": 100.25, "serverTimestamp": 200, "t4": 103.75,
-      "expected": { "offset": 98, "delay": 3.5, "error": 1.75 }
+      "expected": { "monotonicOffset": 98, "delay": 3.5, "error": 1.75 }
     }
   ],
   "selectBestSample": [
     {
       "name": "lowest delay wins; first sample and failures are discarded",
       "samples": [
-        { "offset": 1, "delay": 5, "error": 2.5 },
+        { "monotonicOffset": 1, "delay": 5, "error": 2.5 },
         null,
-        { "offset": 5, "delay": 40, "error": 20 },
-        { "offset": 7, "delay": 22, "error": 11 },
-        { "offset": 6, "delay": 30, "error": 15 },
+        { "monotonicOffset": 5, "delay": 40, "error": 20 },
+        { "monotonicOffset": 7, "delay": 22, "error": 11 },
+        { "monotonicOffset": 6, "delay": 30, "error": 15 },
         null
       ],
-      "expected": { "offset": 7, "delay": 22, "error": 11 }
+      "expected": { "monotonicOffset": 7, "delay": 22, "error": 11 }
     },
     {
       "name": "only the warm-up sample succeeded",
-      "samples": [{ "offset": 1, "delay": 5, "error": 2.5 }, null, null],
+      "samples": [{ "monotonicOffset": 1, "delay": 5, "error": 2.5 }, null, null],
       "expected": null
     },
     {
@@ -43,7 +43,7 @@
   ],
   "shouldAccept": [
     {
-      "name": "no current offset",
+      "name": "not synced yet",
       "current": null, "candidate": { "error": 500 }, "now": 0,
       "expected": true
     },

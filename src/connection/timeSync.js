@@ -8,8 +8,15 @@
  * request as arguments, so the same logic can be ported to the mobile client
  * and checked against the shared vectors in timeSync.vectors.json.
  *
- * Offsets are measured against a monotonic clock, not the wall clock, so an
- * operating-system clock correction cannot move server time.
+ * Clocks:
+ * - wall: Date.now(), epoch ms; the OS or user can change it.
+ * - monotonic: performance.now(), ms since process start; never stepped.
+ * - server: the DAVHI server's epoch ms.
+ *
+ * Offsets (server minus the named clock):
+ * - monotonicOffset: stored per sync; serverNow() is built on it, so an OS
+ *   clock change can't move server time.
+ * - wallOffset: derived on demand; converts wall-clock epoch times.
  */
 
 const SAMPLES_PER_BURST = 6;
@@ -24,16 +31,15 @@ const CLOCK_STEP_THRESHOLD_MS = 5;
 /**
  * Cristian's algorithm for one request.
  *
- * @param {number} t1 Local clock just before the request was sent.
+ * @param {number} t1 Monotonic clock just before the request was sent.
  * @param {number} serverTimestamp Server clock when it handled the request.
- * @param {number} t4 Local clock when the response arrived.
- * @returns {{ offset: number, delay: number, error: number }} offset is what
- *   to add to the local clock to get server time.
+ * @param {number} t4 Monotonic clock when the response arrived.
+ * @returns {{ monotonicOffset: number, delay: number, error: number }}
  */
 function computeSample(t1, serverTimestamp, t4) {
 	const delay = t4 - t1;
 	return {
-		offset: serverTimestamp - (t1 + t4) / 2,
+		monotonicOffset: serverTimestamp - (t1 + t4) / 2,
 		delay,
 		error: delay / 2
 	};
@@ -63,7 +69,7 @@ function selectBestSample(samples) {
  *
  * @param {{ error: number, syncedAt: number } | null} current
  * @param {{ error: number }} candidate
- * @param {number} now Local clock, on the same clock as current.syncedAt.
+ * @param {number} now Monotonic clock, like current.syncedAt.
  * @returns {boolean}
  */
 function shouldAccept(current, candidate, now) {
@@ -95,6 +101,7 @@ function createTimeSync(options) {
 	const startTimer = options.setTimeout || setTimeout;
 	const cancelTimer = options.clearTimeout || clearTimeout;
 
+	// { monotonicOffset, error, syncedAt (monotonic) }, or null until synced.
 	let current = null;
 	let forceNext = false;
 	let running = false;
@@ -113,21 +120,24 @@ function createTimeSync(options) {
 	 * - Wall clock until the first sync.
 	 */
 	function serverNow() {
-		return current === null ? wallNow() : monotonicNow() + current.offset;
+		return current === null ? wallNow() : monotonicNow() + current.monotonicOffset;
 	}
 
-	/** What to add to a wall-clock epoch time to put it on the server clock. */
+	/**
+	 * Add to a wall-clock epoch time to get server time; 0 until synced.
+	 * Derived each call so it follows wall-clock changes.
+	 */
 	function wallOffset() {
 		return serverNow() - wallNow();
 	}
 
 	function status() {
 		if (current === null) {
-			return { synced: false, offset: 0, error: 0, age: 0 };
+			return { synced: false, wallOffset: 0, error: 0, age: 0 };
 		}
 		return {
 			synced: true,
-			offset: wallOffset(),
+			wallOffset: wallOffset(),
 			error: current.error,
 			age: monotonicNow() - current.syncedAt
 		};
@@ -166,7 +176,7 @@ function createTimeSync(options) {
 			return { accepted: false, reason: null };
 		}
 
-		current = { offset: best.offset, error: best.error, syncedAt: now };
+		current = { monotonicOffset: best.monotonicOffset, error: best.error, syncedAt: now };
 		forceNext = false;
 		return { accepted: true, reason: null };
 	}

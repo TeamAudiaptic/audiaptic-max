@@ -40,14 +40,14 @@ async function settle() {
 
 /**
  * A simulated laptop and server. The monotonic clock starts at 0; the wall
- * clock and server clock are the monotonic clock plus adjustable offsets.
+ * clock and server clock are the monotonic clock plus wallBase and serverBase.
  * Each request takes `delays[i]` ms, split evenly, or fails if it is null.
  */
 function createWorld({ wallStart = 1000000, serverAhead = 250, delays = [] } = {}) {
 	const world = {
 		monotonic: 0,
-		wallOffset: wallStart,
-		serverOffset: wallStart + serverAhead,
+		wallBase: wallStart,
+		serverBase: wallStart + serverAhead,
 		delays: [...delays],
 		defaultDelay: 20,
 		requests: 0,
@@ -57,7 +57,7 @@ function createWorld({ wallStart = 1000000, serverAhead = 250, delays = [] } = {
 
 	world.sync = createTimeSync({
 		monotonicNow: () => world.monotonic,
-		wallNow: () => world.monotonic + world.wallOffset,
+		wallNow: () => world.monotonic + world.wallBase,
 		fetchServerTime: async () => {
 			world.requests += 1;
 			const delay = world.delays.length > 0 ? world.delays.shift() : world.defaultDelay;
@@ -65,7 +65,7 @@ function createWorld({ wallStart = 1000000, serverAhead = 250, delays = [] } = {
 				throw new Error("request failed");
 			}
 			world.monotonic += delay / 2;
-			const serverTimestamp = world.monotonic + world.serverOffset;
+			const serverTimestamp = world.monotonic + world.serverBase;
 			world.monotonic += delay / 2;
 			return serverTimestamp;
 		},
@@ -102,9 +102,9 @@ function createWorld({ wallStart = 1000000, serverAhead = 250, delays = [] } = {
 test("serverNow is the wall clock before the first sync", () => {
 	const world = createWorld();
 	assert.equal(world.sync.isSynced(), false);
-	assert.equal(world.sync.serverNow(), world.monotonic + world.wallOffset);
+	assert.equal(world.sync.serverNow(), world.monotonic + world.wallBase);
 	assert.equal(world.sync.wallOffset(), 0);
-	assert.deepEqual(world.sync.status(), { synced: false, offset: 0, error: 0, age: 0 });
+	assert.deepEqual(world.sync.status(), { synced: false, wallOffset: 0, error: 0, age: 0 });
 });
 
 test("a burst sends six requests and keeps the lowest-delay sample", async () => {
@@ -115,8 +115,8 @@ test("a burst sends six requests and keeps the lowest-delay sample", async () =>
 	assert.equal(result.accepted, true);
 	assert.equal(result.status.synced, true);
 	assert.equal(result.status.error, 6);
-	assert.equal(result.status.offset, 250);
-	assert.equal(world.sync.serverNow(), world.monotonic + world.serverOffset);
+	assert.equal(result.status.wallOffset, 250);
+	assert.equal(world.sync.serverNow(), world.monotonic + world.serverBase);
 });
 
 test("a wall-clock step does not move serverNow", async () => {
@@ -124,7 +124,7 @@ test("a wall-clock step does not move serverNow", async () => {
 	await world.sync.syncNow();
 	const before = world.sync.serverNow();
 
-	world.wallOffset += 7000;
+	world.wallBase += 7000;
 
 	assert.equal(world.sync.serverNow(), before);
 	assert.equal(world.sync.wallOffset(), 250 - 7000);
@@ -201,9 +201,9 @@ test("a clock step forces a re-sync within one check interval", async () => {
 	await world.sync.start();
 
 	// The machine slept: the monotonic clock paused while the wall clock and
-	// the server clock kept running, so the stored offset is now wrong.
-	world.wallOffset += 30000;
-	world.serverOffset += 30000;
+	// the server clock kept running, so the stored monotonicOffset is now wrong.
+	world.wallBase += 30000;
+	world.serverBase += 30000;
 	// Make the next burst much worse; it must still be accepted.
 	world.defaultDelay = 400;
 
@@ -211,6 +211,6 @@ test("a clock step forces a re-sync within one check interval", async () => {
 
 	assert.equal(world.results.length, 2);
 	assert.equal(world.results[1].accepted, true);
-	assert.equal(world.sync.serverNow(), world.monotonic + world.serverOffset);
+	assert.equal(world.sync.serverNow(), world.monotonic + world.serverBase);
 	world.sync.stop();
 });
