@@ -3,13 +3,13 @@
         "fileversion": 1,
         "appversion": {
             "major": 9,
-            "minor": 2,
-            "revision": 0,
+            "minor": 1,
+            "revision": 5,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 765.0, 205.0, 589.0, 652.0 ],
+        "rect": [ 499.0, 188.0, 589.0, 537.0 ],
         "openinpresentation": 1,
         "boxes": [
             {
@@ -408,8 +408,8 @@
                     "numinlets": 5,
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 600.0, 348.0, 366.0, 22.0 ],
-                    "text": "dict.pack color payload: schemaVersion: type: relativeTimestamp: 0"
+                    "patching_rect": [ 600.0, 348.0, 337.0, 22.0 ],
+                    "text": "dict.pack payload: schemaVersion: type: relativeTimestamp: 0"
                 }
             },
             {
@@ -419,8 +419,8 @@
                     "numinlets": 6,
                     "numoutlets": 1,
                     "outlettype": [ "dictionary" ],
-                    "patching_rect": [ 601.0, 238.0, 462.0, 22.0 ],
-                    "text": "dict.pack payload assetAlias: durationMs: 0 startOffsetMs: 0 loop:false transitionMs: 0"
+                    "patching_rect": [ 601.0, 238.0, 417.0, 22.0 ],
+                    "text": "dict.pack assetAlias: durationMs: 0 startOffsetMs: 0 loop:false transitionMs: 0"
                 }
             },
             {

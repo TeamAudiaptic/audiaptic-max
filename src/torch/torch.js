@@ -66,12 +66,12 @@ function transition(value) {
 }
 
 function intensity(value) {
-    if (!isInteger(value)) {
-        error("Torch intensity must be an integer.\n");
+    if (!((value >= 0) && (value <= 1))) {
+        error("Torch intensity must bebetween 0 and 1.\n");
         return;
     }
 
-    intensityValue = Math.max(0, value);
+    intensityValue = value;
 }
 
 function bang() {
