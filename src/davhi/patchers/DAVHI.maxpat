@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 59.0, 107.0, 951.0, 846.0 ],
+        "rect": [ 2183.0, 163.0, 1121.0, 1015.0 ],
         "boxes": [
             {
                 "box": {
@@ -173,11 +173,11 @@
                     "lockedsize": 0,
                     "maxclass": "bpatcher",
                     "name": "connection.maxpat",
-                    "numinlets": 5,
+                    "numinlets": 6,
                     "numoutlets": 2,
                     "offset": [ 0.0, 0.0 ],
                     "outlettype": [ "", "" ],
-                    "patching_rect": [ 123.0, 500.0, 443.0, 174.0 ],
+                    "patching_rect": [ 123.0, 500.0, 444.0, 175.0 ],
                     "viewvisibility": 1
                 }
             }

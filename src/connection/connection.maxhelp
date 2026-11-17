@@ -74,7 +74,7 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 901.0, 315.0, 150.0, 62.0 ],
-                    "text": "Send a test \"ping\" event to the server with the right inlet or with the \"ping\" button in the UI"
+                    "text": "Send a test \"ping\" event to the server with the fifth inlet or with the \"ping\" button in the UI. The sixth (right) inlet or the \"Sync\" button re-syncs the clock with the DAVHI server; this also happens automatically on connect and every 60 seconds."
                 }
             },
             {
@@ -129,7 +129,7 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 301.0, 60.0, 150.0, 131.0 ],
-                    "text": "The timestamp that the event should be executed in Epoch time (ms). If not supplied OR it is 0, the connection patch will send the current time + the universal delay. Universal delay is not applied to a provided execTimestamp. "
+                    "text": "The timestamp that the event should be executed in Epoch time (ms). If not supplied OR it is 0, the connection patch will send the current time + the universal delay. Universal delay is not applied to a provided execTimestamp. Supply the timestamp in this computer's clock time; the connection patch converts it to the DAVHI server's clock before sending. "
                 }
             },
             {
