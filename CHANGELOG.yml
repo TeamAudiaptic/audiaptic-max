@@ -83,3 +83,17 @@ entries:
     emoji: ♻️
     label: Refactor
     message: Updated ack validation
+- id: 9
+  pr: 60
+  author: ejs8021
+  time: '2026-11-17T22:04:37+00:00'
+  url: https://github.com/TeamAudiaptic/audiaptic-max/pull/60
+  changes:
+  - type: fix
+    emoji: 🐛
+    label: Fix
+    message: Fixed conflict between color and media patches associated with dict names
+  - type: fix
+    emoji: 🐛
+    label: Fix
+    message: Torch patch takes a value from 1-100 and scales it to a value from 0-1
