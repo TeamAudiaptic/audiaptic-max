@@ -16,7 +16,8 @@ See event reference [here](https://teamaudiaptic.github.io/audiaptic-docs/docs/c
 3. Connect an event patch to the timeline's inlet and send the serialized event while the desired position is selected.
 4. Click an event to select it (shift-click to select more), drag to move, and **Remove Selected** to delete. To change an event's settings, select it, turn on the replace toggle (**Toggle on to replace the selected event instead of adding one**), and press **Send** on an event patch.
 5. **Save Timeline** writes the timeline to a `.json` file. **Load Timeline** replaces the current timeline with one from a file; load its audio file again separately.
-6. **Send Timeline** outputs the whole timeline from the patch's outlet as one JSON list. Connect the outlet to the [connection patch](../connection/README.md) to send it to the server as a single frame.
+6. **Send Timeline** outputs the whole timeline from the patch's outlet as one JSON list, led by a `start` event. Connect the outlet to the [connection patch](../connection/README.md) to send it to the server as a single frame. See [Sending a timeline](#sending-a-timeline).
+7. To play the audio from this patch during a performance, turn on **Play the audio when a start event is sent**. To turn it on when the patch loads, give the patch the argument `@playonstart 1`, for example in a bpatcher's arguments.
 
 ## Saved format
 
@@ -46,6 +47,19 @@ A timeline is saved as a JSON array of events, each in the [shared event envelop
 
 ## Sending a timeline
 
-A device can only schedule a `relativeTimestamp` once it has received the performance's `start` event, and a performance has exactly one `start`. The timeline does not include it, so send `start` through the connection patch before **Send Timeline**, timed so it lines up with the start of the audio.
+A device can only schedule a `relativeTimestamp` once it has received the performance's [`start` event](https://teamaudiaptic.github.io/audiaptic-docs/docs/dev-docs/events/start). **Send Timeline** therefore puts a `start` event first in the list it outputs:
+
+```json
+[
+  { "schemaVersion": "1.0", "type": "start" },
+  { "schemaVersion": "1.0", "type": "haptic", "relativeTimestamp": 12500, "payload": { "intensity": 0.8, "durationMs": 400, "transitionMs": 0 } }
+]
+```
+
+The `start` has no time of its own. The connection patch sets it to the current time plus its universal delay, and every `relativeTimestamp` counts from then. Set the universal delay long enough for the list to reach every device before that time. The `start` is added only when sending, so it is not saved in the timeline file or shown in the lanes.
+
+The server currently processes only the first `start` of a performance and ignores later ones. Sending the timeline again sends another `start`, which the server ignores, so the timeline keeps counting from the first one.
+
+When the connection patch sends the first `start`, it cues the rest of Max through `[receive davhi_start]` (see [Start cue](../connection/README.md#start-cue)). With **Play the audio when a start event is sent** on, this patch plays its audio from the beginning when the `start` executes. Turn it off when something else plays the audio; that patch can use `[receive davhi_start]` itself. Audio output latency in Max can make playback begin slightly late.
 
 The server sets no limit on the number of events in a list, but a long list takes longer to validate, relay, and parse on each device. The server validates each event on its own, relays the valid ones, and reports any rejected events in its acknowledgement.

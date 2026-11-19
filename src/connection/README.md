@@ -21,6 +21,16 @@ The time endpoint is derived from `DAVHI_WEBSOCKET_URL` (`ws://host/api/performe
 
 `timeSync.js` holds the algorithm and has no dependencies. Run its tests with `npm test` in this directory; Max is not needed. `timeSync.vectors.json` holds the expected results that any other implementation of the algorithm, such as the mobile client's, should also produce.
 
+## Start cue
+
+The [`start` event](https://teamaudiaptic.github.io/audiaptic-docs/docs/dev-docs/events/start) anchors every `relativeTimestamp` in a performance. Whatever plays the performance's audio in Max needs to begin at the moment devices execute it.
+
+- **Timing:** a `start` without an `epochTimestamp` is set to the current time plus the universal delay. This applies whether it is sent alone or in a list, such as the one the [timeline patch](../timeline/README.md) sends. Other events in a list keep their own timing.
+- **Cue:** when the first `start` has been sent, the patch outputs `start <msUntilStart> <epochTimestamp>` from its outlet and to `[send davhi_start]`. Any patch can use `[receive davhi_start]` and pass `msUntilStart` to `[delay]` to act when the `start` executes. Max and the devices convert the same server-clock `epochTimestamp` with their own clock offsets, so the cue does not wait for the server's acknowledgement. `epochTimestamp` is on the server's clock.
+- **Only the first start cues Max:** the server currently processes only the first `start` of a performance, so a later `start` is still sent but posts a warning instead of cueing Max. Press **Reset** (or bang the rightmost inlet, or send `resetStart`) to let the next `start` cue Max again. Reconnecting does not reset it.
+- **Status:** the Start row shows `not started` or the local time the `start` executes.
+- **Warnings:** if the start time is reached before the cue is sent, the cue's `msUntilStart` is 0 and a warning asks for a longer universal delay. A `start` timed before the clock has synced also posts a warning, because Max and the devices may disagree on when it executes.
+
 ## Local Setup
 Follow these instructions to test the websocket connection locally. 
 
@@ -35,6 +45,6 @@ Docker needs to be running and this will run the performer and portal APIs in se
 If there are any issues with the script, just cd into api/ and then run `npm run dev`
 
 ### 3. Update .env
-Copy the [.env.example](.env.example) into a new .env file. The example already sets DAVHI_WEBSOCKET_URL="ws://localhost/api/performer" (use localhost:3000 if localhost isn't working for some reason) and DAVHI_PERFORMANCE_TOKEN="test-token" which should be all that's needed for local.
+Copy the [.env.example](.env.example) into a new .env file. The example already sets DAVHI_WEBSOCKET_URL="ws://localhost/api/performer" (use localhost:3000 if localhost isn't working for some reason) and DAVHI_PERFORMANCE_TOKEN="dev", which is the token the dev server accepts.
 
-NOTE: Authentication with the DAVHI_PERFORMANCE_TOKEN is not actually implemented yet, but you still need to provide a string for validation. We will probably just keep test-token as the valid token by default for the local environment anyways when it's implemented.
+The connection appends the token to the WebSocket URL as `?token=<token>`; the server's Caddy proxy checks it before the request reaches the API. For production, set DAVHI_WEBSOCKET_URL to `wss://davhi.se.rit.edu/api/performer` and DAVHI_PERFORMANCE_TOKEN to the server's `PERFORMER_TOKEN`.

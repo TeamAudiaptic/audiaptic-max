@@ -1007,6 +1007,121 @@
                     "patching_rect": [ 1723.0, 142.2680332660675, 40.0, 22.0 ],
                     "text": "dump"
                 }
+            },
+            {
+                "box": {
+                    "id": "obj-92",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 2000.0, 200.0, 160.0, 22.0 ],
+                    "text": "patcherargs @playonstart 0"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-93",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 2080.0, 240.0, 105.0, 22.0 ],
+                    "text": "route playonstart"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-94",
+                    "maxclass": "toggle",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 2080.0, 280.0, 24.0, 24.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 353.0, 482.0, 20.0, 20.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-95",
+                    "linecount": 2,
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 2115.0, 280.0, 320.0, 34.0 ],
+                    "presentation": 1,
+                    "presentation_linecount": 2,
+                    "presentation_rect": [ 378.0, 482.0, 330.0, 34.0 ],
+                    "text": "Play the audio when a start event is sent (cued by the connection patch)"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-96",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 2200.0, 320.0, 82.0, 22.0 ],
+                    "text": "r davhi_start"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-97",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 2080.0, 360.0, 139.0, 22.0 ],
+                    "text": "gate 1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-98",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "bang", "float" ],
+                    "patching_rect": [ 2080.0, 400.0, 40.0, 22.0 ],
+                    "text": "t b f"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-99",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "bang" ],
+                    "patching_rect": [ 2080.0, 440.0, 58.0, 22.0 ],
+                    "text": "delay"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-100",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "bang", "bang" ],
+                    "patching_rect": [ 2080.0, 480.0, 40.0, 22.0 ],
+                    "text": "t b b"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-101",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 2140.0, 520.0, 32.0, 22.0 ],
+                    "text": "0."
+                }
             }
         ],
         "lines": [
@@ -1610,6 +1725,72 @@
                 "patchline": {
                     "destination": [ "obj-38", 0 ],
                     "source": [ "obj-47", 4 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-93", 0 ],
+                    "source": [ "obj-92", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-94", 0 ],
+                    "source": [ "obj-93", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-97", 0 ],
+                    "source": [ "obj-94", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-97", 1 ],
+                    "source": [ "obj-96", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-98", 0 ],
+                    "source": [ "obj-97", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-99", 1 ],
+                    "source": [ "obj-98", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-99", 0 ],
+                    "source": [ "obj-98", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-100", 0 ],
+                    "source": [ "obj-99", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-101", 0 ],
+                    "source": [ "obj-100", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-9", 0 ],
+                    "source": [ "obj-101", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-50", 0 ],
+                    "source": [ "obj-100", 0 ]
                 }
             }
         ],

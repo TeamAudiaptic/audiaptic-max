@@ -9,14 +9,14 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 329.0, 86.0, 620.0, 515.0 ],
+        "rect": [ 329.0, 86.0, 1295.0, 724.0 ],
         "openinpresentation": 1,
         "boxes": [
             {
                 "box": {
                     "comment": "Node Script Debug Output",
                     "id": "obj-9",
-                    "index": 0,
+                    "index": 2,
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
@@ -345,7 +345,7 @@
                     "patching_rect": [ 79.0, 128.0, 300.0, 22.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 80.0, 129.0, 299.0, 22.0 ],
-                    "text": "disconnected",
+                    "text": "disconnected 1000 \"Disconnected by Max\"",
                     "textcolor": [ 0.95, 0.95, 0.95, 1.0 ]
                 }
             },
@@ -382,8 +382,6 @@
                     "saved_object_attributes": {
                         "autostart": 1,
                         "defer": 0,
-                        "node_bin_path": "",
-                        "npm_bin_path": "",
                         "watch": 0
                     },
                     "text": "node.script connection.js @autostart 1",
@@ -410,7 +408,7 @@
                 "box": {
                     "comment": "Send a bang to re-sync the clock with the DAVHI server",
                     "id": "sync-inlet",
-                    "index": 0,
+                    "index": 6,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
@@ -461,7 +459,7 @@
                     "numinlets": 4,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 860.0, 465.0, 330.0, 22.0 ],
+                    "patching_rect": [ 860.0, 519.0, 330.0, 22.0 ],
                     "text": "sprintf set %s offset %.1f ms error %.1f ms age %ld ms"
                 }
             },
@@ -496,7 +494,7 @@
                     "patching_rect": [ 79.0, 156.0, 300.0, 22.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 80.0, 152.0, 299.0, 22.0 ],
-                    "text": "not synced",
+                    "text": "synced offset -0.4 ms error 0.6 ms age 0 ms",
                     "textcolor": [ 0.95, 0.95, 0.95, 1.0 ]
                 }
             },
@@ -511,51 +509,115 @@
                     "numoutlets": 0,
                     "patching_rect": [ -1.0, -1.0, 449.0, 249.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 0.0, 0.0, 443.0, 174.0 ]
+                    "presentation_rect": [ 0.0, 0.0, 443.0, 200.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "start-label",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 19.0, 184.0, 55.0, 20.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 20.0, 176.0, 55.0, 20.0 ],
+                    "text": "Start",
+                    "textcolor": [ 0.8, 0.8, 0.8, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "bgcolor": [ 0.12, 0.12, 0.12, 1.0 ],
+                    "bgcolor2": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
+                    "bgfillcolor_autogradient": 0.0,
+                    "bgfillcolor_color": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
+                    "bgfillcolor_color1": [ 0.12, 0.12, 0.12, 1.0 ],
+                    "bgfillcolor_color2": [ 0.172137149796092, 0.172137100044002, 0.172137113045018, 1 ],
+                    "bgfillcolor_type": "gradient",
+                    "gradient": 1,
+                    "id": "start-status",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 79.0, 184.0, 300.0, 22.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 80.0, 175.0, 299.0, 22.0 ],
+                    "text": "not started",
+                    "textcolor": [ 0.95, 0.95, 0.95, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "reset-start-control",
+                    "maxclass": "textbutton",
+                    "numinlets": 1,
+                    "numoutlets": 3,
+                    "outlettype": [ "", "", "int" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 394.0, 186.0, 44.0, 20.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 385.0, 178.0, 44.0, 18.0 ],
+                    "text": "Reset"
+                }
+            },
+            {
+                "box": {
+                    "comment": "Send a bang to let the next start event cue Max again",
+                    "id": "reset-start-inlet",
+                    "index": 7,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1320.0, 65.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "reset-start-message",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1320.0, 220.0, 66.0, 22.0 ],
+                    "text": "resetStart"
+                }
+            },
+            {
+                "box": {
+                    "id": "route-start",
+                    "maxclass": "newobj",
+                    "numinlets": 3,
+                    "numoutlets": 3,
+                    "outlettype": [ "", "", "" ],
+                    "patching_rect": [ 960.0, 430.0, 135.0, 22.0 ],
+                    "text": "route start startStatus"
+                }
+            },
+            {
+                "box": {
+                    "id": "send-start",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 960.0, 470.0, 80.0, 22.0 ],
+                    "text": "s davhi_start"
+                }
+            },
+            {
+                "box": {
+                    "id": "set-start-status",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1060.0, 470.0, 82.0, 22.0 ],
+                    "text": "prepend set"
                 }
             }
         ],
         "lines": [
-            {
-                "patchline": {
-                    "destination": [ "sync-message", 0 ],
-                    "source": [ "sync-inlet", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "sync-message", 0 ],
-                    "midpoints": [ 403.5, 196.0, 1239.5, 196.0 ],
-                    "source": [ "sync-control", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "node", 0 ],
-                    "midpoints": [ 1239.5, 339.0, 609.5, 339.0 ],
-                    "source": [ "sync-message", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "route-sync", 0 ],
-                    "midpoints": [ 609.5, 381.0, 869.5, 381.0 ],
-                    "source": [ "node", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "format-sync", 0 ],
-                    "source": [ "route-sync", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "sync-status", 0 ],
-                    "midpoints": [ 869.5, 500.0, 500.0, 500.0, 500.0, 205.0, 88.5, 205.0 ],
-                    "source": [ "format-sync", 0 ]
-                }
-            },
             {
                 "patchline": {
                     "destination": [ "set-delay", 0 ],
@@ -567,6 +629,13 @@
                 "patchline": {
                     "destination": [ "send", 0 ],
                     "source": [ "event-inlet", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "sync-status", 0 ],
+                    "midpoints": [ 869.5, 500.0, 500.0, 500.0, 500.0, 205.0, 88.5, 205.0 ],
+                    "source": [ "format-sync", 0 ]
                 }
             },
             {
@@ -585,7 +654,7 @@
             {
                 "patchline": {
                     "destination": [ "output", 0 ],
-                    "order": 0,
+                    "order": 2,
                     "source": [ "node", 0 ]
                 }
             },
@@ -593,6 +662,21 @@
                 "patchline": {
                     "destination": [ "route-connection", 0 ],
                     "midpoints": [ 609.5, 375.0, 583.0, 375.0, 583.0, 267.0, 609.5, 267.0 ],
+                    "order": 3,
+                    "source": [ "node", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "route-start", 0 ],
+                    "order": 0,
+                    "source": [ "node", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "route-sync", 0 ],
+                    "midpoints": [ 609.5, 381.0, 869.5, 381.0 ],
                     "order": 1,
                     "source": [ "node", 0 ]
                 }
@@ -675,8 +759,44 @@
             },
             {
                 "patchline": {
+                    "destination": [ "reset-start-message", 0 ],
+                    "source": [ "reset-start-control", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "reset-start-message", 0 ],
+                    "source": [ "reset-start-inlet", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "node", 0 ],
+                    "source": [ "reset-start-message", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "set-status", 0 ],
                     "source": [ "route-connection", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "send-start", 0 ],
+                    "source": [ "route-start", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "set-start-status", 0 ],
+                    "source": [ "route-start", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "format-sync", 0 ],
+                    "source": [ "route-sync", 0 ]
                 }
             },
             {
@@ -691,6 +811,12 @@
                     "destination": [ "node", 0 ],
                     "midpoints": [ 383.5, 345.0, 609.5, 345.0 ],
                     "source": [ "set-delay", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "start-status", 0 ],
+                    "source": [ "set-start-status", 0 ]
                 }
             },
             {
@@ -733,6 +859,26 @@
                     "destination": [ "stop-connection", 0 ],
                     "midpoints": [ 323.5, 163.0, 545.0, 163.0, 545.0, 196.0, 789.5, 196.0 ],
                     "source": [ "stop-control", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "sync-message", 0 ],
+                    "midpoints": [ 403.5, 196.0, 1239.5, 196.0 ],
+                    "source": [ "sync-control", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "sync-message", 0 ],
+                    "source": [ "sync-inlet", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "node", 0 ],
+                    "midpoints": [ 1239.5, 339.0, 609.5, 339.0 ],
+                    "source": [ "sync-message", 0 ]
                 }
             }
         ]

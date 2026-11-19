@@ -11,7 +11,8 @@
  * reads and writes timeline files itself rather than through the dict.
  *
  * Every saved event carries a relativeTimestamp: milliseconds from the start
- * of the audio, which is aligned with the performance's start event.
+ * of the audio, which is aligned with the performance's start event. Sending
+ * the timeline sends that start event first.
  */
 autowatch = 1;
 inlets = 1;
@@ -271,14 +272,21 @@ function read(path) {
 	commit();
 }
 
-/** Outputs the timeline as a JSON array of events for the connection patch. */
+/**
+ * Outputs the timeline as a JSON array of events for the connection patch,
+ * led by a start event. The start has no time, so the connection patch sets it
+ * to the current time plus its universal delay; the timeline's
+ * relativeTimestamps count from it. It is added only when sending, so it is
+ * not saved or shown in the lanes.
+ */
 function dump() {
 	if (timeline.events.length === 0) {
 		report("The timeline has no events to send");
 		return;
 	}
 	sortEvents(timeline.events);
-	outlet(0, "timeline", JSON.stringify(timeline.events));
+	const start = { schemaVersion: SCHEMA_VERSION, type: "start" };
+	outlet(0, "timeline", JSON.stringify([start, ...timeline.events]));
 }
 
 /** Adds an event JSON string from an event patch at the current position. */

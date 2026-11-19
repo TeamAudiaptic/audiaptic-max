@@ -173,11 +173,11 @@
                     "lockedsize": 0,
                     "maxclass": "bpatcher",
                     "name": "connection.maxpat",
-                    "numinlets": 6,
+                    "numinlets": 7,
                     "numoutlets": 2,
                     "offset": [ 0.0, 0.0 ],
                     "outlettype": [ "", "" ],
-                    "patching_rect": [ 123.0, 500.0, 444.0, 175.0 ],
+                    "patching_rect": [ 123.0, 500.0, 444.0, 201.0 ],
                     "viewvisibility": 1
                 }
             }

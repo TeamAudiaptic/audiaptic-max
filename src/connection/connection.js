@@ -15,6 +15,10 @@ let universalDelayMs = 0;
 let nextSequence = 0;
 let timeURL = null;
 let warnedUnsynced = false;
+// The epochTimestamp (server clock) of the first start event sent, or null.
+// The server currently processes only the first start of a performance, so
+// only that one cues Max. resetStart clears it; reconnecting does not.
+let startedAt = null;
 
 function isNonNegativeInteger(value) {
 	return Number.isSafeInteger(value) && value >= 0;
@@ -219,7 +223,16 @@ function loadConfiguration() {
 		throw new Error("DAVHI_WEBSOCKET_URL must use ws: or wss:");
 	}
 
-	return { url: parsedURL.toString(), token, timeURL: resolveTimeURL(parsedURL) };
+	// The server authenticates the performer by a token in the query string
+	// (/api/performer?token=<token>). url stays token-free so it can be logged.
+	const connectURL = new URL(parsedURL);
+	connectURL.searchParams.set("token", token);
+
+	return {
+		url: parsedURL.toString(),
+		connectURL: connectURL.toString(),
+		timeURL: resolveTimeURL(parsedURL)
+	};
 }
 
 function socketIsOpen() {
@@ -287,10 +300,7 @@ function openConnection() {
 	const configuration = loadConfiguration();
 	timeURL = configuration.timeURL;
 	connecting = new Promise((resolve, reject) => {
-		const nextSocket = new WebSocket(configuration.url, {
-			headers: { Authorization: `Bearer ${configuration.token}` },
-			handshakeTimeout: 10000
-		});
+		const nextSocket = new WebSocket(configuration.connectURL, { handshakeTimeout: 10000 });
 		attachSocketHandlers(nextSocket, configuration.url);
 
 		const rejectConnection = error => {
@@ -364,11 +374,17 @@ async function sync() {
 	await timeSync.syncNow();
 }
 
+function isStartEvent(event) {
+	return event !== null && typeof event === "object" && event.type === "start";
+}
+
 /**
  * Prepares a parsed frame for the server. A single event gets an identity, a
  * resolved epochTimestamp, and a sentTimestamp. Each event in a list gets an
- * identity and a sentTimestamp, with sequences in list order; list events are
- * expected to carry their own timing, so no epochTimestamp is added.
+ * identity and a sentTimestamp, with sequences in list order. List events are
+ * expected to carry their own timing, except a start event: one without an
+ * epochTimestamp gets the same fallback as a single event, the current time
+ * plus the universal delay, so a timeline can lead with an untimed start.
  *
  * Every timestamp is on the DAVHI server's clock: sentTimestamp and the
  * fallback epochTimestamp are read from it, and an epochTimestamp supplied by
@@ -380,11 +396,88 @@ async function sync() {
 function prepareFrame(frame) {
 	const sentTimestamp = serverNow();
 	if (Array.isArray(frame)) {
-		return frame.map(event => ({ ...convertEpochTimestamp(assignEventIdentity(event)), sentTimestamp }));
+		return frame.map(event => {
+			const identifiedEvent = assignEventIdentity(event);
+			const prepared = isStartEvent(event)
+				? { ...identifiedEvent, epochTimestamp: resolveEpochTimestamp(identifiedEvent) }
+				: convertEpochTimestamp(identifiedEvent);
+			return { ...prepared, sentTimestamp };
+		});
 	}
 
 	const event = assignEventIdentity(frame);
 	return { ...event, epochTimestamp: resolveEpochTimestamp(event), sentTimestamp };
+}
+
+function pad(value, length = 2) {
+	return String(value).padStart(length, "0");
+}
+
+/** Formats a server-clock epoch time as this machine's local time of day. */
+function formatLocalTime(epochTimestamp) {
+	const date = new Date(epochTimestamp - timeSync.wallOffset());
+	return `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}.${pad(date.getMilliseconds(), 3)}`;
+}
+
+async function emitStartStatus() {
+	if (startedAt === null) {
+		await maxAPI.outlet("startStatus", "not", "started");
+	} else {
+		await maxAPI.outlet("startStatus", "started", "at", formatLocalTime(startedAt));
+	}
+}
+
+/**
+ * Cues Max for the first start event that has been sent:
+ * start <msUntilStart> <epochTimestamp>.
+ *
+ * Max and every device convert the same server-clock epochTimestamp with their
+ * own clock offsets, so Max knows when devices execute the start without
+ * waiting for the server. msUntilStart is measured when the cue is sent, so a
+ * patch can pass it straight to [delay]. A start that is already due cues with
+ * 0 and a warning. Later starts are sent to the server but do not cue Max.
+ *
+ * @param {object[]} events The events of a frame that was just sent.
+ */
+async function cueStart(events) {
+	const start = events.find(isStartEvent);
+	if (start === undefined) {
+		return;
+	}
+	if (!Number.isFinite(start.epochTimestamp)) {
+		maxAPI.post("A start event was sent with a relativeTimestamp only; it does not cue Max.", maxAPI.POST_LEVELS.WARN);
+		return;
+	}
+	if (startedAt !== null) {
+		maxAPI.post(
+			`A start was already sent for ${formatLocalTime(startedAt)}; this one does not cue Max. Send resetStart to allow a new start.`,
+			maxAPI.POST_LEVELS.WARN
+		);
+		return;
+	}
+
+	startedAt = start.epochTimestamp;
+	const msUntilStart = start.epochTimestamp - serverNow();
+	if (msUntilStart <= 0) {
+		maxAPI.post(
+			`The start time was reached ${-msUntilStart} ms before Max was cued, so devices receive it late; increase the universal delay.`,
+			maxAPI.POST_LEVELS.WARN
+		);
+	}
+	if (!timeSync.isSynced()) {
+		maxAPI.post(
+			"The start was timed without a clock sync, so Max may not start at the same time as the devices.",
+			maxAPI.POST_LEVELS.WARN
+		);
+	}
+	await maxAPI.outlet("start", Math.max(0, msUntilStart), start.epochTimestamp);
+	await emitStartStatus();
+}
+
+/** Allows the next start event to cue Max again. */
+async function resetStart() {
+	startedAt = null;
+	await emitStartStatus();
 }
 
 async function emitErrorForEach(events, message) {
@@ -422,6 +515,10 @@ async function send(...argumentsList) {
 		await new Promise((resolve, reject) => {
 			socket.send(serializedFrame, error => (error ? reject(error) : resolve()));
 		});
+		// The frame has been sent, so a failure to cue is not a send failure.
+		await cueStart(events).catch(error => {
+			maxAPI.post(`Could not cue the start: ${error.message}`, maxAPI.POST_LEVELS.ERROR);
+		});
 		for (const event of events) {
 			const epochTimestamp = event.epochTimestamp === undefined || event.epochTimestamp === null ? "null" : event.epochTimestamp;
 			await maxAPI.outlet("sent", event.eventId, epochTimestamp);
@@ -439,7 +536,12 @@ maxAPI.addHandlers({
 	getDelay: async () => maxAPI.outlet("delay", universalDelayMs),
 	sync,
 	getSync: emitSyncStatus,
+	resetStart,
+	getStart: emitStartStatus,
 	send
 });
 
 maxAPI.post("Audiaptic connection ready. Send connect to open the WebSocket.");
+emitStartStatus().catch(error => {
+	maxAPI.post(error.message, maxAPI.POST_LEVELS.ERROR);
+});
