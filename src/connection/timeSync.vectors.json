@@ -41,6 +41,48 @@
       "expected": null
     }
   ],
+  "isBurstComplete": [
+    {
+      "name": "warm-up and one usable sample are not enough",
+      "samples": [{ "delay": 244 }, { "delay": 47.4 }],
+      "expected": false
+    },
+    {
+      "name": "steady network: the second usable sample is within 2 ms",
+      "samples": [{ "delay": 244 }, { "delay": 47.4 }, { "delay": 47.8 }],
+      "expected": true
+    },
+    {
+      "name": "exactly 2 ms apart counts as steady",
+      "samples": [{ "delay": 244 }, { "delay": 40 }, { "delay": 42 }],
+      "expected": true
+    },
+    {
+      "name": "latest sample is more than 2 ms from the best",
+      "samples": [{ "delay": 244 }, { "delay": 50 }, { "delay": 46.6 }],
+      "expected": false
+    },
+    {
+      "name": "compared with the best earlier sample, not the previous one",
+      "samples": [{ "delay": 244 }, { "delay": 45.8 }, { "delay": 50 }, { "delay": 47 }],
+      "expected": true
+    },
+    {
+      "name": "the warm-up sample is not a comparison point",
+      "samples": [{ "delay": 47 }, { "delay": 60 }, { "delay": 47.5 }],
+      "expected": false
+    },
+    {
+      "name": "a failed latest request does not stop the burst",
+      "samples": [{ "delay": 244 }, { "delay": 47 }, null],
+      "expected": false
+    },
+    {
+      "name": "stops at 6 samples even if never steady",
+      "samples": [{ "delay": 244 }, { "delay": 80 }, { "delay": 60 }, { "delay": 90 }, { "delay": 50 }, { "delay": 70 }],
+      "expected": true
+    }
+  ],
   "shouldAccept": [
     {
       "name": "not synced yet",

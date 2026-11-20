@@ -19,7 +19,8 @@
  * - wallOffset: derived on demand; converts wall-clock epoch times.
  */
 
-const SAMPLES_PER_BURST = 6;
+const MAX_SAMPLES_PER_BURST = 6;
+const STABLE_DELAY_MS = 2;
 const MAX_CONSECUTIVE_FAILURES = 2;
 const RESYNC_INTERVAL_MS = 60000;
 const RETRY_INTERVAL_MS = 10000;
@@ -61,6 +62,28 @@ function selectBestSample(samples) {
 		}
 	}
 	return best;
+}
+
+/**
+ * Whether a burst can stop. It stops early once the network looks steady: the
+ * latest sample's delay is within STABLE_DELAY_MS of the best earlier usable
+ * sample, so more samples are unlikely to find a faster round trip. Otherwise
+ * it stops at MAX_SAMPLES_PER_BURST. The warm-up sample never counts, so a
+ * burst takes at least 3 requests.
+ *
+ * @param {Array<object | null>} samples Samples in the order they were taken.
+ * @returns {boolean}
+ */
+function isBurstComplete(samples) {
+	if (samples.length >= MAX_SAMPLES_PER_BURST) {
+		return true;
+	}
+	const latest = samples[samples.length - 1];
+	if (samples.length < 3 || latest === null || latest === undefined) {
+		return false;
+	}
+	const earlier = selectBestSample(samples.slice(0, -1));
+	return earlier !== null && Math.abs(latest.delay - earlier.delay) <= STABLE_DELAY_MS;
 }
 
 /**
@@ -155,7 +178,7 @@ function createTimeSync(options) {
 		let consecutiveFailures = 0;
 		let lastFailure = "no usable samples";
 
-		while (samples.length < SAMPLES_PER_BURST && consecutiveFailures < MAX_CONSECUTIVE_FAILURES) {
+		while (!isBurstComplete(samples) && consecutiveFailures < MAX_CONSECUTIVE_FAILURES) {
 			try {
 				samples.push(await takeSample());
 				consecutiveFailures = 0;
@@ -265,7 +288,8 @@ function createTimeSync(options) {
 }
 
 module.exports = {
-	SAMPLES_PER_BURST,
+	MAX_SAMPLES_PER_BURST,
+	STABLE_DELAY_MS,
 	RESYNC_INTERVAL_MS,
 	RETRY_INTERVAL_MS,
 	MAX_OFFSET_AGE_MS,
@@ -273,6 +297,7 @@ module.exports = {
 	CLOCK_STEP_THRESHOLD_MS,
 	computeSample,
 	selectBestSample,
+	isBurstComplete,
 	shouldAccept,
 	createTimeSync
 };

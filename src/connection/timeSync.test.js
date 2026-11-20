@@ -3,12 +3,13 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const vectors = require("./timeSync.vectors.json");
 const {
-	SAMPLES_PER_BURST,
+	MAX_SAMPLES_PER_BURST,
 	RESYNC_INTERVAL_MS,
 	RETRY_INTERVAL_MS,
 	CLOCK_CHECK_INTERVAL_MS,
 	computeSample,
 	selectBestSample,
+	isBurstComplete,
 	shouldAccept,
 	createTimeSync
 } = require("./timeSync");
@@ -22,6 +23,12 @@ for (const vector of vectors.computeSample) {
 for (const vector of vectors.selectBestSample) {
 	test(`selectBestSample: ${vector.name}`, () => {
 		assert.deepEqual(selectBestSample(vector.samples), vector.expected);
+	});
+}
+
+for (const vector of vectors.isBurstComplete) {
+	test(`isBurstComplete: ${vector.name}`, () => {
+		assert.equal(isBurstComplete(vector.samples), vector.expected);
 	});
 }
 
@@ -107,16 +114,33 @@ test("serverNow is the wall clock before the first sync", () => {
 	assert.deepEqual(world.sync.status(), { synced: false, wallOffset: 0, error: 0, age: 0 });
 });
 
-test("a burst sends six requests and keeps the lowest-delay sample", async () => {
+test("an unsteady burst sends six requests and keeps the lowest-delay sample", async () => {
 	const world = createWorld({ delays: [4, 30, 12, 50, 18, 26] });
 	const result = await world.sync.syncNow();
 
-	assert.equal(world.requests, SAMPLES_PER_BURST);
+	assert.equal(world.requests, MAX_SAMPLES_PER_BURST);
 	assert.equal(result.accepted, true);
 	assert.equal(result.status.synced, true);
 	assert.equal(result.status.error, 6);
 	assert.equal(result.status.wallOffset, 250);
 	assert.equal(world.sync.serverNow(), world.monotonic + world.serverBase);
+});
+
+test("a steady burst stops after three requests", async () => {
+	const world = createWorld({ delays: [240, 47.4, 47.8, 10, 10, 10] });
+	const result = await world.sync.syncNow();
+
+	assert.equal(world.requests, 3);
+	assert.equal(result.accepted, true);
+	assert.ok(Math.abs(result.status.error - 23.7) < 1e-9);
+});
+
+test("a burst keeps going until a sample is close to the best", async () => {
+	const world = createWorld({ delays: [240, 45.8, 50, 47, 10, 10] });
+	await world.sync.syncNow();
+
+	assert.equal(world.requests, 4);
+	assert.ok(Math.abs(world.sync.status().error - 22.9) < 1e-9);
 });
 
 test("a wall-clock step does not move serverNow", async () => {
@@ -140,7 +164,8 @@ test("a burst with no usable sample reports a failure and keeps the offset", asy
 
 	assert.equal(result.accepted, false);
 	assert.match(result.reason, /request failed/);
-	assert.equal(world.requests, SAMPLES_PER_BURST + 2);
+	// The first burst is steady (every request takes 20 ms), so it takes 3.
+	assert.equal(world.requests, 3 + 2);
 	assert.equal(world.sync.status().error, before);
 });
 
@@ -161,7 +186,7 @@ test("concurrent syncNow calls share one burst", async () => {
 	const [first, second] = await Promise.all([world.sync.syncNow(), world.sync.syncNow()]);
 
 	assert.equal(first, second);
-	assert.equal(world.requests, SAMPLES_PER_BURST);
+	assert.equal(world.requests, 3);
 });
 
 test("syncNow does not schedule anything unless started", async () => {
