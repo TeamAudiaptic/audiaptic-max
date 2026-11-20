@@ -15,9 +15,9 @@ let universalDelayMs = 0;
 let nextSequence = 0;
 let timeURL = null;
 let warnedUnsynced = false;
-// The epochTimestamp (server clock) of the first start event sent, or null.
-// The server currently processes only the first start of a performance, so
-// only that one cues Max. resetStart clears it; reconnecting does not.
+// The epochTimestamp (server clock) of the latest start event sent, or null.
+// Shown as the start status. Every start cues Max; on devices, a later start
+// replaces the timeline of the previous one.
 let startedAt = null;
 
 function isNonNegativeInteger(value) {
@@ -428,31 +428,28 @@ async function emitStartStatus() {
 }
 
 /**
- * Cues Max for the first start event that has been sent:
+ * Cues Max for a start event that has just been sent:
  * start <msUntilStart> <epochTimestamp>.
  *
  * Max and every device convert the same server-clock epochTimestamp with their
  * own clock offsets, so Max knows when devices execute the start without
  * waiting for the server. msUntilStart is measured when the cue is sent, so a
  * patch can pass it straight to [delay]. A start that is already due cues with
- * 0 and a warning. Later starts are sent to the server but do not cue Max.
+ * 0 and a warning.
+ *
+ * Every start cues Max, since a later start restarts the timeline on the
+ * devices. If a frame holds more than one, the last one is the timeline the
+ * devices end up on, so that one cues.
  *
  * @param {object[]} events The events of a frame that was just sent.
  */
 async function cueStart(events) {
-	const start = events.find(isStartEvent);
+	const start = events.filter(isStartEvent).pop();
 	if (start === undefined) {
 		return;
 	}
 	if (!Number.isFinite(start.epochTimestamp)) {
 		maxAPI.post("A start event was sent with a relativeTimestamp only; it does not cue Max.", maxAPI.POST_LEVELS.WARN);
-		return;
-	}
-	if (startedAt !== null) {
-		maxAPI.post(
-			`A start was already sent for ${formatLocalTime(startedAt)}; this one does not cue Max. Send resetStart to allow a new start.`,
-			maxAPI.POST_LEVELS.WARN
-		);
 		return;
 	}
 
@@ -471,12 +468,6 @@ async function cueStart(events) {
 		);
 	}
 	await maxAPI.outlet("start", Math.max(0, msUntilStart), start.epochTimestamp);
-	await emitStartStatus();
-}
-
-/** Allows the next start event to cue Max again. */
-async function resetStart() {
-	startedAt = null;
 	await emitStartStatus();
 }
 
@@ -536,7 +527,6 @@ maxAPI.addHandlers({
 	getDelay: async () => maxAPI.outlet("delay", universalDelayMs),
 	sync,
 	getSync: emitSyncStatus,
-	resetStart,
 	getStart: emitStartStatus,
 	send
 });

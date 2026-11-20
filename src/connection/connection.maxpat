@@ -549,43 +549,6 @@
             },
             {
                 "box": {
-                    "id": "reset-start-control",
-                    "maxclass": "textbutton",
-                    "numinlets": 1,
-                    "numoutlets": 3,
-                    "outlettype": [ "", "", "int" ],
-                    "parameter_enable": 0,
-                    "patching_rect": [ 394.0, 186.0, 44.0, 20.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 385.0, 178.0, 44.0, 18.0 ],
-                    "text": "Reset"
-                }
-            },
-            {
-                "box": {
-                    "comment": "Send a bang to let the next start event cue Max again",
-                    "id": "reset-start-inlet",
-                    "index": 7,
-                    "maxclass": "inlet",
-                    "numinlets": 0,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "patching_rect": [ 1320.0, 65.0, 30.0, 30.0 ]
-                }
-            },
-            {
-                "box": {
-                    "id": "reset-start-message",
-                    "maxclass": "message",
-                    "numinlets": 2,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "patching_rect": [ 1320.0, 220.0, 66.0, 22.0 ],
-                    "text": "resetStart"
-                }
-            },
-            {
-                "box": {
                     "id": "route-start",
                     "maxclass": "newobj",
                     "numinlets": 3,
@@ -755,24 +718,6 @@
                     "destination": [ "obj-16", 0 ],
                     "order": 0,
                     "source": [ "obj-8", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "reset-start-message", 0 ],
-                    "source": [ "reset-start-control", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "reset-start-message", 0 ],
-                    "source": [ "reset-start-inlet", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "node", 0 ],
-                    "source": [ "reset-start-message", 0 ]
                 }
             },
             {

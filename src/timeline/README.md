@@ -58,8 +58,8 @@ A device can only schedule a `relativeTimestamp` once it has received the perfor
 
 The `start` has no time of its own. The connection patch sets it to the current time plus its universal delay, and every `relativeTimestamp` counts from then. Set the universal delay long enough for the list to reach every device before that time. The `start` is added only when sending, so it is not saved in the timeline file or shown in the lanes.
 
-The server currently processes only the first `start` of a performance and ignores later ones. Sending the timeline again sends another `start`, which the server ignores, so the timeline keeps counting from the first one.
+Sending the timeline again sends another `start`, which restarts it. Devices cancel the relative events from the previous send that haven't played yet, and count the new list from the new `start`.
 
-When the connection patch sends the first `start`, it cues the rest of Max through `[receive davhi_start]` (see [Start cue](../connection/README.md#start-cue)). With **Play the audio when a start event is sent** on, this patch plays its audio from the beginning when the `start` executes. Turn it off when something else plays the audio; that patch can use `[receive davhi_start]` itself. Audio output latency in Max can make playback begin slightly late.
+Each time the connection patch sends a `start`, it cues the rest of Max through `[receive davhi_start]` (see [Start cue](../connection/README.md#start-cue)). With **Play the audio when a start event is sent** on, this patch plays its audio from the beginning when the `start` executes. Turn it off when something else plays the audio; that patch can use `[receive davhi_start]` itself. Audio output latency in Max can make playback begin slightly late.
 
 The server sets no limit on the number of events in a list, but a long list takes longer to validate, relay, and parse on each device. The server validates each event on its own, relays the valid ones, and reports any rejected events in its acknowledgement.

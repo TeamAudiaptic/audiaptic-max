@@ -18,6 +18,26 @@
                     "clickthrough": 0,
                     "enablehscroll": 0,
                     "enablevscroll": 0,
+                    "id": "obj-13",
+                    "lockeddragscroll": 0,
+                    "lockedsize": 0,
+                    "maxclass": "bpatcher",
+                    "name": "image.maxpat",
+                    "numinlets": 6,
+                    "numoutlets": 1,
+                    "offset": [ 0.0, 0.0 ],
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1328.0, 121.0, 299.0, 184.0 ],
+                    "viewvisibility": 1
+                }
+            },
+            {
+                "box": {
+                    "bgmode": 0,
+                    "border": 0,
+                    "clickthrough": 0,
+                    "enablehscroll": 0,
+                    "enablevscroll": 0,
                     "id": "obj-12",
                     "lockeddragscroll": 0,
                     "lockedsize": 0,
@@ -53,7 +73,7 @@
                     "lockedsize": 0,
                     "maxclass": "bpatcher",
                     "name": "connection.maxpat",
-                    "numinlets": 7,
+                    "numinlets": 6,
                     "numoutlets": 2,
                     "offset": [ 0.0, 0.0 ],
                     "outlettype": [ "", "" ],
@@ -213,6 +233,12 @@
                 "patchline": {
                     "destination": [ "obj-5", 0 ],
                     "source": [ "obj-12", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-1", 0 ],
+                    "source": [ "obj-13", 0 ]
                 }
             },
             {
